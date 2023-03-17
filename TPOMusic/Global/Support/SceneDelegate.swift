@@ -18,7 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
         if UserDefaults.standard.string(forKey: "Name") != nil {
-            window?.rootViewController = HomeViewController()
+            window?.rootViewController =  UINavigationController(rootViewController: HomeViewController())
+            window?.rootViewController =  UINavigationController(rootViewController: SheetViewController(contentViewController: HomeViewController(), bottomSheetViewController: BottomSheetViewController(), bottomSheetConfiguration: .init(height: UIScreen.main.bounds.height, initialOffset: 150))) 
         } else {
             window?.rootViewController = SignInViewController()
         }

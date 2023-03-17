@@ -11,6 +11,10 @@ import UIKit
 enum ImageLiteral {
     static var signIn: UIImage { .load(named: "SignIn") }
     static var icMagnifyingglass: UIImage { .load(systemName: "magnifyingglass") }
+    static var backButton: UIImage { .load(systemName: "chevron.backward") }
+    static var bookMark: UIImage { .load(systemName: "bookmark") }
+    static var bookMarkFill: UIImage { .load(systemName: "bookmark.fill") }
+    static var profileButton: UIImage { .load(systemName: "person.crop.circle.fill")}
 
 }
 
