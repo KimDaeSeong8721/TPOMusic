@@ -18,7 +18,7 @@ public class PlayListEntity: NSManagedObject {
     }
 
     func toPlayList() -> PlayList {
-        return PlayList(title: self.name,
+        return PlayList(listId: self.listId, name: self.name,
                         imageURL: getArrayOfMusicEntity().first?.imageURL ?? "",
                         musicList: getArrayOfMusicEntity().map { $0.toMusic()})
     }

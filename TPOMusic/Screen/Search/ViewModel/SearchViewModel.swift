@@ -22,6 +22,7 @@ class SearchViewModel {
 
     var status: MusicAuthorization.Status!
 
+    private var searchText: String = ""
 
     // MARK: - Init
     init(_ searchService: SearchServiceProtocol) {
@@ -29,8 +30,21 @@ class SearchViewModel {
     }
     // MARK: - Func
 
-    func saveMusicToPlaylist() {
+    @discardableResult
+    func createPlayList() -> UUID {
+        let listId = UUID()
+        searchService.createPlayList(listId: listId, creationDate: Date(), name: searchText)
+        return listId
+    }
 
+    func isExistedPlayList() -> PlayList? {
+        let playLists = searchService.fetchPlayLists()
+        let existedPlayList = playLists.filter { $0.name == searchText }
+        return existedPlayList.first
+    }
+
+    func saveMusicToPlaylist(listId: UUID, musics: [Music]) {
+        searchService.createMusics(listId: listId, musics: musics)
     }
     
     func setRequest(title: String) {
@@ -43,6 +57,7 @@ class SearchViewModel {
     }
 
     func searchChatGPT(searchText: String) {
+        self.searchText = searchText
         Task {
             let chatGPT = try await searchService.fetchChatGPT(messages: [ChatMessage(role: .user, content: searchText)], maxTokens: 300)
             let titles = chatGPT?.choices.first?.message.content.musicTitles
@@ -62,9 +77,10 @@ class SearchViewModel {
                         let result = try await request.response()
 
                         _ = result.songs.compactMap({ song in
-                            tempMusics.append( Music(name: song.title,
+                            tempMusics.append( Music(id: UUID(),
+                                                     title: song.title,
                                                      artist: song.artistName,
-                                                     imageURL: song.artwork?.url(width: 75, height: 75)?.absoluteString ?? "" )
+                                                     imageURL: song.artwork?.url(width: 340, height: 340)?.absoluteString ?? "" )
                             )
                         })
                     }

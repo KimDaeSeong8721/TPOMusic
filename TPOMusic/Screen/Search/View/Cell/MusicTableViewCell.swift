@@ -100,7 +100,7 @@ class MusicTableViewCell: UITableViewCell {
         profileImageView.kf.indicatorType = .activity
         profileImageView.kf.setImage(with: url, placeholder: nil, options: [.transition(.fade(0.7))], progressBlock: nil)
 
-        titleLabel.text = music.name
+        titleLabel.text = music.title
         subtitleLabel.text = music.artist
     }
 

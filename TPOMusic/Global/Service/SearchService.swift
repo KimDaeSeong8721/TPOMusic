@@ -25,9 +25,12 @@ final class SearchService: SearchServiceProtocol {
 
     private var playListEntities: [PlayListEntity] = []
 
+    private var playListEntity: PlayListEntity?
+
     // MARK: - Init
     init(_ searchRepository: SearchRepositoryProtocol) {
         self.searchRepository = searchRepository
+        playListEntities = searchRepository.fetchPlayListEntities() // 수정필요
     }
 
     // MARK: - Func
@@ -40,6 +43,7 @@ final class SearchService: SearchServiceProtocol {
 extension SearchService {
     func createPlayList(listId: UUID, creationDate: Date, name: String) {
         searchRepository.createPlayListEntity(listId: listId, creationDate: creationDate, name: name)
+        playListEntities = searchRepository.fetchPlayListEntities() // 수정 필요
     }
 
     func fetchPlayLists() -> [PlayList] {
@@ -89,6 +93,7 @@ extension SearchService {
     func makeMusicEntity(context: NSManagedObjectContext,
                          music: Music) -> MusicEntity {
         let newMusicEntity = MusicEntity(context: context)
+        newMusicEntity.id = music.id
         newMusicEntity.title = music.title
         newMusicEntity.addedDate = Date()
         newMusicEntity.imageURL = music.imageURL

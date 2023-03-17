@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension MusicEntity {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<MusicEntity> {
@@ -24,3 +23,4 @@ extension MusicEntity {
     @NSManaged public var playListEntity: PlayListEntity?
 
 }
+

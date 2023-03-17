@@ -88,7 +88,9 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
 
             let sceneDelegate = UIApplication.shared.connectedScenes
                 .first!.delegate as! SceneDelegate
-            sceneDelegate.window!.rootViewController = UINavigationController(rootViewController: SheetViewController(contentViewController: HomeViewController(), bottomSheetViewController: BottomSheetViewController(), bottomSheetConfiguration: .init(height: UIScreen.main.bounds.height, initialOffset: 150)))
+            var historyViewController = HistoryViewController()
+            historyViewController.bindViewModel(HistoryViewModel(searchService: SearchService(SearchRepository(APIService()))))
+            sceneDelegate.window!.rootViewController = UINavigationController(rootViewController: SheetViewController(contentViewController: HomeViewController(), bottomSheetViewController: historyViewController, bottomSheetConfiguration: .init(height: UIScreen.main.bounds.height, initialOffset: 150)))
         default:
             break
         }

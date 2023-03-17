@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension PlayListEntity {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<PlayListEntity> {
@@ -41,5 +40,4 @@ extension PlayListEntity {
 }
 
 extension PlayListEntity : Identifiable {
-
 }
