@@ -79,8 +79,6 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
     func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         switch authorization.credential {
         case let credentials as ASAuthorizationAppleIDCredential:
-            let firstName = credentials.fullName?.givenName
-            let lastName = credentials.fullName?.familyName
             let email = credentials.email
 
             if let fullName = credentials.fullName {
@@ -88,10 +86,9 @@ extension SignInViewController: ASAuthorizationControllerDelegate {
                 UserDefaults.standard.set(email, forKey: "Email")
             }
 
-            let homeViewController = HomeViewController()
-            homeViewController.modalPresentationStyle = .fullScreen
-            homeViewController.modalTransitionStyle = .crossDissolve
-            present(homeViewController, animated: true)
+            let sceneDelegate = UIApplication.shared.connectedScenes
+                .first!.delegate as! SceneDelegate
+            sceneDelegate.window!.rootViewController = UINavigationController(rootViewController: SheetViewController(contentViewController: HomeViewController(), bottomSheetViewController: BottomSheetViewController(), bottomSheetConfiguration: .init(height: UIScreen.main.bounds.height, initialOffset: 150)))
         default:
             break
         }
