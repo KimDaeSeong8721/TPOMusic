@@ -1,6 +1,6 @@
 ---
-name: TPOMusic 기본 이슈 템플릿
-about: "[ADD]"
+name: TPOMusic issue template
+about: TPOMusic 기본 이슈 템플릿
 title: ''
 labels: ''
 assignees: ''
