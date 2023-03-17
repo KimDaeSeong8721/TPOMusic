@@ -8,6 +8,7 @@
 import Foundation
 
 struct PlayList: Hashable {
+    let id: UUID = UUID()
     let title: String
     let imageURL: String
     var musicList: [Music]

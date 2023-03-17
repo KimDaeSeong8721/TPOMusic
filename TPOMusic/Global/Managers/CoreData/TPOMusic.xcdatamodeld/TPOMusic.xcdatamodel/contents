@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21513" systemVersion="22C65" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="MusicEntity" representedClassName="MusicEntity" parentEntity="PlayListEntity" syncable="YES">
+        <attribute name="addedDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="artist" attributeType="String"/>
+        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="imageURL" attributeType="String"/>
+        <attribute name="title" attributeType="String"/>
+        <relationship name="playListEntity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PlayListEntity" inverseName="musicEntities" inverseEntity="PlayListEntity"/>
+    </entity>
+    <entity name="PlayListEntity" representedClassName="PlayListEntity" syncable="YES">
+        <attribute name="creationDate" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="listId" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="name" attributeType="String"/>
+        <relationship name="musicEntities" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="MusicEntity" inverseName="playListEntity" inverseEntity="MusicEntity"/>
+    </entity>
+</model>
