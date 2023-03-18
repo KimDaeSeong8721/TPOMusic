@@ -63,14 +63,6 @@ final class HistoryViewController: BaseViewController, ViewModelBindableType {
         super.viewDidLoad()
         setDelegation()
         setDataSource()
-//        updateDataSource(items: [PlayList(title: "노을 질 때 한강에서 듣기 좋은 노래", imageURL: "", musicList: [Music(title: "나다", artist: "김대성", imageURL: "안물")]),
-//                                 PlayList(title: "노을 질 때 한강에서 듣기 좋은 노래", imageURL: "", musicList: [Music(title: "나다", artist: "김대성", imageURL: "안물")])])
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        viewModel.updatePlayList() // 노티피케이션 쓰면 됨
-
     }
 
     override func render() {
@@ -115,6 +107,12 @@ final class HistoryViewController: BaseViewController, ViewModelBindableType {
             self?.updateDataSource(items: playLists)
         }
         .store(in: &viewModel.subscription)
+
+        NotificationCenter.default.publisher(for: Notification.Name.NSManagedObjectContextDidSave)
+            .sink { [weak self] _ in
+                self?.viewModel.updatePlayList()
+            }
+            .store(in: &viewModel.subscription)
     }
     
     // MARK: - Func
