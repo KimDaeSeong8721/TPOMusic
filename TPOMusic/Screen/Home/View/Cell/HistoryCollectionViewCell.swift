@@ -17,6 +17,11 @@ final class HistoryCollectionViewCell: UICollectionViewCell {
         return label
     }()
 
+    private let imageView: UIImageView = {
+        let view = UIImageView()
+        return view
+    }()
+
     // MARK: - Init
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -33,6 +38,11 @@ final class HistoryCollectionViewCell: UICollectionViewCell {
     }
 
     private func render() {
+        contentView.addSubview(imageView)
+        imageView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+
         contentView.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(20)
@@ -40,7 +50,14 @@ final class HistoryCollectionViewCell: UICollectionViewCell {
         }
     }
 
-    func configure(listTitle: String) {
-        titleLabel.text = listTitle
+    func configure(with playList: PlayList) {
+        titleLabel.text = playList.name
+
+        print("\(playList.imageURL) 입니다")
+        print("\(playList.musicList) 입니다")
+
+        let url = URL(string: playList.imageURL)
+        imageView.kf.indicatorType = .activity
+        imageView.kf.setImage(with: url, placeholder: nil, options: [.transition(.fade(0.7))], progressBlock: nil)
     }
 }

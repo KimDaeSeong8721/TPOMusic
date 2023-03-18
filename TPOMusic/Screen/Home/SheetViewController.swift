@@ -82,7 +82,7 @@ class SheetViewController<Content: UIViewController, BottomSheet: UIViewControll
     // MARK: - Func
     private func showBottomSheet(animated: Bool = true) {
         changeTopConstraint(to: -configuration.height)
-        let bottomSheetVC = bottomSheetViewController as? BottomSheetViewController
+        let bottomSheetVC = bottomSheetViewController as? HistoryViewController
         bottomSheetVC?.barTopConstraint.constant = 60
         if animated {
             UIView.animate(withDuration: 0.2, animations: {
@@ -98,7 +98,7 @@ class SheetViewController<Content: UIViewController, BottomSheet: UIViewControll
     
     private func hideBottomSheet(animated: Bool = true) {
         changeTopConstraint(to: -configuration.initialOffset)
-        let bottomSheetVC = bottomSheetViewController as? BottomSheetViewController
+        let bottomSheetVC = bottomSheetViewController as? HistoryViewController
         bottomSheetVC?.barTopConstraint.constant = 20
         if animated {
             UIView.animate(withDuration: 0.3,

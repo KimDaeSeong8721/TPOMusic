@@ -8,7 +8,8 @@
 import Foundation
 
 struct PlayList: Hashable {
-    let title: String
+    let listId: UUID
+    let name: String
     let imageURL: String
     var musicList: [Music]
 }

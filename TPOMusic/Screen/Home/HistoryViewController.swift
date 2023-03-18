@@ -1,5 +1,5 @@
 //
-//  BottomSheetViewController.swift
+//  HistoryViewController.swift
 //  TPOMusic
 //
 //  Created by DaeSeong on 2023/03/12.
@@ -11,7 +11,7 @@ enum ContentSection {
     case historyList
 }
 
-final class BottomSheetViewController: BaseViewController {
+final class HistoryViewController: BaseViewController, ViewModelBindableType {
     // MARK: - Properties
 
     private let historyLabel: UILabel = {
@@ -56,13 +56,13 @@ final class BottomSheetViewController: BaseViewController {
 
     private var dataSource: UICollectionViewDiffableDataSource<ContentSection, PlayList>!
 
+    var viewModel: HistoryViewModel!
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         setDelegation()
         setDataSource()
-        updateDataSource(items: [PlayList(title: "노을 질 때 한강에서 듣기 좋은 노래", imageURL: "", musicList: [Music(name: "나다", artist: "김대성", imageURL: "안물")]),
-                                 PlayList(title: "노을 질 때 한강에서 듣기 좋은 노래", imageURL: "", musicList: [Music(name: "나다", artist: "김대성", imageURL: "안물")])])
     }
 
     override func render() {
@@ -100,6 +100,20 @@ final class BottomSheetViewController: BaseViewController {
         view.backgroundColor = .systemGray5
         view.layer.cornerRadius = 20
     }
+
+    // MARK: - Bind
+    func bind() {
+        viewModel.$playLists.sink { [weak self] playLists in
+            self?.updateDataSource(items: playLists)
+        }
+        .store(in: &viewModel.subscription)
+
+        NotificationCenter.default.publisher(for: Notification.Name.NSManagedObjectContextDidSave)
+            .sink { [weak self] _ in
+                self?.viewModel.updatePlayList()
+            }
+            .store(in: &viewModel.subscription)
+    }
     
     // MARK: - Func
     private func setDelegation() {
@@ -110,10 +124,11 @@ final class BottomSheetViewController: BaseViewController {
         dataSource = UICollectionViewDiffableDataSource<ContentSection, PlayList>(collectionView: playListCollectionView, cellProvider: { collectionView, indexPath, playList -> UICollectionViewCell? in
 
             let cell = collectionView.dequeueReusableCell(withType: HistoryCollectionViewCell.self, for: indexPath)
-            cell.configure(listTitle: playList.title)
+            cell.configure(with: playList)
             
             return cell
         })
+
     }
 
     private func updateDataSource(items: [PlayList], animated: Bool = false, completion: (() -> Void)? = nil) {
@@ -130,6 +145,6 @@ final class BottomSheetViewController: BaseViewController {
     }
 }
 
-extension BottomSheetViewController: UICollectionViewDelegate {
+extension HistoryViewController: UICollectionViewDelegate {
 
 }

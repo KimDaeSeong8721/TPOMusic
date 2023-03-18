@@ -166,7 +166,12 @@ class SearchViewController: BaseViewController, ViewModelBindableType {
         NotificationCenter.default.publisher(for: Notification.Name("bookMarkClicked"))
             .sink { [weak self] notification in
                 let music = notification.object as! Music
-                viewModel.saveMusicToPlaylist()
+                if let playList = self?.viewModel.isExistedPlayList() {
+                    self?.viewModel.saveMusicToPlaylist(listId: playList.listId, musics: [music])
+                } else {
+                    guard let listId = self?.viewModel.createPlayList() else { return }
+                    self?.viewModel.saveMusicToPlaylist(listId: listId, musics: [music])
+                }
             }
             .store(in: &viewModel.subscription)
     }
