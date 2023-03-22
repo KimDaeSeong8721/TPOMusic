@@ -16,7 +16,7 @@ class PlayListViewModel {
 
     @Published private(set) var musicList: [Music]
 
-    private let playList : PlayList
+    private let playList: PlayList
     // MARK: - Init
     init(with playList: PlayList, _ searchService: SearchServiceProtocol) {
         self.playList = playList
@@ -31,5 +31,7 @@ class PlayListViewModel {
     func deleteMusicFromPlayList(musicIds: [UUID]) {
         searchService.deleteMusics(listId: playList.listId, musicIds: musicIds)
     }
-
+    func deletePlayList() {
+        searchService.deletePlayList(with: playList.listId)
+    }
 }

@@ -57,12 +57,9 @@ class PlayListViewController: BaseViewController, ViewModelBindableType {
                            print("===============================")
                            print("")
                        }),
-                       UIAction(title: "플리 삭제", image: UIImage(systemName: "trash"), attributes: .destructive, handler: { _ in
-                           print("")
-                           print("===============================")
-                           print("[ViewController >> testMain() :: 삭제 버튼 이벤트 발생]")
-                           print("===============================")
-                           print("")
+                       UIAction(title: "플리 삭제", image: UIImage(systemName: "trash"), attributes: .destructive, handler: { [weak self] _ in
+                           self?.viewModel.deletePlayList()
+                           self?.dismiss(animated: true)
                        })
                    ]
                }()
