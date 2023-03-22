@@ -25,6 +25,7 @@ class HomeViewController: BaseViewController {
         return view
     }()
 
+    
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +62,7 @@ class HomeViewController: BaseViewController {
     }
     // MARK: - Func
 
+    
     @objc func handleTap(_ sender: UITapGestureRecognizer) {
         var searchViewController = SearchViewController()
         searchViewController.bindViewModel(SearchViewModel(

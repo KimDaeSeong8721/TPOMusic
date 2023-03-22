@@ -12,7 +12,7 @@ protocol SearchServiceProtocol {
     func fetchChatGPT(messages: [ChatMessage], maxTokens: Int) async throws -> ChatGPTResult?
     func createPlayList(listId: UUID, creationDate: Date, name: String)
     func fetchPlayLists() -> [PlayList]
-    func deleteChatRoom(with listId: UUID)
+    func deletePlayList(with listId: UUID)
     func createMusics(listId: UUID, musics: [Music])
     func fetchMusics(listId: UUID) -> [Music]
     func deleteMusics(listId: UUID, musicIds: [UUID])
@@ -51,7 +51,7 @@ extension SearchService {
         return playListEntities.map { $0.toPlayList()}
     }
 
-    func deleteChatRoom(with listId: UUID) {
+    func deletePlayList(with listId: UUID) {
         guard let playListEntity = playListEntities.filter({ listId == $0.listId }).first else { return}
         searchRepository.deletePlayListEntity(playListEntity: playListEntity)
     }

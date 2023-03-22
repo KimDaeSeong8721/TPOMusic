@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		35138D9129CB3184006586AB /* PlayListEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35138D8D29CB3184006586AB /* PlayListEntity+CoreDataClass.swift */; };
+		35138D9229CB3184006586AB /* MusicEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35138D8E29CB3184006586AB /* MusicEntity+CoreDataProperties.swift */; };
+		35138D9329CB3184006586AB /* PlayListEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35138D8F29CB3184006586AB /* PlayListEntity+CoreDataProperties.swift */; };
+		35138D9429CB3184006586AB /* MusicEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35138D9029CB3184006586AB /* MusicEntity+CoreDataClass.swift */; };
 		35ADB25E29B9859100005BE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB25D29B9859100005BE0 /* AppDelegate.swift */; };
 		35ADB26029B9859100005BE0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB25F29B9859100005BE0 /* SceneDelegate.swift */; };
 		35ADB26229B9859100005BE0 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB26129B9859100005BE0 /* SignInViewController.swift */; };
@@ -51,14 +55,16 @@
 		35ADB2E329C423A700005BE0 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB2E129C423A600005BE0 /* CoreDataManager.swift */; };
 		35ADB2E429C423A700005BE0 /* MusicDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB2E229C423A700005BE0 /* MusicDataManager.swift */; };
 		35ADB2E929C4246E00005BE0 /* TPOMusic.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB2E729C4246E00005BE0 /* TPOMusic.xcdatamodeld */; };
-		35ADB2EE29C42C5F00005BE0 /* PlayListEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB2EA29C42C5F00005BE0 /* PlayListEntity+CoreDataClass.swift */; };
-		35ADB2EF29C42C5F00005BE0 /* PlayListEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB2EB29C42C5F00005BE0 /* PlayListEntity+CoreDataProperties.swift */; };
-		35ADB2F029C42C5F00005BE0 /* MusicEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB2EC29C42C5F00005BE0 /* MusicEntity+CoreDataClass.swift */; };
-		35ADB2F129C42C5F00005BE0 /* MusicEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB2ED29C42C5F00005BE0 /* MusicEntity+CoreDataProperties.swift */; };
 		35ADB2F529C44B8B00005BE0 /* HistoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB2F429C44B8B00005BE0 /* HistoryViewModel.swift */; };
+		35F0881229C5FFA3007C6AF6 /* PlayListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0881129C5FFA3007C6AF6 /* PlayListViewController.swift */; };
+		35F0881429C60388007C6AF6 /* PlayListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0881329C60388007C6AF6 /* PlayListViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		35138D8D29CB3184006586AB /* PlayListEntity+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PlayListEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		35138D8E29CB3184006586AB /* MusicEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MusicEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		35138D8F29CB3184006586AB /* PlayListEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PlayListEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		35138D9029CB3184006586AB /* MusicEntity+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MusicEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		35ADB25A29B9859100005BE0 /* TPOMusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TPOMusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35ADB25D29B9859100005BE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		35ADB25F29B9859100005BE0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -104,11 +110,9 @@
 		35ADB2E129C423A600005BE0 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		35ADB2E229C423A700005BE0 /* MusicDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicDataManager.swift; sourceTree = "<group>"; };
 		35ADB2E829C4246E00005BE0 /* TPOMusic.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = TPOMusic.xcdatamodel; sourceTree = "<group>"; };
-		35ADB2EA29C42C5F00005BE0 /* PlayListEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayListEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		35ADB2EB29C42C5F00005BE0 /* PlayListEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PlayListEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
-		35ADB2EC29C42C5F00005BE0 /* MusicEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MusicEntity+CoreDataClass.swift"; sourceTree = SOURCE_ROOT; };
-		35ADB2ED29C42C5F00005BE0 /* MusicEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MusicEntity+CoreDataProperties.swift"; sourceTree = SOURCE_ROOT; };
 		35ADB2F429C44B8B00005BE0 /* HistoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryViewModel.swift; sourceTree = "<group>"; };
+		35F0881129C5FFA3007C6AF6 /* PlayListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayListViewController.swift; sourceTree = "<group>"; };
+		35F0881329C60388007C6AF6 /* PlayListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,9 +228,11 @@
 		35ADB29129B9D6DF00005BE0 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
-				35ADB26129B9859100005BE0 /* SignInViewController.swift */,
-				35ADB2BA29BD828400005BE0 /* Search */,
+				35F0881129C5FFA3007C6AF6 /* PlayListViewController.swift */,
+				35F0881329C60388007C6AF6 /* PlayListViewModel.swift */,
 				35ADB2B929BD827500005BE0 /* Home */,
+				35ADB2BA29BD828400005BE0 /* Search */,
+				35ADB26129B9859100005BE0 /* SignInViewController.swift */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
@@ -377,10 +383,10 @@
 		35ADB2E029C4239A00005BE0 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
-				35ADB2EA29C42C5F00005BE0 /* PlayListEntity+CoreDataClass.swift */,
-				35ADB2EB29C42C5F00005BE0 /* PlayListEntity+CoreDataProperties.swift */,
-				35ADB2EC29C42C5F00005BE0 /* MusicEntity+CoreDataClass.swift */,
-				35ADB2ED29C42C5F00005BE0 /* MusicEntity+CoreDataProperties.swift */,
+				35138D9029CB3184006586AB /* MusicEntity+CoreDataClass.swift */,
+				35138D8E29CB3184006586AB /* MusicEntity+CoreDataProperties.swift */,
+				35138D8D29CB3184006586AB /* PlayListEntity+CoreDataClass.swift */,
+				35138D8F29CB3184006586AB /* PlayListEntity+CoreDataProperties.swift */,
 				35ADB2E529C4245000005BE0 /* Manager */,
 				35ADB2E729C4246E00005BE0 /* TPOMusic.xcdatamodeld */,
 			);
@@ -506,6 +512,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35138D9129CB3184006586AB /* PlayListEntity+CoreDataClass.swift in Sources */,
+				35F0881429C60388007C6AF6 /* PlayListViewModel.swift in Sources */,
 				35ADB2C329BD8DC300005BE0 /* APIEnvirionment.swift in Sources */,
 				35ADB2CE29BD8E7000005BE0 /* NetworkError.swift in Sources */,
 				35ADB28F29B9D6D000005BE0 /* BaseViewController.swift in Sources */,
@@ -518,6 +526,7 @@
 				35ADB2D129BD8F3A00005BE0 /* SearchViewModel.swift in Sources */,
 				35ADB2D729BDB48100005BE0 /* SearchRepository.swift in Sources */,
 				35ADB2A629BAFB3D00005BE0 /* SearchViewController.swift in Sources */,
+				35F0881229C5FFA3007C6AF6 /* PlayListViewController.swift in Sources */,
 				35ADB2A029B9DF0700005BE0 /* ImageLiteral.swift in Sources */,
 				35ADB2C629BD8DF200005BE0 /* SearchEndPoint.swift in Sources */,
 				35ADB2F529C44B8B00005BE0 /* HistoryViewModel.swift in Sources */,
@@ -525,27 +534,26 @@
 				35ADB25E29B9859100005BE0 /* AppDelegate.swift in Sources */,
 				35ADB2A229B9E3A800005BE0 /* HomeViewController.swift in Sources */,
 				35ADB26029B9859100005BE0 /* SceneDelegate.swift in Sources */,
-				35ADB2EE29C42C5F00005BE0 /* PlayListEntity+CoreDataClass.swift in Sources */,
 				35ADB2DF29BE058D00005BE0 /* PlayList.swift in Sources */,
-				35ADB2EF29C42C5F00005BE0 /* PlayListEntity+CoreDataProperties.swift in Sources */,
 				35ADB28029B9D58000005BE0 /* UIColor+Extension.swift in Sources */,
 				35ADB28129B9D58000005BE0 /* UIViewController+Extension.swift in Sources */,
 				35ADB2E929C4246E00005BE0 /* TPOMusic.xcdatamodeld in Sources */,
-				35ADB2F029C42C5F00005BE0 /* MusicEntity+CoreDataClass.swift in Sources */,
+				35138D9429CB3184006586AB /* MusicEntity+CoreDataClass.swift in Sources */,
 				35ADB2CC29BD8E6500005BE0 /* NetworkRequest.swift in Sources */,
 				35ADB2AF29BB2AD800005BE0 /* Music.swift in Sources */,
 				35ADB27F29B9D58000005BE0 /* UIFont+Extension.swift in Sources */,
 				35ADB2C829BD8E2300005BE0 /* ChatGPTResult.swift in Sources */,
 				35ADB2D529BDB47600005BE0 /* SearchService.swift in Sources */,
 				35ADB28729B9D59400005BE0 /* UITableView+Extension.swift in Sources */,
+				35138D9229CB3184006586AB /* MusicEntity+CoreDataProperties.swift in Sources */,
 				35ADB2CA29BD8E3400005BE0 /* ChatMessage.swift in Sources */,
-				35ADB2F129C42C5F00005BE0 /* MusicEntity+CoreDataProperties.swift in Sources */,
 				35ADB27E29B9D58000005BE0 /* NSObject+Extension.swift in Sources */,
 				35ADB2BE29BD8D6D00005BE0 /* String+Extension.swift in Sources */,
 				35ADB2A929BB036000005BE0 /* BackButton.swift in Sources */,
 				35ADB2AD29BB29C400005BE0 /* MusicTableViewCell.swift in Sources */,
 				35ADB2DD29BE035200005BE0 /* HistoryCollectionViewCell.swift in Sources */,
 				35ADB28C29B9D68B00005BE0 /* ViewModelBindableType.swift in Sources */,
+				35138D9329CB3184006586AB /* PlayListEntity+CoreDataProperties.swift in Sources */,
 				35ADB2B429BCDEE000005BE0 /* SheetViewController.swift in Sources */,
 				35ADB28529B9D59400005BE0 /* UIViewController+Alert.swift in Sources */,
 				35ADB28929B9D5B200005BE0 /* URLSession+Extension.swift in Sources */,

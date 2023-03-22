@@ -77,6 +77,7 @@ class SheetViewController<Content: UIViewController, BottomSheet: UIViewControll
     override func configUI() {
         super.configUI()
         bottomSheetViewController.view.addGestureRecognizer(panGesture)
+        configureBackButton(title: "검색")
     }
     
     // MARK: - Func
@@ -129,16 +130,25 @@ class SheetViewController<Content: UIViewController, BottomSheet: UIViewControll
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
+
+    private func configureBackButton(title: String) {
+        let backBarButtonItem = UIBarButtonItem(title: title, style: .plain, target: self, action: nil)
+        backBarButtonItem.tintColor = .label
+        self.navigationItem.backBarButtonItem = backBarButtonItem
+    }
     
     // MARK: - Selector
     @objc
     private func handlePan(_ sender: UIPanGestureRecognizer) {
+        guard let vc = bottomSheetViewController as? HistoryViewController else { return }
         let translation = sender.translation(in: bottomSheetViewController.view)
         let velocity = sender.velocity(in: bottomSheetViewController.view)
         let yTranslationMagnitude = translation.y.magnitude
         switch ([sender.state], self.state) {
         case ([.changed], .full):
-            guard translation.y > 0 else { return }
+            guard translation.y > 0, vc.playListCollectionView.indexPathsForVisibleItems.contains(where: { $0.item == .zero
+            }) || vc.playListCollectionView.indexPathsForVisibleItems.isEmpty else { return } // 
+            print(translation.y)
             let topConstraint = -(configuration.height - yTranslationMagnitude)
             changeTopConstraint(to: topConstraint)
             
@@ -147,18 +157,19 @@ class SheetViewController<Content: UIViewController, BottomSheet: UIViewControll
             guard translation.y < 0 else { return }
             guard newConstant.magnitude < configuration.height else {
                 self.showBottomSheet()
+                vc.playListCollectionView.isUserInteractionEnabled = true
                 return
             }
             changeTopConstraint(to: newConstant)
             
         case ([.ended], .full):
-            let shouldHideSheet = yTranslationMagnitude >= configuration.height / 2 || velocity.y > 1000
+            let shouldHideSheet = yTranslationMagnitude >= configuration.height / 2 || (velocity.y > 1000 && vc.playListCollectionView.indexPathsForVisibleItems.first?.item == .zero)
             shouldHideSheet ? hideBottomSheet() : showBottomSheet()
-            
+            vc.playListCollectionView.isUserInteractionEnabled = false // 수정필요
         case ([.ended], .initial):
-            let shouldShowSheet = yTranslationMagnitude >= configuration.height / 2 || velocity.y < -1000
+            let shouldShowSheet = yTranslationMagnitude >= configuration.height / 2 || (velocity.y < -1000 && vc.playListCollectionView.indexPathsForVisibleItems.first?.item == .zero)
             shouldShowSheet ? showBottomSheet() : hideBottomSheet()
-            
+            vc.playListCollectionView.isUserInteractionEnabled = true
         case ([.failed], .full):
             showBottomSheet()
             
