@@ -12,7 +12,8 @@ final class HistoryCollectionViewCell: UICollectionViewCell {
 
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = .regularTitle3
+        label.font = .boldTitle3
+        label.textColor = .white
         label.numberOfLines = 2
         return label
     }()

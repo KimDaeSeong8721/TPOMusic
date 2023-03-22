@@ -43,8 +43,12 @@ class SearchViewModel {
         return existedPlayList.first
     }
 
-    func saveMusicToPlaylist(listId: UUID, musics: [Music]) {
+    func saveMusicToPlayList(listId: UUID, musics: [Music]) {
         searchService.createMusics(listId: listId, musics: musics)
+    }
+
+    func deleteMusicFromPlayList(listId: UUID, musicIds: [UUID]) {
+        searchService.deleteMusics(listId: listId, musicIds: musicIds)
     }
     
     func setRequest(title: String) {
@@ -59,7 +63,7 @@ class SearchViewModel {
     func searchChatGPT(searchText: String) {
         self.searchText = searchText
         Task {
-            let chatGPT = try await searchService.fetchChatGPT(messages: [ChatMessage(role: .user, content: searchText)], maxTokens: 300)
+            let chatGPT = try await searchService.fetchChatGPT(messages: [ChatMessage(role: .user, content: searchText+"제목-아티스트 형식")], maxTokens: 300)
             let titles = chatGPT?.choices.first?.message.content.musicTitles
             print(titles)
             await fetchMusics(titles: titles ?? [])

@@ -92,7 +92,7 @@ class MusicTableViewCell: UITableViewCell {
 
     }
 
-    func configure(with music: Music) {
+    func configure(with music: Music, isSaved: Bool = false) {
 //        self.indexRow = indexRow
         self.music = music
         let url = URL(string: music.imageURL)
@@ -102,12 +102,16 @@ class MusicTableViewCell: UITableViewCell {
 
         titleLabel.text = music.title
         subtitleLabel.text = music.artist
+
+        if isSaved {
+            bookMarkButton.isSelected = true
+        }
     }
 
     @objc func bookMarkClicked() {
+        let isSelected = bookMarkButton.isSelected
         bookMarkButton.isSelected.toggle()
-//        guard let indexRow = indexRow else { return }
         NotificationCenter.default.post(name: NSNotification.Name("bookMarkClicked"),
-                                        object: music)
+                                        object: (isSelected, music))
     }
 }

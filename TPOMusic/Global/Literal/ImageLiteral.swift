@@ -15,6 +15,7 @@ enum ImageLiteral {
     static var bookMark: UIImage { .load(systemName: "bookmark") }
     static var bookMarkFill: UIImage { .load(systemName: "bookmark.fill") }
     static var profileButton: UIImage { .load(systemName: "person.crop.circle.fill")}
+    static var editButton: UIImage { .load(systemName: "ellipsis.circle")}
 
 }
 

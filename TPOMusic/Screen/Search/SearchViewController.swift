@@ -35,12 +35,6 @@ class SearchViewController: BaseViewController, ViewModelBindableType {
         return textfield
     }()
 
-    private lazy var backButton: BackButton = {
-        let button = BackButton()
-        button.addTarget(self, action: #selector(backTapped), for: .touchUpInside)
-        return button
-    }()
-
     private let verticalStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -142,13 +136,14 @@ class SearchViewController: BaseViewController, ViewModelBindableType {
             make.height.equalTo(23)
         }
         let headerLabel = UILabel()
-        headerLabel.text = "나만의 플레이리스트"
+        headerLabel.text = "플레이리스트 추천"
         headerLabel.font = UIFont.boldTitle3
         header.addSubview(headerLabel)
         headerLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(20)
         }
         musicTableView.tableHeaderView = header
+
     }
 
     // MARK: - Bind
@@ -165,13 +160,25 @@ class SearchViewController: BaseViewController, ViewModelBindableType {
 
         NotificationCenter.default.publisher(for: Notification.Name("bookMarkClicked"))
             .sink { [weak self] notification in
-                let music = notification.object as! Music
-                if let playList = self?.viewModel.isExistedPlayList() {
-                    self?.viewModel.saveMusicToPlaylist(listId: playList.listId, musics: [music])
+                let tuple = notification.object as! (isSelected: Bool, music: Music)
+                let isSelected = tuple.isSelected
+                let music = tuple.music
+//                let music = notification.object as! Music
+
+                if !isSelected {
+                    if let playList = self?.viewModel.isExistedPlayList() {
+                        self?.viewModel.saveMusicToPlayList(listId: playList.listId, musics: [music])
+                    } else {
+                        guard let listId = self?.viewModel.createPlayList() else { return }
+                        self?.viewModel.saveMusicToPlayList(listId: listId, musics: [music])
+                    }
                 } else {
-                    guard let listId = self?.viewModel.createPlayList() else { return }
-                    self?.viewModel.saveMusicToPlaylist(listId: listId, musics: [music])
+                    guard let playList = self?.viewModel.isExistedPlayList() else { return }
+                    self?.viewModel.deleteMusicFromPlayList(listId: playList.listId, musicIds: [music.id])
+
+                    // 플레이 리스트에 음악이 1개 있고 이제 이 음악을 삭제할 때 플레이리스토 함께 삭제구현
                 }
+
             }
             .store(in: &viewModel.subscription)
     }
@@ -200,12 +207,6 @@ class SearchViewController: BaseViewController, ViewModelBindableType {
         var snapshot = dataSource.snapshot()
         snapshot.reloadSections([.resultList])
         dataSource.apply(snapshot, animatingDifferences: false)
-    }
-
-    private func configureBackButton(title: String) {
-        let backBarButtonItem = UIBarButtonItem(title: title, style: .plain, target: self, action: nil)
-        backBarButtonItem.tintColor = .label
-        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
 
     @objc func backTapped() {
@@ -237,9 +238,7 @@ extension SearchViewController: UISearchBarDelegate {
         verticalStackView.isHidden = true
         activityIndicator.isHidden = false
         guard let searchText = searchBar.text else { return }
-//        viewModel.setRequest(searchText: searchText)
         activityIndicator.startAnimating()
-//        viewModel.fetchMusic()
         viewModel.searchChatGPT(searchText: searchText)
 
     }

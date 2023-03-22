@@ -44,7 +44,7 @@ final class HistoryViewController: BaseViewController, ViewModelBindableType {
         return layout
     }()
 
-    private lazy var playListCollectionView: UICollectionView = {
+    private(set) lazy var playListCollectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(cell: HistoryCollectionViewCell.self)
         collectionView.showsVerticalScrollIndicator = false
@@ -63,10 +63,10 @@ final class HistoryViewController: BaseViewController, ViewModelBindableType {
         super.viewDidLoad()
         setDelegation()
         setDataSource()
+        viewModel.updatePlayList()
     }
 
     override func render() {
-
         view.addSubview(barView)
         barView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
@@ -146,5 +146,16 @@ final class HistoryViewController: BaseViewController, ViewModelBindableType {
 }
 
 extension HistoryViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let playList = dataSource.itemIdentifier(for: indexPath) else { return }
 
+        var playListViewController = PlayListViewController()
+        playListViewController.bindViewModel(PlayListViewModel(with: playList, SearchService(SearchRepository(APIService()))))
+        playListViewController.modalTransitionStyle = .crossDissolve
+        playListViewController.modalPresentationStyle = .fullScreen
+        present(playListViewController, animated: true)
+    }
+
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+    }
 }
