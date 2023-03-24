@@ -8,11 +8,26 @@
 
 import Foundation
 import CoreData
+import MusicKit
 
 @objc(MusicEntity)
 public class MusicEntity: PlayListEntity {
 
     func toMusic() -> Music {
-        return Music(id: self.id, title: self.title, artist: self.artist, imageURL: self.imageURL)
+        do {
+        let playParameters = try PropertyListDecoder().decode(PlayParameters.self, from: self.playParameters!)
+            return Music(id: MusicItemID(self.id),
+                         title: self.title,
+                         artist: self.artist,
+                         imageURL: self.imageURL,
+                         playParameters: playParameters)
+        } catch {
+            return Music(id: MusicItemID(self.id),
+                         title: self.title,
+                         artist: self.artist,
+                         imageURL: self.imageURL)
+        }
+
+
     }
 }

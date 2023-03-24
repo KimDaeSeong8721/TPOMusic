@@ -3,8 +3,9 @@
     <entity name="MusicEntity" representedClassName="MusicEntity" syncable="YES">
         <attribute name="addedDate" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="artist" attributeType="String"/>
-        <attribute name="id" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="id" attributeType="String"/>
         <attribute name="imageURL" attributeType="String"/>
+        <attribute name="playParameters" optional="YES" attributeType="Binary"/>
         <attribute name="title" attributeType="String"/>
         <relationship name="playListEntity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PlayListEntity" inverseName="musicEntities" inverseEntity="PlayListEntity"/>
     </entity>

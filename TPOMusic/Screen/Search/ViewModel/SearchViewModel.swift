@@ -16,7 +16,7 @@ class SearchViewModel {
 
     private var request: MusicCatalogSearchRequest!
 
-    @Published var songs = [Music]()
+    @Published var musics = [Music]()
 
     private let searchService: SearchServiceProtocol
 
@@ -47,7 +47,7 @@ class SearchViewModel {
         searchService.createMusics(listId: listId, musics: musics)
     }
 
-    func deleteMusicFromPlayList(listId: UUID, musicIds: [UUID]) {
+    func deleteMusicFromPlayList(listId: UUID, musicIds: [MusicItemID]) {
         searchService.deleteMusics(listId: listId, musicIds: musicIds)
     }
     
@@ -63,7 +63,7 @@ class SearchViewModel {
     func searchChatGPT(searchText: String) {
         self.searchText = searchText
         Task {
-            let chatGPT = try await searchService.fetchChatGPT(messages: [ChatMessage(role: .user, content: searchText+"제목-아티스트 형식")], maxTokens: 300)
+            let chatGPT = try await searchService.fetchChatGPT(messages: [ChatMessage(role: .user, content: searchText)], maxTokens: 300)
             let titles = chatGPT?.choices.first?.message.content.musicTitles
             print(titles)
             await fetchMusics(titles: titles ?? [])
@@ -79,23 +79,19 @@ class SearchViewModel {
                     for title in titles {
                         setRequest(title: title)
                         let result = try await request.response()
+                        result.songs.compactMap { song in
+                            if let playParameters = song.playParameters {
+                                let tempMusic = Music(id: song.id,
+                                                      title: song.title,
+                                                      artist: song.artistName,
+                                                      imageURL: song.artwork?.url(width: 340, height: 340)?.absoluteString ?? "",
+                                                      playParameters: playParameters)
+                                tempMusics.append(tempMusic)
+                            }
 
-                        _ = result.songs.compactMap({ song in
-                            tempMusics.append( Music(id: UUID(),
-                                                     title: song.title,
-                                                     artist: song.artistName,
-                                                     imageURL: song.artwork?.url(width: 340, height: 340)?.absoluteString ?? "" )
-                            )
-                        })
+                        }
                     }
-                    self.songs = tempMusics
-//                    let result = try await request.response()
-//                    self.songs = result.songs.compactMap({ song in
-//                        print(song.title)
-//                        return .init(name: song.title,
-//                                     artist: song.artistName,
-//                                     imageURL: song.artwork?.url(width: 75, height: 75)?.absoluteString ?? "" )
-//                    })
+                    self.musics = tempMusics
                 } catch {
                     print(error.localizedDescription)
                 }

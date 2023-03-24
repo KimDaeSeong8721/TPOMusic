@@ -17,9 +17,10 @@ extension MusicEntity {
 
     @NSManaged public var title: String
     @NSManaged public var imageURL: String
-    @NSManaged public var id: UUID
+    @NSManaged public var id: String
     @NSManaged public var artist: String
     @NSManaged public var addedDate: Date
+    @NSManaged public var playParameters: Data?
     @NSManaged public var playListEntity: PlayListEntity?
 
 }

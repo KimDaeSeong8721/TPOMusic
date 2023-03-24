@@ -43,3 +43,5 @@ disabled_rules:
     - empty_enum_arguments
     # 이너 제한
     - nesting
+    - cyclomatic_complexity
+    - type_name

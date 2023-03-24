@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import MusicKit
 
 class MusicTableViewCell: UITableViewCell {
 
@@ -93,7 +94,6 @@ class MusicTableViewCell: UITableViewCell {
     }
 
     func configure(with music: Music, isSaved: Bool = false) {
-//        self.indexRow = indexRow
         self.music = music
         let url = URL(string: music.imageURL)
 

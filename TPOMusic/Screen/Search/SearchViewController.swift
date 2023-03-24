@@ -84,7 +84,6 @@ class SearchViewController: BaseViewController, ViewModelBindableType {
 
     private var dataSource: UITableViewDiffableDataSource<SearchResultSection, Music>!
 
-
     var viewModel: SearchViewModel!
 
     // MARK: - Life Cycle
@@ -149,10 +148,10 @@ class SearchViewController: BaseViewController, ViewModelBindableType {
     // MARK: - Bind
     func bind() {
 
-        viewModel.$songs
+        viewModel.$musics
             .receive(on: DispatchQueue.main)
-            .sink { [weak self] songs in
-                self?.updateDataSource(items: songs)
+            .sink { [weak self] musics in
+                self?.updateDataSource(items: musics)
                 self?.activityIndicator.stopAnimating()
                 self?.activityIndicator.isHidden = true
             }
@@ -163,7 +162,6 @@ class SearchViewController: BaseViewController, ViewModelBindableType {
                 let tuple = notification.object as! (isSelected: Bool, music: Music)
                 let isSelected = tuple.isSelected
                 let music = tuple.music
-//                let music = notification.object as! Music
 
                 if !isSelected {
                     if let playList = self?.viewModel.isExistedPlayList() {
@@ -253,5 +251,17 @@ extension SearchViewController: UISearchBarDelegate {
 extension SearchViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+
+        guard let music = dataSource.itemIdentifier(for: indexPath) else { return }
+
+        player.queue = [music]
+        Task {
+            do {
+                try await player.prepareToPlay()
+                beginPlaying()
+            } catch {
+                self.makeAlert(title: "실패", message: "재생할 수 없는 음악입니다.")
+            }
+        }
     }
 }
