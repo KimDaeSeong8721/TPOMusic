@@ -174,5 +174,17 @@ class PlayListViewController: BaseViewController, ViewModelBindableType {
 extension PlayListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
+
+        guard let music = dataSource.itemIdentifier(for: indexPath) else { return }
+
+        player.queue = [music]
+        Task {
+            do {
+                try await player.prepareToPlay()
+                beginPlaying()
+            } catch {
+                self.makeAlert(title: "실패", message: "재생할 수 없는 음악입니다.")
+            }
+        }
     }
 }

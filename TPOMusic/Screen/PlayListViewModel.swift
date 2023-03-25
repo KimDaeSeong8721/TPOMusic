@@ -7,6 +7,7 @@
 
 import Combine
 import Foundation
+import MusicKit
 
 class PlayListViewModel {
 
@@ -28,7 +29,7 @@ class PlayListViewModel {
         self.musicList = searchService.fetchMusics(listId: playList.listId)
     }
     
-    func deleteMusicFromPlayList(musicIds: [UUID]) {
+    func deleteMusicFromPlayList(musicIds: [MusicItemID]) {
         searchService.deleteMusics(listId: playList.listId, musicIds: musicIds)
     }
     func deletePlayList() {

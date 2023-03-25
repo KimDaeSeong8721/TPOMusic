@@ -7,6 +7,7 @@
 
 import CoreData
 import Foundation
+import MusicKit
 
 protocol SearchServiceProtocol {
     func fetchChatGPT(messages: [ChatMessage], maxTokens: Int) async throws -> ChatGPTResult?
@@ -15,7 +16,7 @@ protocol SearchServiceProtocol {
     func deletePlayList(with listId: UUID)
     func createMusics(listId: UUID, musics: [Music])
     func fetchMusics(listId: UUID) -> [Music]
-    func deleteMusics(listId: UUID, musicIds: [UUID])
+    func deleteMusics(listId: UUID, musicIds: [MusicItemID])
 }
 
 final class SearchService: SearchServiceProtocol {
@@ -79,10 +80,10 @@ extension SearchService {
         return musicEntities.map { $0.toMusic() }
     }
 
-    func deleteMusics(listId: UUID, musicIds: [UUID]) {
+    func deleteMusics(listId: UUID, musicIds: [MusicItemID]) {
         guard let playListEntity = playListEntities.filter({ listId == $0.listId }).first else { return }
         let currentMusicEntities =  searchRepository.fetchMusicEntities(playListEntity: playListEntity)
-        let checkedMusicEntities = currentMusicEntities.filter({  musicIds.contains($0.id) })
+        let checkedMusicEntities = currentMusicEntities.filter({  musicIds.contains(MusicItemID($0.id)) })
         searchRepository.deleteMusicEntities(playListEntity: playListEntity, musicEntities: checkedMusicEntities)
     }
 
@@ -93,11 +94,18 @@ extension SearchService {
     func makeMusicEntity(context: NSManagedObjectContext,
                          music: Music) -> MusicEntity {
         let newMusicEntity = MusicEntity(context: context)
-        newMusicEntity.id = music.id
+        newMusicEntity.id = music.id.rawValue
         newMusicEntity.title = music.title
         newMusicEntity.addedDate = Date()
         newMusicEntity.imageURL = music.imageURL
         newMusicEntity.artist = music.artist
+        do {
+            let data = try PropertyListEncoder().encode(music.playParameters)
+            newMusicEntity.playParameters = data
+        } catch {
+
+        }
         return newMusicEntity
+
     }
 }
