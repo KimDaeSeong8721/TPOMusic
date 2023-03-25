@@ -16,3 +16,13 @@ struct Music: Identifiable, Hashable, PlayableMusicItem {
     var playParameters: PlayParameters?
 }
 
+extension Music {
+    static func == (lhs: Music, rhs: Music) -> Bool {
+        return lhs.id == rhs.id
+    }
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
+    }
+
+}
+
