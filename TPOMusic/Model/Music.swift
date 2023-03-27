@@ -13,6 +13,7 @@ struct Music: Identifiable, Hashable, PlayableMusicItem {
     let title: String
     let artist: String
     let imageURL: String
+    let url: URL?
     var playParameters: PlayParameters?
 }
 

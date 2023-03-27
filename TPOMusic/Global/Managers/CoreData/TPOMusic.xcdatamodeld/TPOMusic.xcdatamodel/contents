@@ -7,6 +7,7 @@
         <attribute name="imageURL" attributeType="String"/>
         <attribute name="playParameters" optional="YES" attributeType="Binary"/>
         <attribute name="title" attributeType="String"/>
+        <attribute name="url" optional="YES" attributeType="URI"/>
         <relationship name="playListEntity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PlayListEntity" inverseName="musicEntities" inverseEntity="PlayListEntity"/>
     </entity>
     <entity name="PlayListEntity" representedClassName="PlayListEntity" syncable="YES">

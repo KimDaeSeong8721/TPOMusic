@@ -254,14 +254,23 @@ extension SearchViewController: UITableViewDelegate {
 
         guard let music = dataSource.itemIdentifier(for: indexPath) else { return }
 
-        player.queue = [music]
-        Task {
-            do {
-                try await player.prepareToPlay()
-                beginPlaying()
-            } catch {
-                self.makeAlert(title: "실패", message: "재생할 수 없는 음악입니다.")
-            }
+//        player.queue = [music]
+//        Task {
+//            do {
+//                try await player.prepareToPlay()
+//                beginPlaying()
+//            } catch {
+//                self.makeAlert(title: "실패", message: "재생할 수 없는 음악입니다.")
+//            }
+//        }
+
+        guard let musicURL = music.url else { return }
+        if UIApplication.shared.canOpenURL(musicURL)
+        {
+            UIApplication.shared.open(musicURL)
+        } else {
+            //redirect to safari because the user doesn't have Instagram
+            UIApplication.shared.open(URL(string: "music://music.apple.com")!)
         }
     }
 }

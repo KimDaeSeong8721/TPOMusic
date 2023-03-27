@@ -52,7 +52,7 @@ class SearchViewModel {
     }
     
     func setRequest(title: String) {
-        request = MusicCatalogSearchRequest(term: title, types: [Song.self])
+        request = MusicCatalogSearchRequest(term: title, types: [Song.self, Album.self])
         request.limit = 1
     }
 
@@ -79,12 +79,14 @@ class SearchViewModel {
                     for title in titles {
                         setRequest(title: title)
                         let result = try await request.response()
+                        let albums = result.albums
                         result.songs.compactMap { song in
                             if let playParameters = song.playParameters {
                                 let tempMusic = Music(id: song.id,
                                                       title: song.title,
                                                       artist: song.artistName,
                                                       imageURL: song.artwork?.url(width: 340, height: 340)?.absoluteString ?? "",
+                                                      url: song.url,
                                                       playParameters: playParameters)
                                 tempMusics.append(tempMusic)
                             }

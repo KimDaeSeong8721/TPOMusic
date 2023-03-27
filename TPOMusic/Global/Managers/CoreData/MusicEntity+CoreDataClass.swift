@@ -20,12 +20,14 @@ public class MusicEntity: PlayListEntity {
                          title: self.title,
                          artist: self.artist,
                          imageURL: self.imageURL,
+                         url: self.url,
                          playParameters: playParameters)
         } catch {
             return Music(id: MusicItemID(self.id),
                          title: self.title,
                          artist: self.artist,
-                         imageURL: self.imageURL)
+                         imageURL: self.imageURL,
+                         url: self.url)
         }
 
 
