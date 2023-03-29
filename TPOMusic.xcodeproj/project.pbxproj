@@ -60,6 +60,7 @@
 		35BCA58A29D2E9820054EED6 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 35BCA58929D2E9820054EED6 /* Lottie */; };
 		35BCA58D29D2EAAB0054EED6 /* dots.json in Resources */ = {isa = PBXBuildFile; fileRef = 35BCA58C29D2EAAB0054EED6 /* dots.json */; };
 		35BCA58F29D2ED720054EED6 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BCA58E29D2ED720054EED6 /* BackgroundView.swift */; };
+		35BCA59529D4890A0054EED6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 35BCA59729D4890A0054EED6 /* InfoPlist.strings */; };
 		35F0881229C5FFA3007C6AF6 /* PlayListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0881129C5FFA3007C6AF6 /* PlayListViewController.swift */; };
 		35F0881429C60388007C6AF6 /* PlayListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0881329C60388007C6AF6 /* PlayListViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -118,6 +119,8 @@
 		35BCA58629D1F9A50054EED6 /* SearchResultViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultViewController.swift; sourceTree = "<group>"; };
 		35BCA58C29D2EAAB0054EED6 /* dots.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = dots.json; sourceTree = "<group>"; };
 		35BCA58E29D2ED720054EED6 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
+		35BCA59629D4890A0054EED6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		35BCA59829D489DA0054EED6 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		35F0881129C5FFA3007C6AF6 /* PlayListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayListViewController.swift; sourceTree = "<group>"; };
 		35F0881329C60388007C6AF6 /* PlayListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayListViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -172,6 +175,7 @@
 				35ADB26329B9859100005BE0 /* Main.storyboard */,
 				35ADB26629B9859200005BE0 /* Assets.xcassets */,
 				35ADB26829B9859200005BE0 /* LaunchScreen.storyboard */,
+				35BCA59729D4890A0054EED6 /* InfoPlist.strings */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -477,6 +481,7 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = 35ADB25129B9859100005BE0;
 			packageReferences = (
@@ -499,6 +504,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				35ADB27529B9D4D600005BE0 /* .swiftlint.yml in Resources */,
+				35BCA59529D4890A0054EED6 /* InfoPlist.strings in Resources */,
 				35ADB26A29B9859200005BE0 /* LaunchScreen.storyboard in Resources */,
 				35ADB26729B9859200005BE0 /* Assets.xcassets in Resources */,
 				35BCA58D29D2EAAB0054EED6 /* dots.json in Resources */,
@@ -603,6 +609,15 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		35BCA59729D4890A0054EED6 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				35BCA59629D4890A0054EED6 /* en */,
+				35BCA59829D489DA0054EED6 /* ko */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -610,6 +625,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -670,6 +686,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
