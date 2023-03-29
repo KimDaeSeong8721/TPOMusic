@@ -94,7 +94,7 @@ final class BackgroundView: UIView {
         lottieView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
             make.top.equalTo(imageView.snp.bottom)
-            make.size.equalTo(250)
+            make.size.equalTo(150)
         }
         
         self.addSubview(cancelButton)
