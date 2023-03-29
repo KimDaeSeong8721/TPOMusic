@@ -73,28 +73,36 @@ class SearchViewModel {
     }
     func fetchMusics(titles: [String]) async {
         Task {
-            var tempMusics: [Music] = []
+//            var tempMusics: [Music] = []
+            let tempMusics = TempMusics()
             // Request Permission
             switch status {
             case .authorized:
                 do {
+                    let dispatchGroup = DispatchGroup()
                     for title in titles {
-                        setRequest(title: title)
-                        let result = try await request.response()
-                        result.songs.compactMap { song in
-                            if let playParameters = song.playParameters {
-                                let tempMusic = Music(id: song.id,
-                                                      title: song.title,
-                                                      artist: song.artistName,
-                                                      imageURL: song.artwork?.url(width: 340, height: 340)?.absoluteString ?? "",
-                                                      url: song.url,
-                                                      playParameters: playParameters)
-                                tempMusics.append(tempMusic)
+                        dispatchGroup.enter()
+                        Task {
+                            setRequest(title: title)
+                            let result = try await request.response()
+                            _ = result.songs.compactMap { song in
+                                if let playParameters = song.playParameters {
+                                    let tempMusic = Music(id: song.id,
+                                                          title: song.title,
+                                                          artist: song.artistName,
+                                                          imageURL: song.artwork?.url(width: 340, height: 340)?.absoluteString ?? "",
+                                                          url: song.url,
+                                                          playParameters: playParameters)
+                                    Task {
+                                        await tempMusics.append(with: tempMusic)
+                                    }
+                                }
                             }
-
-                        }
+                            dispatchGroup.leave()
                     }
-                    self.musics = tempMusics
+                    }
+                    dispatchGroup.wait()
+                    self.musics = await tempMusics.list
                 } catch {
                     print(error.localizedDescription)
                 }
@@ -105,4 +113,13 @@ class SearchViewModel {
 
     }
 
+}
+
+
+actor TempMusics {
+    var list: [Music] = []
+
+    func append(with music: Music) {
+        list.append(music)
+    }
 }
