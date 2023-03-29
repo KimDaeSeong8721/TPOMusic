@@ -145,9 +145,14 @@ extension HistoryViewController: UICollectionViewDelegate, UICollectionViewDeleg
     }
 
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        guard let playList = dataSource.itemIdentifier(for: indexPath) else { return nil }
+
         let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { (_) -> UIMenu? in
-            let deleteAction = UIAction(title: "삭제", image: ImageLiteral.trash, identifier: nil, discoverabilityTitle: nil, attributes: .destructive, state: .off) { (_) in
-                    // TODO: - 삭제기능 구현
+            let deleteAction = UIAction(title: "삭제", image: ImageLiteral.trash, identifier: nil, discoverabilityTitle: nil, attributes: .destructive, state: .off) { [weak self] _  in
+                self?.makeRequestAlert(title: "삭제", message: "정말 삭제하시겠습니까", okayAction: { _ in
+                    self?.viewModel.deletePlayList(with: playList.listId)
+                    self?.viewModel.updatePlayList()
+                })
             }
             
             return UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: [deleteAction])

@@ -30,4 +30,8 @@ class HistoryViewModel {
             }
         }
     }
+
+    func deletePlayList(with listId: UUID) {
+        searchService.deletePlayList(with: listId)
+    }
 }

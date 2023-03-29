@@ -41,7 +41,10 @@ class SearchResultViewController: BaseViewController {
         let label = UILabel()
         label.font = UIFont.semiBoldSubheadline
         label.textColor = .black
-        label.text = "2030304 오후 2시"
+        let myDateFormatter = DateFormatter()
+        myDateFormatter.dateFormat = "yyyyMMdd a hh시"
+        myDateFormatter.locale = Locale(identifier: "ko_KR")
+        label.text = myDateFormatter.string(from: Date())
         return label
     }()
 
