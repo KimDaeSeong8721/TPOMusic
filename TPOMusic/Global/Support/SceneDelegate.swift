@@ -20,7 +20,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if UserDefaults.standard.string(forKey: "Name") != nil {
             var historyViewController = HistoryViewController()
             historyViewController.bindViewModel(HistoryViewModel(searchService: SearchService(SearchRepository(APIService()))))
-            window?.rootViewController =  UINavigationController(rootViewController: SheetViewController(contentViewController: HomeViewController(), bottomSheetViewController: historyViewController, bottomSheetConfiguration: .init(height: UIScreen.main.bounds.height, initialOffset: 150)))
+            var homeViewController = HomeViewController()
+            homeViewController.bindViewModel(SearchViewModel(SearchService(SearchRepository(APIService()))))
+            window?.rootViewController =  UINavigationController(rootViewController: SheetViewController(contentViewController: homeViewController, bottomSheetViewController: historyViewController, bottomSheetConfiguration: .init(height: UIScreen.main.bounds.height, initialOffset: 245)))
         } else {
             window?.rootViewController = SignInViewController()
         }

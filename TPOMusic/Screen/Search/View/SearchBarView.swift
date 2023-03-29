@@ -11,18 +11,20 @@ import UIKit
 class SearchBarView: UIView {
 
     // MARK: - Properties
-    private let searchImage: UIImageView = {
-        let view = UIImageView(image: ImageLiteral.icMagnifyingglass)
-        view.tintColor = .black
-        return view
+    private let searchButton: UIButton = {
+       let button = UIButton()
+        button.backgroundColor = .black
+        button.setTitleColor(.white, for: .normal)
+        button.setTitle("노래 알려줘", for: .normal)
+        button.layer.cornerRadius = 15
+        button.titleLabel?.font = .regularCallout
+        return button
     }()
     
-    private let searchField: UILabel = {
-        let label = UILabel()
-        label.font = .systemFont(ofSize: 18, weight: .medium)
-        label.textColor = .systemGray2
-        label.isUserInteractionEnabled = true
-        return label
+    let searchField: UITextField = {
+        let textField = UITextField()
+        textField.placeholder = "공부하면서 잠올 때 듣기 좋은"
+        return textField
     }()
     
     
@@ -40,24 +42,26 @@ class SearchBarView: UIView {
     
     // MARK: - Func
     private func render() {
-        self.addSubview(searchImage)
-        searchImage.snp.makeConstraints { make in
-            make.width.equalTo(20)
-            make.trailing.equalToSuperview().inset(16)
+        self.addSubview(searchButton)
+        searchButton.snp.makeConstraints { make in
+            make.width.equalTo(100)
+            make.height.equalTo(36)
+            make.trailing.equalToSuperview().inset(15)
             make.centerY.equalToSuperview()
+        }
+
+        self.addSubview(searchField)
+        searchField.snp.makeConstraints { make in
+            make.leading.equalToSuperview().inset(23)
+            make.trailing.equalTo(searchButton.snp.leading).offset(-26)
+            make.centerY.equalToSuperview()
+            make.height.equalTo(30)
         }
     }
     
     private func configUI() {
         self.layer.cornerRadius = 10
-        self.layer.shadowColor = UIColor(red: 0,
-                                         green: 0,
-                                         blue: 0,
-                                         alpha: 0.25).cgColor
-        self.layer.shadowOffset = CGSize(width: 0, height: 4)
-        self.layer.shadowOpacity = 1
-        self.layer.shadowRadius = 10
-        
+        self.layer.borderWidth = 1
         self.backgroundColor = .white
     }
 

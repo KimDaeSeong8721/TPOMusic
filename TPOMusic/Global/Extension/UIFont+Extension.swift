@@ -27,7 +27,8 @@ extension UIFont {
     /// regularTitle3 - 20px
     static let regularTitle3 = UIFont.font(.title3, weight: .regular)
 
-
+    /// semiBoldSubheadline - 15px
+    static let semiBoldSubheadline = UIFont.font(.subheadline, weight: .semibold)
     /// semiBoldCallout - 16px
     static let semiBoldCallout = UIFont.font(.callout, weight: .semibold)
     /// semiBoldHeadline - 17px
