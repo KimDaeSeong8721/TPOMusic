@@ -7,6 +7,9 @@
 
 import MediaPlayer
 import UIKit
+import Photos
+
+import Screenshots
 
 private enum Size {
     static let tableViewRowHeight = 80.0
@@ -25,11 +28,12 @@ class SearchResultViewController: BaseViewController {
         return button
     }()
 
-    private let screenshotButton: UIButton = {
+    private lazy var screenshotButton: UIButton = {
         let button = UIButton()
         button.setTitle("스크린샷 내보내기", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .semiBoldSubheadline
+        button.addTarget(self, action: #selector(screenshotButtonTapped), for: .touchUpInside)
         return button
     }()
 
@@ -206,6 +210,68 @@ class SearchResultViewController: BaseViewController {
         }
     }
 
+    @objc func screenshotButtonTapped() {
+        let image =  musicTableView.screenshot
+
+        if #available(iOS 14, *) {
+            switch PHPhotoLibrary.authorizationStatus(for: .readWrite) {
+            case .limited:
+                UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil);
+                makeAlert(title: "저장", message: "스크린샷 내보내기를 했습니다.")
+            case .authorized:
+                UIImageWriteToSavedPhotosAlbum(image!,nil,nil,nil);
+                makeAlert(title: "저장", message: "스크린샷 내보내기를 했습니다.")
+            case .notDetermined:
+                PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] status in
+                    if status == .limited {
+                        UIImageWriteToSavedPhotosAlbum(image!,nil,nil,nil)
+                        self?.makeAlert(title: "저장", message: "스크린샷 내보내기를 했습니다.")
+                    } else if status == .authorized {
+                        UIImageWriteToSavedPhotosAlbum(image!,nil,nil,nil)
+                        self?.makeAlert(title: "저장", message: "스크린샷 내보내기를 했습니다.")
+                    } else {
+                        self?.showPermissionAlert()
+                    }
+                }
+            case .restricted, .denied:
+                showPermissionAlert()
+            default:
+                break
+            }
+        } else {
+            switch PHPhotoLibrary.authorizationStatus() {
+            case .authorized:
+                UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+            case .notDetermined:
+                PHPhotoLibrary.requestAuthorization({ [weak self] status in
+                    if status == .authorized {
+                        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+                        self?.makeAlert(title: "저장", message: "스크린샷 내보내기를 했습니다.")
+                    } else {
+                        self?.showPermissionAlert()
+                    }
+                })
+            case .restricted, .denied:
+                showPermissionAlert()
+            default:
+                break
+            }
+        }
+    }
+    private func showPermissionAlert() {
+        // PHPhotoLibrary.requestAuthorization() 결과 콜백이 main thread로부터 호출되지 않기 때문에
+        // UI처리를 위해 main thread내에서 팝업을 띄우도록 함.
+        DispatchQueue.main.async {
+            let alert = UIAlertController(title: nil, message: "사진 접근 권한이 없습니다. 설정으로 이동하여 권한 설정을 해주세요.", preferredStyle: .alert)
+
+            alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+                UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
+            }))
+            alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+
+            self.present(alert, animated: true)
+        }
+    }
 }
 
 extension SearchResultViewController: UITableViewDelegate {

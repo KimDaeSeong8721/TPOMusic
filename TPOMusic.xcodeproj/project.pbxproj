@@ -60,6 +60,7 @@
 		35BCA58A29D2E9820054EED6 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 35BCA58929D2E9820054EED6 /* Lottie */; };
 		35BCA58D29D2EAAB0054EED6 /* dots.json in Resources */ = {isa = PBXBuildFile; fileRef = 35BCA58C29D2EAAB0054EED6 /* dots.json */; };
 		35BCA58F29D2ED720054EED6 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BCA58E29D2ED720054EED6 /* BackgroundView.swift */; };
+		35BCA59229D43CEC0054EED6 /* Screenshots in Frameworks */ = {isa = PBXBuildFile; productRef = 35BCA59129D43CEC0054EED6 /* Screenshots */; };
 		35F0881229C5FFA3007C6AF6 /* PlayListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0881129C5FFA3007C6AF6 /* PlayListViewController.swift */; };
 		35F0881429C60388007C6AF6 /* PlayListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F0881329C60388007C6AF6 /* PlayListViewModel.swift */; };
 /* End PBXBuildFile section */
@@ -127,6 +128,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				35BCA59229D43CEC0054EED6 /* Screenshots in Frameworks */,
 				35ADB2B229BB4E4C00005BE0 /* Kingfisher in Frameworks */,
 				35ADB27329B9D49000005BE0 /* SnapKit in Frameworks */,
 				35BCA58A29D2E9820054EED6 /* Lottie in Frameworks */,
@@ -450,6 +452,7 @@
 				35ADB27229B9D49000005BE0 /* SnapKit */,
 				35ADB2B129BB4E4C00005BE0 /* Kingfisher */,
 				35BCA58929D2E9820054EED6 /* Lottie */,
+				35BCA59129D43CEC0054EED6 /* Screenshots */,
 			);
 			productName = TPOMusic;
 			productReference = 35ADB25A29B9859100005BE0 /* TPOMusic.app */;
@@ -483,6 +486,7 @@
 				35ADB27129B9D49000005BE0 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				35ADB2B029BB4E4C00005BE0 /* XCRemoteSwiftPackageReference "Kingfisher" */,
 				35BCA58829D2E9820054EED6 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				35BCA59029D43CEC0054EED6 /* XCRemoteSwiftPackageReference "Screenshots" */,
 			);
 			productRefGroup = 35ADB25B29B9859100005BE0 /* Products */;
 			projectDirPath = "";
@@ -732,6 +736,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TPOMusic/Info.plist;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Please allow access to continue";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "My app uses photos for mutating blue frogs";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "My app uses photos for mutating blue frogs";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -766,6 +772,8 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TPOMusic/Info.plist;
 				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Please allow access to continue";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "My app uses photos for mutating blue frogs";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "My app uses photos for mutating blue frogs";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -836,6 +844,14 @@
 				kind = branch;
 			};
 		};
+		35BCA59029D43CEC0054EED6 /* XCRemoteSwiftPackageReference "Screenshots" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dequin-cl/Screenshots.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -853,6 +869,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 35BCA58829D2E9820054EED6 /* XCRemoteSwiftPackageReference "lottie-ios" */;
 			productName = Lottie;
+		};
+		35BCA59129D43CEC0054EED6 /* Screenshots */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 35BCA59029D43CEC0054EED6 /* XCRemoteSwiftPackageReference "Screenshots" */;
+			productName = Screenshots;
 		};
 /* End XCSwiftPackageProductDependency section */
 
