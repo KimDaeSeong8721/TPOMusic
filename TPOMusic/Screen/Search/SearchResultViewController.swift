@@ -186,9 +186,14 @@ class SearchResultViewController: BaseViewController {
             let playListId = UUID()
             let playList = try await MPMediaLibrary.default().getPlaylist(with: playListId, creationMetadata: creationMetadata)
 
+            let dispatchGroup = DispatchGroup()
             for music in musics {
-                try await playList.addItem(withProductID: music.id.rawValue)
+                dispatchGroup.enter()
+                playList.addItem(withProductID: music.id.rawValue) { _ in
+                    dispatchGroup.leave()
+                }
             }
+            dispatchGroup.wait()
 
             guard let musicURL = URL(string: "music://music.apple.com/library") else { return }
             if UIApplication.shared.canOpenURL(musicURL) {
