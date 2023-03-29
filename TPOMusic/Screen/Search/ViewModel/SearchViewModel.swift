@@ -102,7 +102,7 @@ class SearchViewModel {
                     }
                     }
                     dispatchGroup.wait()
-                    self.musics = await tempMusics.list
+                    self.musics = await Array(tempMusics.list)
                 } catch {
                     print(error.localizedDescription)
                 }
@@ -117,9 +117,9 @@ class SearchViewModel {
 
 
 actor TempMusics {
-    var list: [Music] = []
+    var list = Set<Music>()
 
     func append(with music: Music) {
-        list.append(music)
+        list.insert(music)
     }
 }

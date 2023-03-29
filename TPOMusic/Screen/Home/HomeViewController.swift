@@ -27,12 +27,7 @@ class HomeViewController: BaseViewController, ViewModelBindableType {
         return imageView
     }()
 
-    private lazy var searchBarView: SearchBarView = {
-        let view = SearchBarView()
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleTap(_:))))
-        view.isUserInteractionEnabled = true
-        return view
-    }()
+    private lazy var searchBarView =  SearchBarView()
 
     private let shortcutButton1: UIButton = {
        let button = UIButton()
@@ -176,13 +171,6 @@ class HomeViewController: BaseViewController, ViewModelBindableType {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-    
-    @objc func handleTap(_ sender: UITapGestureRecognizer) {
-        var searchViewController = SearchViewController()
-        searchViewController.bindViewModel(SearchViewModel(
-            SearchService( SearchRepository( APIService()))))
-        navigationController?.pushViewController(searchViewController, animated: true)
-      }
 
     @objc func searchButtonTapped() {
         searchBarView.searchField.resignFirstResponder()

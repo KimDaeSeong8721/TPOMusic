@@ -118,6 +118,13 @@ final class BackgroundView: UIView {
 
     func setupLottieView(with title: String = "") {
         titleLabel.text = "\"\(title)\""
+
+        if title == "플레이리스트 생성 중" {
+            subTitleLabel.text = ""
+        } else {
+            subTitleLabel.text = "상황에 \n딱! 맞는 음악을 찾고 있어요..."
+        }
+        
         lottieView.loopMode = .loop
         lottieView.play()
     }

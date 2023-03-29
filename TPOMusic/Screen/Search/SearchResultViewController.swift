@@ -183,7 +183,7 @@ class SearchResultViewController: BaseViewController {
     @objc func createPlayListButtonTapped() {
         setupLottieView(with: "플레이리스트 생성 중")
         let creationMetadata = MPMediaPlaylistCreationMetadata(name: titleLabel.text ?? "My Playlist")
-        creationMetadata.authorDisplayName = "DaeSeong Kim"
+        creationMetadata.authorDisplayName = "NowMusic"
         creationMetadata.descriptionText = "This playlist contains awesome songs!"
 
         Task {
