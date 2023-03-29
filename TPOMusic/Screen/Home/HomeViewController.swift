@@ -75,7 +75,11 @@ class HomeViewController: BaseViewController, ViewModelBindableType {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = "검색"
+        addTargets()
+        setDelegation()
+        Task {
+            await viewModel.requestMusicAuth()
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -131,10 +135,41 @@ class HomeViewController: BaseViewController, ViewModelBindableType {
 
     // MARK: - Bind
     func bind() {
+        viewModel.$musics
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] musics in
+                self?.stopLottieAnimation()
+                let searchResultViewController = SearchResultViewController(with: musics, searchText: (self?.searchBarView.searchField.text ?? "")+" 노래")
+                searchResultViewController.modalPresentationStyle = .fullScreen
+            self?.present(searchResultViewController, animated: true)
+
+            guard let listId = self?.viewModel.createPlayList() else { return }
+            self?.viewModel.saveMusicToPlayList(listId: listId, musics: musics)
+        }
+        .store(in: &viewModel.subscription)
+
+        NotificationCenter.default.publisher(for: Notification.Name("cancelButtonTapped"))
+            .sink { [weak self] _ in
+                URLSession.shared.invalidateAndCancel() // 이코드 여기 있는거 좀 어색
+                self?.stopLottieAnimation()
+            }
+            .store(in: &viewModel.subscription)
+
+        viewModel.$searchState
+            .dropFirst()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.showMoreWaitLabel()
+            }
+            .store(in: &viewModel.subscription)
     }
 
     // MARK: - Func
 
+    private func addTargets() {
+        searchBarView.searchButton.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
+    }
     private func setDelegation() {
         searchBarView.searchField.delegate = self
     }
@@ -149,10 +184,14 @@ class HomeViewController: BaseViewController, ViewModelBindableType {
         navigationController?.pushViewController(searchViewController, animated: true)
       }
 
-    @objc func searchButtonClicked() {
+    @objc func searchButtonTapped() {
+        searchBarView.searchField.resignFirstResponder()
         guard let searchText = searchBarView.searchField.text else { return }
+        setupLottieView(with: searchText)
         viewModel.searchChatGPT(searchText: searchText)
     }
+
+
 
     
 }
@@ -168,7 +207,9 @@ extension HomeViewController: UITextFieldDelegate {
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
+        guard let searchText = textField.text else { return true }
+        setupLottieView(with: searchText)
+        viewModel.searchChatGPT(searchText: searchText)
         return true
     }
-
 }

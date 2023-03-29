@@ -12,13 +12,16 @@ enum ImageLiteral {
     static var signIn: UIImage { .load(named: "SignIn") }
     static var character: UIImage { .load(named: "Character") }
     static var lp: UIImage { .load(named: "AlbumLP") }
-
+    static var apple: UIImage { .load(systemName: "applelogo") }
+    static var xMarkButton: UIImage { .load(systemName: "xmark") }
     static var icMagnifyingglass: UIImage { .load(systemName: "magnifyingglass") }
     static var backButton: UIImage { .load(systemName: "chevron.backward") }
     static var bookMark: UIImage { .load(systemName: "bookmark") }
     static var bookMarkFill: UIImage { .load(systemName: "bookmark.fill") }
     static var profileButton: UIImage { .load(systemName: "person.crop.circle.fill")}
     static var editButton: UIImage { .load(systemName: "ellipsis.circle")}
+    static var trash: UIImage { .load(systemName: "trash")}
+
 
 }
 

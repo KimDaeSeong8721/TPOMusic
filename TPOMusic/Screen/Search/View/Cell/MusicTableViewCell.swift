@@ -16,20 +16,21 @@ class MusicTableViewCell: UITableViewCell {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.backgroundColor = .clear
+        imageView.layer.cornerRadius = 4
         return imageView
     }()
 
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.boldTitle3
-        label.textColor = .label
+        label.font = UIFont.regularSubheadline
+        label.textColor = .black
         return label
     }()
 
     private let subtitleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.regularCaption1
-        label.textColor = .label
+        label.font = UIFont.regularSubheadline
+        label.textColor = .black.withAlphaComponent(0.5)
         label.numberOfLines = 2
         return label
     }()
@@ -42,17 +43,29 @@ class MusicTableViewCell: UITableViewCell {
         return stackView
     }()
 
-    lazy var bookMarkButton: UIButton = {
+//    lazy var bookMarkButton: UIButton = {
+//        let button = UIButton()
+//        button.setImage(ImageLiteral.bookMark, for: .normal)
+//        button.setImage(ImageLiteral.bookMarkFill, for: .selected)
+//        button.addTarget(self, action: #selector(bookMarkClicked), for: .touchUpInside)
+//        return button
+//    }()
+
+    private lazy var appleMusicButton: UIButton = {
         let button = UIButton()
-        button.setImage(ImageLiteral.bookMark, for: .normal)
-        button.setImage(ImageLiteral.bookMarkFill, for: .selected)
-        button.addTarget(self, action: #selector(bookMarkClicked), for: .touchUpInside)
+        button.setTitle("Music", for: .normal)
+        button.setImage(ImageLiteral.apple.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.imageView?.tintColor = .white
+        button.setTitleColor(.white, for: .normal)
+        button.backgroundColor = .black
+        button.titleLabel?.font = .semiBoldSubheadline
+        button.layer.cornerRadius = 11.5
+        button.addTarget(self, action: #selector(appleMusicButtonTapped), for: .touchUpInside)
         return button
     }()
 
-//    private(set)var indexRow: Int?
-
     private var music: Music?
+
     // MARK: - Init
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -69,24 +82,32 @@ class MusicTableViewCell: UITableViewCell {
 
         contentView.addSubview(profileImageView)
         profileImageView.snp.makeConstraints { make in
-            make.leading.equalToSuperview().offset(20)
+            make.leading.equalToSuperview()
             make.centerY.equalToSuperview()
-            make.size.equalTo(60)
+            make.size.equalTo(48)
         }
 
-        contentView.addSubview(bookMarkButton)
-        bookMarkButton.snp.makeConstraints { make in
-            make.trailing.equalToSuperview().inset(25)
+        contentView.addSubview(appleMusicButton)
+        appleMusicButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
+            make.trailing.equalToSuperview()
+            make.width.equalTo(66)
+            make.height.equalTo(23)
+
         }
+//        contentView.addSubview(bookMarkButton)
+//        bookMarkButton.snp.makeConstraints { make in
+//            make.trailing.equalToSuperview().inset(25)
+//            make.centerY.equalToSuperview()
+//        }
 
         contentView.addSubview(verticalStackView)
         verticalStackView.addArrangedSubview(titleLabel)
         verticalStackView.addArrangedSubview(subtitleLabel)
 
         verticalStackView.snp.makeConstraints { make in
-            make.leading.equalTo(profileImageView.snp.trailing).offset(20)
-            make.trailing.equalTo(bookMarkButton.snp.leading).offset(-5)
+            make.leading.equalTo(profileImageView.snp.trailing).offset(12)
+            make.trailing.equalTo(appleMusicButton.snp.leading).offset(-5)
             make.centerY.equalToSuperview()
         }
 
@@ -103,15 +124,26 @@ class MusicTableViewCell: UITableViewCell {
         titleLabel.text = music.title
         subtitleLabel.text = music.artist
 
-        if isSaved {
-            bookMarkButton.isSelected = true
-        }
+//        if isSaved {
+//            bookMarkButton.isSelected = true
+//        }
     }
 
-    @objc func bookMarkClicked() {
-        let isSelected = bookMarkButton.isSelected
-        bookMarkButton.isSelected.toggle()
-        NotificationCenter.default.post(name: NSNotification.Name("bookMarkClicked"),
-                                        object: (isSelected, music))
+//    @objc func bookMarkClicked() {
+//        let isSelected = bookMarkButton.isSelected
+//        bookMarkButton.isSelected.toggle()
+//        NotificationCenter.default.post(name: NSNotification.Name("bookMarkClicked"),
+//                                        object: (isSelected, music))
+//    }
+
+    @objc func appleMusicButtonTapped() {
+
+        guard let musicURL = music?.url else { return }
+        if UIApplication.shared.canOpenURL(musicURL)
+        {
+            UIApplication.shared.open(musicURL)
+        } else {
+            UIApplication.shared.open(URL(string: "music://music.apple.com")!)
+        }
     }
 }

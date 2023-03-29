@@ -19,7 +19,7 @@ class HistoryViewModel {
     }
 
     func updatePlayList() {
-        var tempPlayLists = searchService.fetchPlayLists()
+        let tempPlayLists = searchService.fetchPlayLists()
 
         playLists = tempPlayLists.filter { playList in
             if playList.musicList.isEmpty {

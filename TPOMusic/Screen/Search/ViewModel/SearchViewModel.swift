@@ -24,6 +24,7 @@ class SearchViewModel {
 
     private var searchText: String = ""
 
+    @Published var searchState: Bool = false
     // MARK: - Init
     init(_ searchService: SearchServiceProtocol) {
         self.searchService = searchService
@@ -61,11 +62,12 @@ class SearchViewModel {
     }
 
     func searchChatGPT(searchText: String) {
-        self.searchText = searchText
+        self.searchText = searchText + " 노래"
         Task {
-            let chatGPT = try await searchService.fetchChatGPT(messages: [ChatMessage(role: .user, content: searchText)], maxTokens: 300)
+            let chatGPT = try await searchService.fetchChatGPT(messages: [ChatMessage(role: .user, content: searchText  + "노래 알려줘")], maxTokens: 300)
             let titles = chatGPT?.choices.first?.message.content.musicTitles
             print(titles)
+            searchState.toggle()
             await fetchMusics(titles: titles ?? [])
         }
     }
@@ -79,7 +81,6 @@ class SearchViewModel {
                     for title in titles {
                         setRequest(title: title)
                         let result = try await request.response()
-                        let albums = result.albums
                         result.songs.compactMap { song in
                             if let playParameters = song.playParameters {
                                 let tempMusic = Music(id: song.id,

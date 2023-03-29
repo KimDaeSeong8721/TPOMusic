@@ -11,6 +11,7 @@ extension UIColor {
    static let accentColor = UIColor(named: "AccentColor")
     static let shortcutText: UIColor = UIColor(hex: "494949")
     static let shortcutBackground: UIColor = UIColor(hex: "EFEFEF")
+    static let appleMusicOrange: UIColor = UIColor(hex: "EB5936")
 
 
 }
