@@ -147,29 +147,35 @@ class SheetViewController<Content: UIViewController, BottomSheet: UIViewControll
         switch ([sender.state], self.state) {
         case ([.changed], .full):
             guard translation.y > 0, vc.playListCollectionView.indexPathsForVisibleItems.contains(where: { $0.item == .zero
-            }) || vc.playListCollectionView.indexPathsForVisibleItems.isEmpty else { return } // 
+            }) else {
+                vc.playListCollectionView.isUserInteractionEnabled = true
+                return } //
             print(translation.y)
             let topConstraint = -(configuration.height - yTranslationMagnitude)
             changeTopConstraint(to: topConstraint)
             
         case ([.changed], .initial):
             let newConstant = -(configuration.initialOffset + yTranslationMagnitude)
+            vc.playListCollectionView.isUserInteractionEnabled = false
             guard translation.y < 0 else { return }
             guard newConstant.magnitude < configuration.height else {
                 self.showBottomSheet()
-                vc.playListCollectionView.isUserInteractionEnabled = true
                 return
             }
             changeTopConstraint(to: newConstant)
             
         case ([.ended], .full):
-            let shouldHideSheet = yTranslationMagnitude >= configuration.height / 2 || (velocity.y > 1000 && vc.playListCollectionView.indexPathsForVisibleItems.first?.item == .zero)
+            let shouldHideSheet = yTranslationMagnitude >= configuration.height / 2 || (velocity.y > 1000
+                                                                                        && vc.playListCollectionView.indexPathsForVisibleItems.first?.item == .zero
+            )
             shouldHideSheet ? hideBottomSheet() : showBottomSheet()
-            vc.playListCollectionView.isUserInteractionEnabled = false // 수정필요
+            vc.playListCollectionView.isUserInteractionEnabled = true // 수정필요
         case ([.ended], .initial):
-            let shouldShowSheet = yTranslationMagnitude >= configuration.height / 2 || (velocity.y < -1000 && vc.playListCollectionView.indexPathsForVisibleItems.first?.item == .zero)
+            let shouldShowSheet = yTranslationMagnitude >= configuration.height / 2 || (velocity.y < -1000
+//                                                                                        && vc.playListCollectionView.indexPathsForVisibleItems.first?.item == .zero
+            )
             shouldShowSheet ? showBottomSheet() : hideBottomSheet()
-            vc.playListCollectionView.isUserInteractionEnabled = true
+            vc.playListCollectionView.isUserInteractionEnabled = false
         case ([.failed], .full):
             showBottomSheet()
             

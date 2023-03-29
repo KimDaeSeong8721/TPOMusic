@@ -51,7 +51,7 @@ final class MusicDataManager: CoreDataManager, MusicDataManagerProtocol {
         mainContext.performAndWait {
             let request: NSFetchRequest<PlayListEntity> = PlayListEntity.fetchRequest()
 
-            let sortByDate = NSSortDescriptor(key: #keyPath(PlayListEntity.creationDate), ascending: true)
+            let sortByDate = NSSortDescriptor(key: #keyPath(PlayListEntity.creationDate), ascending: false)
             request.sortDescriptors = [sortByDate]
             do {
                 playListEntities = try mainContext.fetch(request)

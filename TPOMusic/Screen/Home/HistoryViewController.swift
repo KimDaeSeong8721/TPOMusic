@@ -39,6 +39,7 @@ final class HistoryViewController: BaseViewController, ViewModelBindableType {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.register(cell: HistoryCollectionViewCell.self)
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.isUserInteractionEnabled = false
         return collectionView
     }()
 
@@ -69,13 +70,13 @@ final class HistoryViewController: BaseViewController, ViewModelBindableType {
 
         view.addSubview(historyLabel)
         historyLabel.snp.makeConstraints { make in
-            make.top.equalTo(barView.snp.bottom).offset(15)
+            make.top.equalTo(barView.snp.bottom).offset(34)
             make.leading.equalToSuperview().inset(25)
         }
 
         view.addSubview(playListCollectionView)
         playListCollectionView.snp.makeConstraints { make in
-            make.top.equalTo(historyLabel.snp.bottom).offset(20)
+            make.top.equalTo(historyLabel.snp.bottom).offset(23)
             make.leading.bottom.trailing.equalToSuperview().inset(25)
         }
     }
@@ -134,18 +135,23 @@ final class HistoryViewController: BaseViewController, ViewModelBindableType {
 extension HistoryViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let playList = dataSource.itemIdentifier(for: indexPath) else { return }
-
-        var playListViewController = PlayListViewController()
-        playListViewController.bindViewModel(PlayListViewModel(with: playList, SearchService(SearchRepository(APIService()))))
-        playListViewController.modalTransitionStyle = .crossDissolve
-        playListViewController.modalPresentationStyle = .fullScreen
-        present(playListViewController, animated: true)
-    }
-
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let searchResultViewController = SearchResultViewController(with: playList.musicList, searchText: playList.name)
+        searchResultViewController.modalPresentationStyle = .fullScreen
+        present(searchResultViewController, animated: true)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: 80)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { (_) -> UIMenu? in
+            let deleteAction = UIAction(title: "삭제", image: ImageLiteral.trash, identifier: nil, discoverabilityTitle: nil, attributes: .destructive, state: .off) { (_) in
+                    // TODO: - 삭제기능 구현
+            }
+            
+            return UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: [deleteAction])
+        }
+        return config
     }
 }

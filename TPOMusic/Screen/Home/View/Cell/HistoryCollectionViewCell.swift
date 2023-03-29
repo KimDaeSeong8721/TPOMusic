@@ -155,7 +155,11 @@ final class HistoryCollectionViewCell: UICollectionViewCell {
 
     func configure(with playList: PlayList) {
         titleLabel.text = playList.name
-
+        var artists = ""
+        playList.musicList.forEach { music in
+            artists += music.artist + ", "
+        }
+        subLabel.text = artists
         print("\(playList.imageURL) 입니다")
         print("\(playList.musicList) 입니다")
 

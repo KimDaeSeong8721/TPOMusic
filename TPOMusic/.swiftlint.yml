@@ -45,3 +45,4 @@ disabled_rules:
     - nesting
     - cyclomatic_complexity
     - type_name
+    - void_function_in_ternary

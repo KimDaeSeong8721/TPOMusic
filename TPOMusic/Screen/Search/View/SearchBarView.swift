@@ -11,7 +11,7 @@ import UIKit
 class SearchBarView: UIView {
 
     // MARK: - Properties
-    private let searchButton: UIButton = {
+    let searchButton: UIButton = {
        let button = UIButton()
         button.backgroundColor = .black
         button.setTitleColor(.white, for: .normal)
@@ -53,7 +53,7 @@ class SearchBarView: UIView {
         self.addSubview(searchField)
         searchField.snp.makeConstraints { make in
             make.leading.equalToSuperview().inset(23)
-            make.trailing.equalTo(searchButton.snp.leading).offset(-26)
+            make.trailing.equalTo(searchButton.snp.leading).offset(-10)
             make.centerY.equalToSuperview()
             make.height.equalTo(30)
         }
