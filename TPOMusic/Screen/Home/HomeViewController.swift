@@ -32,7 +32,7 @@ class HomeViewController: BaseViewController, ViewModelBindableType {
     private let shortcutButton1: UIButton = {
        let button = UIButton()
         button.backgroundColor = .shortcutBackground
-        button.setTitle("“노을 질 때 한강에서 듣기 좋은 노래”", for: .normal)
+        button.setTitle("\"노을 질 때 한강에서 듣기 좋은 노래\"", for: .normal)
         button.setTitleColor(.shortcutText, for: .normal)
         button.layer.cornerRadius = 15
         button.titleLabel?.font = .regularSubheadline
@@ -40,13 +40,14 @@ class HomeViewController: BaseViewController, ViewModelBindableType {
         configuration.contentInsets.leading = 10
         configuration.contentInsets.trailing = 10
         button.configuration = configuration
+        button.addTarget(self, action: #selector(shortcutButtonTapped(_:)), for: .touchUpInside)
         return button
     }()
 
-    private let shortcutButton2: UIButton = {
+    private lazy var shortcutButton2: UIButton = {
        let button = UIButton()
         button.backgroundColor = .shortcutBackground
-        button.setTitle("“따뜻한 주말 카페에서 공부할 때 듣기 좋은 노래”", for: .normal)
+        button.setTitle("\"따뜻한 주말 카페에서 공부할 때 듣기 좋은 노래\"", for: .normal)
         button.layer.cornerRadius = 15
         button.setTitleColor(.shortcutText, for: .normal)
         button.titleLabel?.font = .regularSubheadline
@@ -54,6 +55,7 @@ class HomeViewController: BaseViewController, ViewModelBindableType {
         configuration.contentInsets.leading = 10
         configuration.contentInsets.trailing = 10
         button.configuration = configuration
+        button.addTarget(self, action: #selector(shortcutButtonTapped(_:)), for: .touchUpInside)
         return button
     }()
 
@@ -178,10 +180,9 @@ class HomeViewController: BaseViewController, ViewModelBindableType {
         setupLottieView(with: searchText)
         viewModel.searchChatGPT(searchText: searchText)
     }
-
-
-
-    
+    @objc func shortcutButtonTapped(_ sender: UIButton) {
+        searchBarView.searchField.text = sender.titleLabel?.text?.replacingOccurrences(of: "노래", with: "").replacingOccurrences(of: "\"", with: "")
+    }
 }
 
 extension HomeViewController: UITextFieldDelegate {

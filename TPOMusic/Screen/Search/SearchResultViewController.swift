@@ -43,7 +43,7 @@ class SearchResultViewController: BaseViewController {
         label.textColor = .black
         let myDateFormatter = DateFormatter()
         myDateFormatter.dateFormat = "yyyyMMdd a hh시"
-        myDateFormatter.locale = Locale(identifier: "ko_KR")
+        myDateFormatter.locale = .autoupdatingCurrent
         label.text = myDateFormatter.string(from: Date())
         return label
     }()
@@ -131,7 +131,7 @@ class SearchResultViewController: BaseViewController {
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(dateLabel.snp.bottom).offset(12)
-            make.leading.equalToSuperview().offset(23)
+            make.leading.trailing.equalToSuperview().inset(23)
         }
 
         view.addSubview(createPlaylistButton)

@@ -17,15 +17,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        if UserDefaults.standard.string(forKey: "Name") != nil {
+//        if UserDefaults.standard.string(forKey: "Name") != nil {
             var historyViewController = HistoryViewController()
             historyViewController.bindViewModel(HistoryViewModel(searchService: SearchService(SearchRepository(APIService()))))
             var homeViewController = HomeViewController()
             homeViewController.bindViewModel(SearchViewModel(SearchService(SearchRepository(APIService()))))
             window?.rootViewController =  UINavigationController(rootViewController: SheetViewController(contentViewController: homeViewController, bottomSheetViewController: historyViewController, bottomSheetConfiguration: .init(height: UIScreen.main.bounds.height, initialOffset: 245)))
-        } else {
-            window?.rootViewController = SignInViewController()
-        }
+//        } else {
+//            window?.rootViewController = SignInViewController()
+//        }
         window?.makeKeyAndVisible()
     }
 

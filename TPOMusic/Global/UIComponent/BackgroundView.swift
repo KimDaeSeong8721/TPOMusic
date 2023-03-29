@@ -74,13 +74,13 @@ final class BackgroundView: UIView {
         
         self.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(58)
             make.top.equalToSuperview().offset(235)
         }
         
         self.addSubview(subTitleLabel)
         subTitleLabel.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
+            make.leading.trailing.equalToSuperview().inset(90)
             make.top.equalTo(titleLabel.snp.bottom).offset(24)
         }
         
