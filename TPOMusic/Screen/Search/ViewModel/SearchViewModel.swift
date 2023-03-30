@@ -84,8 +84,8 @@ class SearchViewModel {
                         dispatchGroup.enter()
                         Task {
                             setRequest(title: title)
-                            let result = try await request.response() // FIXME: - 여기서 에러가 발생함
-                            _ = result.songs.compactMap { song in
+                            let result = try? await request.response() // FIXME: - 여기서 에러가 발생함
+                            _ = result?.songs.compactMap { song in
                                 if let playParameters = song.playParameters {
                                     let tempMusic = Music(id: song.id,
                                                           title: song.title,
