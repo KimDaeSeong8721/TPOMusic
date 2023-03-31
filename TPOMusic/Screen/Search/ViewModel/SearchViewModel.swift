@@ -74,11 +74,10 @@ class SearchViewModel {
     func fetchMusics(titles: [String]) async {
         Task {
 //            var tempMusics: [Music] = []
-            let tempMusics = TempMusics()
+            let tempMusics = Musics()
             // Request Permission
             switch status {
             case .authorized:
-                do {
                     let dispatchGroup = DispatchGroup()
                     for title in titles {
                         dispatchGroup.enter()
@@ -104,9 +103,6 @@ class SearchViewModel {
                     dispatchGroup.wait()
                     self.musics = await Array(tempMusics.list)
                     print("음악들 \(self.musics)")
-                } catch {
-                    print(error.localizedDescription)
-                }
             default:
                 break
             }
@@ -116,11 +112,3 @@ class SearchViewModel {
 
 }
 
-
-actor TempMusics {
-    var list = Set<Music>()
-
-    func append(with music: Music) {
-        list.insert(music)
-    }
-}
