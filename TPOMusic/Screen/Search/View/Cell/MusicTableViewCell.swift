@@ -43,14 +43,6 @@ class MusicTableViewCell: UITableViewCell {
         return stackView
     }()
 
-//    lazy var bookMarkButton: UIButton = {
-//        let button = UIButton()
-//        button.setImage(ImageLiteral.bookMark, for: .normal)
-//        button.setImage(ImageLiteral.bookMarkFill, for: .selected)
-//        button.addTarget(self, action: #selector(bookMarkClicked), for: .touchUpInside)
-//        return button
-//    }()
-
     private lazy var appleMusicButton: UIButton = {
         let button = UIButton()
         button.setTitle("Music", for: .normal)
@@ -95,11 +87,6 @@ class MusicTableViewCell: UITableViewCell {
             make.height.equalTo(23)
 
         }
-//        contentView.addSubview(bookMarkButton)
-//        bookMarkButton.snp.makeConstraints { make in
-//            make.trailing.equalToSuperview().inset(25)
-//            make.centerY.equalToSuperview()
-//        }
 
         contentView.addSubview(verticalStackView)
         verticalStackView.addArrangedSubview(titleLabel)
@@ -114,7 +101,7 @@ class MusicTableViewCell: UITableViewCell {
 
     }
 
-    func configure(with music: Music, isSaved: Bool = false) {
+    func configure(with music: Music) {
         self.music = music
         let url = URL(string: music.imageURL)
 
@@ -123,24 +110,12 @@ class MusicTableViewCell: UITableViewCell {
 
         titleLabel.text = music.title
         subtitleLabel.text = music.artist
-
-//        if isSaved {
-//            bookMarkButton.isSelected = true
-//        }
     }
-
-//    @objc func bookMarkClicked() {
-//        let isSelected = bookMarkButton.isSelected
-//        bookMarkButton.isSelected.toggle()
-//        NotificationCenter.default.post(name: NSNotification.Name("bookMarkClicked"),
-//                                        object: (isSelected, music))
-//    }
 
     @objc func appleMusicButtonTapped() {
 
         guard let musicURL = music?.url else { return }
-        if UIApplication.shared.canOpenURL(musicURL)
-        {
+        if UIApplication.shared.canOpenURL(musicURL) {
             UIApplication.shared.open(musicURL)
         } else {
             UIApplication.shared.open(URL(string: "music://music.apple.com")!)

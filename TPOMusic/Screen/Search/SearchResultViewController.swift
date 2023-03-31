@@ -20,6 +20,7 @@ private enum SearchResultSection {
 }
 
 class SearchResultViewController: BaseViewController {
+
     // MARK: - Properties
     private let xMarkButton: UIButton = {
         let button = UIButton()
@@ -219,18 +220,18 @@ class SearchResultViewController: BaseViewController {
         if #available(iOS 14, *) {
             switch PHPhotoLibrary.authorizationStatus(for: .readWrite) {
             case .limited:
-                UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil);
+                UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
                 makeAlert(title: "저장", message: "스크린샷 내보내기를 했습니다.")
             case .authorized:
-                UIImageWriteToSavedPhotosAlbum(image!,nil,nil,nil);
+                UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
                 makeAlert(title: "저장", message: "스크린샷 내보내기를 했습니다.")
             case .notDetermined:
                 PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] status in
                     if status == .limited {
-                        UIImageWriteToSavedPhotosAlbum(image!,nil,nil,nil)
+                        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
                         self?.makeAlert(title: "저장", message: "스크린샷 내보내기를 했습니다.")
                     } else if status == .authorized {
-                        UIImageWriteToSavedPhotosAlbum(image!,nil,nil,nil)
+                        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
                         self?.makeAlert(title: "저장", message: "스크린샷 내보내기를 했습니다.")
                     } else {
                         self?.showPermissionAlert()
@@ -261,9 +262,8 @@ class SearchResultViewController: BaseViewController {
             }
         }
     }
+
     private func showPermissionAlert() {
-        // PHPhotoLibrary.requestAuthorization() 결과 콜백이 main thread로부터 호출되지 않기 때문에
-        // UI처리를 위해 main thread내에서 팝업을 띄우도록 함.
         DispatchQueue.main.async {
             let alert = UIAlertController(title: nil, message: "사진 접근 권한이 없습니다. 설정으로 이동하여 권한 설정을 해주세요.", preferredStyle: .alert)
 
@@ -277,6 +277,7 @@ class SearchResultViewController: BaseViewController {
     }
 }
 
+// MARK: - UITableViewDelegate
 extension SearchResultViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)

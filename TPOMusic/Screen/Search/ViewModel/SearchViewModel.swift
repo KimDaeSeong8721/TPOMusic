@@ -20,17 +20,18 @@ class SearchViewModel {
 
     private let searchService: SearchServiceProtocol
 
-    var status: MusicAuthorization.Status!
+    private var status: MusicAuthorization.Status!
 
     private var searchText: String = ""
 
     @Published var searchState: Bool = false
+
     // MARK: - Init
     init(_ searchService: SearchServiceProtocol) {
         self.searchService = searchService
     }
-    // MARK: - Func
 
+    // MARK: - Func
     @discardableResult
     func createPlayList() -> UUID {
         let listId = UUID()
@@ -102,7 +103,6 @@ class SearchViewModel {
                     }
                     dispatchGroup.wait()
                     self.musics = await Array(tempMusics.list)
-                    print("음악들 \(self.musics)")
             default:
                 break
             }

@@ -27,7 +27,6 @@ class SearchBarView: UIView {
         return textField
     }()
     
-    
     // MARK: - Init
     init() {
         super.init(frame: .zero)
@@ -38,7 +37,6 @@ class SearchBarView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
     
     // MARK: - Func
     private func render() {

@@ -8,8 +8,8 @@
 import UIKit
 
 final class HistoryCollectionViewCell: UICollectionViewCell {
-    // MARK: - Properties
 
+    // MARK: - Properties
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .semiBoldSubheadline
@@ -116,6 +116,7 @@ final class HistoryCollectionViewCell: UICollectionViewCell {
         super.prepareForReuse()
     }
 
+    // MARK: - Func
     private func render() {
 
         contentView.addSubview(lPImageView)
@@ -123,6 +124,7 @@ final class HistoryCollectionViewCell: UICollectionViewCell {
             make.leading.equalToSuperview()
             make.centerY.equalToSuperview()
         }
+
         contentView.addSubview(horizontalStackView)
         horizontalStackView.snp.makeConstraints { make in
             make.leading.bottom.equalToSuperview().offset(40)

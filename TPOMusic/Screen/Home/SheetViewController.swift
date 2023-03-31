@@ -19,7 +19,6 @@ class SheetViewController<Content: UIViewController, BottomSheet: UIViewControll
     }
     
     // MARK: - Properties
-    
     private lazy var panGesture: UIPanGestureRecognizer = {
         let pan = UIPanGestureRecognizer()
         pan.delegate = self
@@ -35,7 +34,6 @@ class SheetViewController<Content: UIViewController, BottomSheet: UIViewControll
     let bottomSheetViewController: BottomSheet
 
     // MARK: - Init
-    
     init(contentViewController: Content,
          bottomSheetViewController: BottomSheet,
          bottomSheetConfiguration: BottomSheetConfiguration) {
@@ -45,8 +43,6 @@ class SheetViewController<Content: UIViewController, BottomSheet: UIViewControll
         
         super.init(nibName: nil, bundle: nil)
     }
-
-
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) is not supported")

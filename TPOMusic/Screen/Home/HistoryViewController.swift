@@ -12,8 +12,8 @@ enum ContentSection {
 }
 
 final class HistoryViewController: BaseViewController, ViewModelBindableType {
-    // MARK: - Properties
 
+    // MARK: - Properties
     private let historyLabel: UILabel = {
         let label = UILabel()
         label.text = "히스토리"
@@ -109,13 +109,10 @@ final class HistoryViewController: BaseViewController, ViewModelBindableType {
 
     private func setDataSource() {
         dataSource = UICollectionViewDiffableDataSource<ContentSection, PlayList>(collectionView: playListCollectionView, cellProvider: { collectionView, indexPath, playList -> UICollectionViewCell? in
-
             let cell = collectionView.dequeueReusableCell(withType: HistoryCollectionViewCell.self, for: indexPath)
             cell.configure(with: playList)
-            
             return cell
         })
-
     }
 
     private func updateDataSource(items: [PlayList], animated: Bool = false, completion: (() -> Void)? = nil) {
@@ -124,15 +121,10 @@ final class HistoryViewController: BaseViewController, ViewModelBindableType {
         snapshot.appendItems(items)
         dataSource.apply(snapshot, animatingDifferences: animated, completion: completion)
     }
-
-    private func reloadDatSourceItems(animated: Bool = false) {
-        var snapshot = dataSource.snapshot()
-        snapshot.reloadSections([.historyList])
-        dataSource.apply(snapshot, animatingDifferences: animated)
-    }
 }
 
-extension HistoryViewController: UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    // MARK: - UICollectionViewDelegate
+extension HistoryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let playList = dataSource.itemIdentifier(for: indexPath) else { return }
         let searchResultViewController = SearchResultViewController(with: playList.musicList, searchText: playList.name)
@@ -140,13 +132,8 @@ extension HistoryViewController: UICollectionViewDelegate, UICollectionViewDeleg
         present(searchResultViewController, animated: true)
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 80)
-    }
-
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard let playList = dataSource.itemIdentifier(for: indexPath) else { return nil }
-
         let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { (_) -> UIMenu? in
             let deleteAction = UIAction(title: "삭제", image: ImageLiteral.trash, identifier: nil, discoverabilityTitle: nil, attributes: .destructive, state: .off) { [weak self] _  in
                 self?.makeRequestAlert(title: "삭제", message: "정말 삭제하시겠습니까", okayAction: { _ in
@@ -154,9 +141,15 @@ extension HistoryViewController: UICollectionViewDelegate, UICollectionViewDeleg
                     self?.viewModel.updatePlayList()
                 })
             }
-            
             return UIMenu(title: "", image: nil, identifier: nil, options: .displayInline, children: [deleteAction])
         }
         return config
+    }
+}
+
+// MARK: - UICollectionViewDelegateFlowLayout
+extension HistoryViewController: UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 80)
     }
 }

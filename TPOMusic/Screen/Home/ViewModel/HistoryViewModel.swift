@@ -9,15 +9,19 @@ import Combine
 import Foundation
 
 class HistoryViewModel {
+
+    // MARK: - Properties
     var subscription = Set<AnyCancellable>()
 
     private let searchService: SearchServiceProtocol
     @Published private(set) var playLists: [PlayList] = []
 
+    // MARK: - Init
     init(searchService: SearchServiceProtocol) {
         self.searchService = searchService
     }
 
+    // MARK: - Func
     func updatePlayList() {
         let tempPlayLists = searchService.fetchPlayLists()
 

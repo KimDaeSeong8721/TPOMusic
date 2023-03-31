@@ -29,7 +29,7 @@ class HomeViewController: BaseViewController, ViewModelBindableType {
 
     private lazy var searchBarView =  SearchBarView()
 
-    private let shortcutButton1: UIButton = {
+    private lazy var shortcutButton1: UIButton = {
        let button = UIButton()
         button.backgroundColor = .shortcutBackground
         button.setTitle("\"노을 질 때 한강에서 듣기 좋은 노래\"", for: .normal)
@@ -163,7 +163,6 @@ class HomeViewController: BaseViewController, ViewModelBindableType {
     }
 
     // MARK: - Func
-
     private func addTargets() {
         searchBarView.searchButton.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
     }
@@ -185,6 +184,7 @@ class HomeViewController: BaseViewController, ViewModelBindableType {
     }
 }
 
+    // MARK: - UITextFieldDelegate
 extension HomeViewController: UITextFieldDelegate {
     func textFieldDidBeginEditing(_ textField: UITextField) {
         textField.becomeFirstResponder()
