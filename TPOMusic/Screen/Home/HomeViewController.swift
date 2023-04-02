@@ -16,7 +16,7 @@ class HomeViewController: BaseViewController, ViewModelBindableType {
         label.textColor = .black
         label.numberOfLines = 2
         label.textAlignment = .center
-        label.font = UIFont.regularSubheadline
+        label.font = UIFont.boldCallout
         return label
     }()
 
@@ -36,10 +36,7 @@ class HomeViewController: BaseViewController, ViewModelBindableType {
         button.setTitleColor(.shortcutText, for: .normal)
         button.layer.cornerRadius = 15
         button.titleLabel?.font = .regularSubheadline
-        var configuration = UIButton.Configuration.plain()
-        configuration.contentInsets.leading = 10
-        configuration.contentInsets.trailing = 10
-        button.configuration = configuration
+        button.contentEdgeInsets = .init(top: .zero, left: 10, bottom: .zero, right: 10)
         button.addTarget(self, action: #selector(shortcutButtonTapped(_:)), for: .touchUpInside)
         return button
     }()
@@ -51,10 +48,7 @@ class HomeViewController: BaseViewController, ViewModelBindableType {
         button.layer.cornerRadius = 15
         button.setTitleColor(.shortcutText, for: .normal)
         button.titleLabel?.font = .regularSubheadline
-        var configuration = UIButton.Configuration.plain()
-        configuration.contentInsets.leading = 10
-        configuration.contentInsets.trailing = 10
-        button.configuration = configuration
+        button.contentEdgeInsets = .init(top: .zero, left: 10, bottom: .zero, right: 10)
         button.addTarget(self, action: #selector(shortcutButtonTapped(_:)), for: .touchUpInside)
         return button
     }()

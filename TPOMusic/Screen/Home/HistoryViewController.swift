@@ -43,6 +43,13 @@ final class HistoryViewController: BaseViewController, ViewModelBindableType {
         return collectionView
     }()
 
+    private let noContentLabel: UILabel = {
+        let label = UILabel()
+        label.text = "히스토리가 존재하지 않습니다"
+        label.textAlignment = .center
+        label.font = .regularBody
+        return label
+    }()
     var barTopConstraint: NSLayoutConstraint!
 
     private var dataSource: UICollectionViewDiffableDataSource<ContentSection, PlayList>!
@@ -79,6 +86,11 @@ final class HistoryViewController: BaseViewController, ViewModelBindableType {
             make.top.equalTo(historyLabel.snp.bottom).offset(23)
             make.leading.bottom.trailing.equalToSuperview().inset(25)
         }
+        view.addSubview(noContentLabel)
+        noContentLabel.snp.makeConstraints { make in
+            make.top.equalTo(historyLabel.snp.bottom).offset(23)
+            make.leading.trailing.equalToSuperview().inset(25)
+        }
     }
 
     override func configUI() {
@@ -90,8 +102,14 @@ final class HistoryViewController: BaseViewController, ViewModelBindableType {
 
     // MARK: - Bind
     func bind() {
-        viewModel.$playLists.sink { [weak self] playLists in
-            self?.updateDataSource(items: playLists)
+        viewModel.$playLists
+            .sink { [weak self] playLists in
+                self?.updateDataSource(items: playLists, animated: true)
+                if !playLists.isEmpty {
+                    self?.noContentLabel.isHidden = true
+                } else {
+                    self?.noContentLabel.isHidden = false
+                }
         }
         .store(in: &viewModel.subscription)
 

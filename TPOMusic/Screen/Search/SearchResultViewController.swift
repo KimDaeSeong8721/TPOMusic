@@ -13,6 +13,7 @@ import Screenshots
 
 private enum Size {
     static let tableViewRowHeight = 80.0
+    static let defaultOffset = 23.0
 }
 
 private enum SearchResultSection {
@@ -40,10 +41,10 @@ class SearchResultViewController: BaseViewController {
 
     private let dateLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.semiBoldSubheadline
+        label.font = UIFont.regularSubheadline
         label.textColor = .black
         let myDateFormatter = DateFormatter()
-        myDateFormatter.dateFormat = "yyyyMMdd a hh시"
+        myDateFormatter.dateFormat = "yyMMdd ahh시"
         myDateFormatter.locale = .autoupdatingCurrent
         label.text = myDateFormatter.string(from: Date())
         return label
@@ -53,18 +54,20 @@ class SearchResultViewController: BaseViewController {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         label.textColor = .black
+        label.numberOfLines = 2
         return label
     }()
 
     private lazy var createPlaylistButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Music에서 열기", for: .normal)
-        button.setImage(ImageLiteral.apple.withRenderingMode(.alwaysTemplate), for: .normal)
-        button.imageView?.tintColor = .white
+        button.setTitle(" Music 플레이리스트 추가", for: .normal)
+        button.setImage(ImageLiteral.apple.withRenderingMode(.alwaysTemplate).withTintColor(.white), for: .normal)
+        button.tintColor = .white
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .appleMusicOrange
-        button.titleLabel?.font = .semiBoldSubheadline
+        button.titleLabel?.font = .boldSubheadline
         button.layer.cornerRadius = 22.5
+        button.contentEdgeInsets = .init(top: .zero, left: 12, bottom: .zero, right: 12)
         button.addTarget(self, action: #selector(createPlayListButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -74,6 +77,7 @@ class SearchResultViewController: BaseViewController {
         tableView.register(cell: MusicTableViewCell.self)
         tableView.rowHeight = Size.tableViewRowHeight
         tableView.showsVerticalScrollIndicator = false
+        tableView.separatorInset = UIEdgeInsets(top: .zero, left: Size.defaultOffset, bottom: .zero, right: Size.defaultOffset)
         tableView.separatorStyle = .singleLine
         return tableView
     }()
@@ -114,46 +118,46 @@ class SearchResultViewController: BaseViewController {
         view.addSubview(xMarkButton)
         xMarkButton.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
-            make.leading.equalToSuperview().offset(23)
+            make.leading.equalToSuperview().offset(Size.defaultOffset)
         }
 
         view.addSubview(screenshotButton)
         screenshotButton.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).offset(30)
+            make.top.equalTo(view.safeAreaLayoutGuide).offset(16)
             make.trailing.equalToSuperview().inset(26)
         }
 
         view.addSubview(dateLabel)
         dateLabel.snp.makeConstraints { make in
             make.top.equalTo(xMarkButton.snp.bottom).offset(22)
-            make.leading.equalToSuperview().offset(23)
+            make.leading.equalToSuperview().offset(Size.defaultOffset)
         }
 
         view.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.top.equalTo(dateLabel.snp.bottom).offset(12)
-            make.leading.trailing.equalToSuperview().inset(23)
+            make.leading.trailing.equalToSuperview().inset(Size.defaultOffset)
         }
 
         view.addSubview(createPlaylistButton)
         createPlaylistButton.snp.makeConstraints { make in
             make.top.equalTo(titleLabel.snp.bottom).offset(12)
-            make.leading.equalToSuperview().offset(23)
-            make.width.equalTo(165)
+            make.leading.equalToSuperview().offset(Size.defaultOffset)
+//            make.width.equalTo(165)
             make.height.equalTo(45)
         }
 
         view.addSubview(musicTableView)
         musicTableView.snp.makeConstraints { make in
             make.top.equalTo(createPlaylistButton.snp.bottom).offset(24)
-            make.leading.equalToSuperview().offset(23)
-            make.trailing.equalToSuperview().offset(-26)
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
             make.bottom.equalToSuperview()
         }
     }
 
     override func configUI() {
-        view.backgroundColor = .white
+        view.backgroundColor = .shortcutBackground
     }
 
     // MARK: - Func
@@ -219,26 +223,22 @@ class SearchResultViewController: BaseViewController {
 
         if #available(iOS 14, *) {
             switch PHPhotoLibrary.authorizationStatus(for: .readWrite) {
-            case .limited:
-                UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
-                makeAlert(title: "저장", message: "스크린샷 내보내기를 했습니다.")
-            case .authorized:
-                UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
-                makeAlert(title: "저장", message: "스크린샷 내보내기를 했습니다.")
+            case .limited, .authorized:
+                    UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+                    makeAlert(title: "저장", message: "스크린샷 내보내기를 했습니다.")
             case .notDetermined:
-                PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] status in
-                    if status == .limited {
-                        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
-                        self?.makeAlert(title: "저장", message: "스크린샷 내보내기를 했습니다.")
-                    } else if status == .authorized {
-                        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
-                        self?.makeAlert(title: "저장", message: "스크린샷 내보내기를 했습니다.")
-                    } else {
-                        self?.showPermissionAlert()
+                    PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] status in
+                        if status == .limited || status == .authorized {
+                            UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+                            DispatchQueue.main.async {
+                                self?.makeAlert(title: "저장", message: "스크린샷 내보내기를 했습니다.")
+                            }
+                        } else {
+                                self?.showPermissionAlert()
+                        }
                     }
-                }
             case .restricted, .denied:
-                showPermissionAlert()
+                    showPermissionAlert()
             default:
                 break
             }
@@ -247,14 +247,16 @@ class SearchResultViewController: BaseViewController {
             case .authorized:
                 UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
             case .notDetermined:
-                PHPhotoLibrary.requestAuthorization({ [weak self] status in
-                    if status == .authorized {
-                        UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
-                        self?.makeAlert(title: "저장", message: "스크린샷 내보내기를 했습니다.")
-                    } else {
-                        self?.showPermissionAlert()
-                    }
-                })
+                    PHPhotoLibrary.requestAuthorization({ [weak self] status in
+                        if status == .authorized {
+                            UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
+                            DispatchQueue.main.async {
+                                self?.makeAlert(title: "저장", message: "스크린샷 내보내기를 했습니다.")
+                            }
+                        } else {
+                            self?.showPermissionAlert()
+                        }
+                    })
             case .restricted, .denied:
                 showPermissionAlert()
             default:

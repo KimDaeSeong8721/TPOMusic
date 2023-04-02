@@ -22,7 +22,7 @@ class MusicTableViewCell: UITableViewCell {
 
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.regularSubheadline
+        label.font = UIFont.boldSubheadline
         label.textColor = .black
         return label
     }()
@@ -45,13 +45,15 @@ class MusicTableViewCell: UITableViewCell {
 
     private lazy var appleMusicButton: UIButton = {
         let button = UIButton()
-        button.setTitle("Music", for: .normal)
-        button.setImage(ImageLiteral.apple.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.setTitle(" Music", for: .normal)
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 14, weight: .light)
+        button.setImage(ImageLiteral.apple.withRenderingMode(.alwaysTemplate).withConfiguration(imageConfig), for: .normal)
         button.imageView?.tintColor = .white
         button.setTitleColor(.white, for: .normal)
         button.backgroundColor = .black
         button.titleLabel?.font = .semiBoldSubheadline
         button.layer.cornerRadius = 11.5
+        button.contentEdgeInsets = .init(top: .zero, left: 5, bottom: .zero, right: 5)
         button.addTarget(self, action: #selector(appleMusicButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -74,7 +76,7 @@ class MusicTableViewCell: UITableViewCell {
 
         contentView.addSubview(profileImageView)
         profileImageView.snp.makeConstraints { make in
-            make.leading.equalToSuperview()
+            make.leading.equalToSuperview().offset(23)
             make.centerY.equalToSuperview()
             make.size.equalTo(48)
         }
@@ -82,8 +84,7 @@ class MusicTableViewCell: UITableViewCell {
         contentView.addSubview(appleMusicButton)
         appleMusicButton.snp.makeConstraints { make in
             make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview()
-            make.width.equalTo(66)
+            make.trailing.equalToSuperview().inset(23)
             make.height.equalTo(23)
 
         }

@@ -65,7 +65,7 @@ class SearchViewModel {
     func searchChatGPT(searchText: String) {
         self.searchText = searchText + " 노래"
         Task {
-            let chatGPT = try await searchService.fetchChatGPT(messages: [ChatMessage(role: .user, content: searchText  + "노래 알려줘")], maxTokens: 300)
+            let chatGPT = try await searchService.fetchChatGPT(messages: [ChatMessage(role: .user, content: searchText  + "노래 알려줘. 노래제목 - 아티스트 형식으로")], maxTokens: 300)
             let titles = chatGPT?.choices.first?.message.content.musicTitles
             print(titles)
             searchState.toggle()
@@ -84,6 +84,7 @@ class SearchViewModel {
                         dispatchGroup.enter()
                         Task {
                             setRequest(title: title)
+                            
                             let result = try? await request.response() // FIXME: - 여기서 에러가 발생함
                             _ = result?.songs.compactMap { song in
                                 if let playParameters = song.playParameters {

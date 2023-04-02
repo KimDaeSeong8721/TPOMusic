@@ -142,8 +142,8 @@ class SheetViewController<Content: UIViewController, BottomSheet: UIViewControll
         let yTranslationMagnitude = translation.y.magnitude
         switch ([sender.state], self.state) {
         case ([.changed], .full):
-            guard translation.y > 0, vc.playListCollectionView.indexPathsForVisibleItems.contains(where: { $0.item == .zero
-            }) else {
+            guard translation.y > 0, (vc.playListCollectionView.indexPathsForVisibleItems.contains(where: { $0.item == .zero
+            }) || vc.playListCollectionView.indexPathsForVisibleItems.isEmpty) else {
                 vc.playListCollectionView.isUserInteractionEnabled = true
                 return } //
             print(translation.y)
