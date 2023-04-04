@@ -9,9 +9,15 @@ import UIKit
 
 import Lottie
 
-final class BackgroundView: UIView {
-    // MARK: - Properties
 
+private enum Size {
+    static let titleLabelTopOffset = UIScreen.main.bounds.height / 3.5914
+    static let cancelButtonBottomOffset = UIScreen.main.bounds.height / 4.1576
+
+}
+final class BackgroundView: UIView {
+
+    // MARK: - Properties
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 24, weight: .bold)
@@ -75,7 +81,7 @@ final class BackgroundView: UIView {
         self.addSubview(titleLabel)
         titleLabel.snp.makeConstraints { make in
             make.leading.trailing.equalToSuperview().inset(58)
-            make.top.equalToSuperview().offset(235)
+            make.top.equalToSuperview().offset(Size.titleLabelTopOffset)
         }
         
         self.addSubview(subTitleLabel)
@@ -100,7 +106,7 @@ final class BackgroundView: UIView {
         self.addSubview(cancelButton)
         cancelButton.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.bottom.equalToSuperview().inset(203)
+            make.bottom.equalToSuperview().inset(Size.cancelButtonBottomOffset)
         }
         
         self.addSubview(moreWaitLabel)

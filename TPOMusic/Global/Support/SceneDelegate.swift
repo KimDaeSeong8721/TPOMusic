@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             historyViewController.bindViewModel(HistoryViewModel(searchService: SearchService(SearchRepository(APIService()))))
             var homeViewController = HomeViewController()
             homeViewController.bindViewModel(SearchViewModel(SearchService(SearchRepository(APIService()))))
-            window?.rootViewController =  UINavigationController(rootViewController: SheetViewController(contentViewController: homeViewController, bottomSheetViewController: historyViewController, bottomSheetConfiguration: .init(height: UIScreen.main.bounds.height, initialOffset: 245)))
+            window?.rootViewController =  UINavigationController(rootViewController: SheetViewController(contentViewController: homeViewController, bottomSheetViewController: historyViewController, bottomSheetConfiguration: .init(height: UIScreen.main.bounds.height, initialOffset: 145)))
 //        } else {
 //            window?.rootViewController = SignInViewController()
 //        }
