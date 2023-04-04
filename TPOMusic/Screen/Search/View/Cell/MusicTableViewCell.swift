@@ -114,7 +114,6 @@ class MusicTableViewCell: UITableViewCell {
     }
 
     @objc func appleMusicButtonTapped() {
-
         guard let musicURL = music?.url else { return }
         if UIApplication.shared.canOpenURL(musicURL) {
             UIApplication.shared.open(musicURL)

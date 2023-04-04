@@ -15,7 +15,7 @@ class SearchBarView: UIView {
        let button = UIButton()
         button.backgroundColor = .black
         button.setTitleColor(.white, for: .normal)
-        button.setTitle("노래 알려줘", for: .normal)
+        button.setTitle("노래 알려줘".localized(), for: .normal)
         button.layer.cornerRadius = 15
         button.titleLabel?.font = .regularCallout
         return button
@@ -23,7 +23,7 @@ class SearchBarView: UIView {
     
     let searchField: UITextField = {
         let textField = UITextField()
-        textField.placeholder = "공부하면서 잠올 때 듣기 좋은"
+        textField.placeholder = "공부하면서 잠올 때 듣기 좋은".localized()
         return textField
     }()
     

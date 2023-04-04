@@ -26,11 +26,3 @@ extension Music {
     }
 
 }
-
-actor Musics {
-    var list = Set<Music>()
-
-    func append(with music: Music) {
-        list.insert(music)
-    }
-}

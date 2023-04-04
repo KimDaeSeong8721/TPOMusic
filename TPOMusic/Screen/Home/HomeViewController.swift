@@ -12,7 +12,7 @@ class HomeViewController: BaseViewController, ViewModelBindableType {
     // MARK: - Properties
     private let titleLabel: UILabel = {
         let label = UILabel()
-        label.text = "어떤 상황에 어울리는 플레이리스트를 알려드릴까요?"
+        label.text = "어떤 상황에 어울리는 플레이리스트를 알려드릴까요?".localized()
         label.textColor = .black
         label.numberOfLines = 2
         label.textAlignment = .center
@@ -30,9 +30,9 @@ class HomeViewController: BaseViewController, ViewModelBindableType {
     private lazy var searchBarView =  SearchBarView()
 
     private lazy var shortcutButton1: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         button.backgroundColor = .shortcutBackground
-        button.setTitle("\"노을 질 때 한강에서 듣기 좋은 노래\"", for: .normal)
+        button.setTitle("\"노을 질 때 한강에서 듣기 좋은 노래\"".localized(), for: .normal)
         button.setTitleColor(.shortcutText, for: .normal)
         button.layer.cornerRadius = 15
         button.titleLabel?.font = .regularSubheadline
@@ -42,9 +42,9 @@ class HomeViewController: BaseViewController, ViewModelBindableType {
     }()
 
     private lazy var shortcutButton2: UIButton = {
-       let button = UIButton()
+        let button = UIButton()
         button.backgroundColor = .shortcutBackground
-        button.setTitle("\"따뜻한 주말 카페에서 공부할 때 듣기 좋은 노래\"", for: .normal)
+        button.setTitle("\"따뜻한 주말 카페에서 공부할 때 듣기 좋은 노래\"".localized(), for: .normal)
         button.layer.cornerRadius = 15
         button.setTitleColor(.shortcutText, for: .normal)
         button.titleLabel?.font = .regularSubheadline
@@ -131,68 +131,74 @@ class HomeViewController: BaseViewController, ViewModelBindableType {
             .receive(on: DispatchQueue.main)
             .sink { [weak self] musics in
                 self?.stopLottieAnimation()
-                let searchResultViewController = SearchResultViewController(with: musics, searchText: (self?.searchBarView.searchField.text ?? "")+" 노래")
-                searchResultViewController.modalPresentationStyle = .fullScreen
-            self?.present(searchResultViewController, animated: true)
+                let searchResultViewController = SearchResultViewController(with: musics, searchText:
+                                                                                String(format: "%@ 노래".localized(), self?.searchBarView.searchField.text ?? ""))
+                                                                            searchResultViewController.modalPresentationStyle = .fullScreen
+                                                                            self?.present(searchResultViewController, animated: true)
 
-            guard let listId = self?.viewModel.createPlayList() else { return }
-            self?.viewModel.saveMusicToPlayList(listId: listId, musics: musics)
-        }
-        .store(in: &viewModel.subscription)
+                                                                            guard let listId = self?.viewModel.createPlayList() else { return }
+                                                                            self?.viewModel.saveMusicToPlayList(listId: listId, musics: musics)
+                                                                            }
+                    .store(in: &viewModel.subscription)
 
-        NotificationCenter.default.publisher(for: Notification.Name("cancelButtonTapped"))
-            .sink { [weak self] _ in
-                URLSession.shared.invalidateAndCancel() // 이코드 여기 있는거 좀 어색
-                self?.stopLottieAnimation()
-            }
-            .store(in: &viewModel.subscription)
+                                                                            NotificationCenter.default.publisher(for: Notification.Name("cancelButtonTapped"))
+                    .sink { [weak self] _ in
+                        URLSession.shared.invalidateAndCancel() // 이코드 여기 있는거 좀 어색
+                        self?.stopLottieAnimation()
+                    }
+                    .store(in: &viewModel.subscription)
 
-        viewModel.$searchState
-            .dropFirst()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] _ in
-                self?.showMoreWaitLabel()
-            }
-            .store(in: &viewModel.subscription)
-    }
+                                                                            viewModel.$searchState
+                    .dropFirst()
+                    .receive(on: DispatchQueue.main)
+                    .sink { [weak self] isNotEmpty in
+                        if isNotEmpty {
+                            self?.showMoreWaitLabel()
+                        } else {
+                            self?.stopLottieAnimation()
+                            self?.makeAlert(title: "실 패".localized(), message: "검색에 실패하였습니다".localized())
+                        }
+                    }
+                    .store(in: &viewModel.subscription)
+                                                                            }
 
-    // MARK: - Func
-    private func addTargets() {
-        searchBarView.searchButton.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
-    }
-    private func setDelegation() {
-        searchBarView.searchField.delegate = self
-    }
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        self.view.endEditing(true)
-    }
+                                                                            // MARK: - Func
+                                                                            private func addTargets() {
+                    searchBarView.searchButton.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
+                }
+                                                                            private func setDelegation() {
+                    searchBarView.searchField.delegate = self
+                }
+                                                                            override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+                    self.view.endEditing(true)
+                }
 
-    @objc func searchButtonTapped() {
-        searchBarView.searchField.resignFirstResponder()
-        guard let searchText = searchBarView.searchField.text else { return }
-        setupLottieView(with: searchText)
-        viewModel.searchChatGPT(searchText: searchText)
-    }
-    @objc func shortcutButtonTapped(_ sender: UIButton) {
-        searchBarView.searchField.text = sender.titleLabel?.text?.replacingOccurrences(of: "노래", with: "").replacingOccurrences(of: "\"", with: "")
-    }
-}
+                                                                            @objc func searchButtonTapped() {
+                    searchBarView.searchField.resignFirstResponder()
+                    guard let searchText = searchBarView.searchField.text else { return }
+                    setupLottieView(with: searchText)
+                    viewModel.searchChatGPT(searchText: searchText)
+                }
+                                                                            @objc func shortcutButtonTapped(_ sender: UIButton) {
+                    searchBarView.searchField.text = sender.titleLabel?.text?.replacingOccurrences(of: "노래".localized(), with: "").replacingOccurrences(of: "\"", with: "")
+                }
+                                                                            }
 
-    // MARK: - UITextFieldDelegate
-extension HomeViewController: UITextFieldDelegate {
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        textField.becomeFirstResponder()
-    }
+                                                                            // MARK: - UITextFieldDelegate
+                                                                            extension HomeViewController: UITextFieldDelegate {
+                    func textFieldDidBeginEditing(_ textField: UITextField) {
+                        textField.becomeFirstResponder()
+                    }
 
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        textField.resignFirstResponder()
-    }
+                    func textFieldDidEndEditing(_ textField: UITextField) {
+                        textField.resignFirstResponder()
+                    }
 
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        guard let searchText = textField.text else { return true }
-        setupLottieView(with: searchText)
-        viewModel.searchChatGPT(searchText: searchText)
-        return true
-    }
-}
+                    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+                        textField.resignFirstResponder()
+                        guard let searchText = textField.text else { return true }
+                        setupLottieView(with: searchText)
+                        viewModel.searchChatGPT(searchText: searchText)
+                        return true
+                    }
+                }

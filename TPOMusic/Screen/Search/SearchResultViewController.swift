@@ -32,7 +32,7 @@ class SearchResultViewController: BaseViewController {
 
     private lazy var screenshotButton: UIButton = {
         let button = UIButton()
-        button.setTitle("스크린샷 내보내기", for: .normal)
+        button.setTitle("스크린샷 내보내기".localized(), for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.titleLabel?.font = .semiBoldSubheadline
         button.addTarget(self, action: #selector(screenshotButtonTapped), for: .touchUpInside)
@@ -44,7 +44,7 @@ class SearchResultViewController: BaseViewController {
         label.font = UIFont.regularSubheadline
         label.textColor = .black
         let myDateFormatter = DateFormatter()
-        myDateFormatter.dateFormat = "yyMMdd ahh시"
+        myDateFormatter.dateFormat = "yyMMdd ahh시".localized()
         myDateFormatter.locale = .autoupdatingCurrent
         label.text = myDateFormatter.string(from: Date())
         return label
@@ -60,14 +60,11 @@ class SearchResultViewController: BaseViewController {
 
     private lazy var createPlaylistButton: UIButton = {
         let button = UIButton()
-        button.setTitle(" Music 플레이리스트 추가", for: .normal)
-        button.setImage(ImageLiteral.apple.withRenderingMode(.alwaysTemplate).withTintColor(.white), for: .normal)
+        button.setTitle("플레이리스트 추가 〉".localized(), for: .normal)
         button.tintColor = .white
-        button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = .appleMusicOrange
+        button.setTitleColor(.appleMusicOrange, for: .normal)
         button.titleLabel?.font = .boldSubheadline
         button.layer.cornerRadius = 22.5
-        button.contentEdgeInsets = .init(top: .zero, left: 12, bottom: .zero, right: 12)
         button.addTarget(self, action: #selector(createPlayListButtonTapped), for: .touchUpInside)
         return button
     }()
@@ -82,12 +79,33 @@ class SearchResultViewController: BaseViewController {
         return tableView
     }()
 
-    private let activityIndicator: UIActivityIndicatorView = {
-        let activityIndicator = UIActivityIndicatorView()
-        activityIndicator.style = UIActivityIndicatorView.Style.large
-        activityIndicator.isHidden = true
-        activityIndicator.layer.zPosition = 1
-        return activityIndicator
+    private let firstLabel: UILabel = {
+        let label = UILabel()
+        label.text = "애플 뮤직 구독중이라면?".localized()
+        label.textColor = .subGray
+        label.font = .semiBoldSubheadline
+        return label
+    }()
+
+    private let appleMusicHStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.spacing = 3
+        stackView.alignment = .center
+        return stackView
+    }()
+
+    private let secondLabel: UIButton = {
+        let button = UIButton()
+        button.setTitle(" Music", for: .normal)
+        let imageConfig = UIImage.SymbolConfiguration(pointSize: 14, weight: .light)
+        button.setImage(ImageLiteral.apple.withRenderingMode(.alwaysTemplate).withConfiguration(imageConfig),
+                        for: .normal)
+        button.imageView?.tintColor = .black
+        button.setTitleColor(.black, for: .normal)
+        button.titleLabel?.font = .boldSubheadline
+        button.isUserInteractionEnabled = false
+        return button
     }()
 
     private var dataSource: UITableViewDiffableDataSource<SearchResultSection, Music>!
@@ -139,13 +157,29 @@ class SearchResultViewController: BaseViewController {
             make.leading.trailing.equalToSuperview().inset(Size.defaultOffset)
         }
 
-        view.addSubview(createPlaylistButton)
-        createPlaylistButton.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(12)
+//        view.addSubview(createPlaylistButton)
+//        createPlaylistButton.snp.makeConstraints { make in
+//            make.top.equalTo(titleLabel.snp.bottom).offset(12)
+//            make.leading.equalToSuperview().offset(Size.defaultOffset)
+////            make.width.equalTo(165)
+//            make.height.equalTo(45)
+//        }
+
+        view.addSubview(firstLabel)
+        firstLabel.snp.makeConstraints { make in
+            make.top.equalTo(titleLabel.snp.bottom).offset(25)
             make.leading.equalToSuperview().offset(Size.defaultOffset)
-//            make.width.equalTo(165)
-            make.height.equalTo(45)
         }
+
+        view.addSubview(appleMusicHStackView)
+        appleMusicHStackView.addArrangedSubview(secondLabel)
+        appleMusicHStackView.addArrangedSubview(createPlaylistButton)
+
+        appleMusicHStackView.snp.makeConstraints { make in
+            make.top.equalTo(firstLabel.snp.bottom)
+            make.leading.equalToSuperview().offset(Size.defaultOffset)
+        }
+
 
         view.addSubview(musicTableView)
         musicTableView.snp.makeConstraints { make in
@@ -225,13 +259,13 @@ class SearchResultViewController: BaseViewController {
             switch PHPhotoLibrary.authorizationStatus(for: .readWrite) {
             case .limited, .authorized:
                     UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
-                    makeAlert(title: "저장", message: "스크린샷 내보내기를 했습니다.")
+                makeAlert(title: "저장".localized().localized(), message: "스크린샷 내보내기를 했습니다.".localized())
             case .notDetermined:
                     PHPhotoLibrary.requestAuthorization(for: .readWrite) { [weak self] status in
                         if status == .limited || status == .authorized {
                             UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
                             DispatchQueue.main.async {
-                                self?.makeAlert(title: "저장", message: "스크린샷 내보내기를 했습니다.")
+                                self?.makeAlert(title: "저장".localized(), message: "스크린샷 내보내기를 했습니다.".localized())
                             }
                         } else {
                                 self?.showPermissionAlert()
@@ -251,7 +285,7 @@ class SearchResultViewController: BaseViewController {
                         if status == .authorized {
                             UIImageWriteToSavedPhotosAlbum(image!, nil, nil, nil)
                             DispatchQueue.main.async {
-                                self?.makeAlert(title: "저장", message: "스크린샷 내보내기를 했습니다.")
+                                self?.makeAlert(title: "저장".localized(), message: "스크린샷 내보내기를 했습니다.".localized())
                             }
                         } else {
                             self?.showPermissionAlert()
@@ -267,15 +301,22 @@ class SearchResultViewController: BaseViewController {
 
     private func showPermissionAlert() {
         DispatchQueue.main.async {
-            let alert = UIAlertController(title: nil, message: "사진 접근 권한이 없습니다. 설정으로 이동하여 권한 설정을 해주세요.", preferredStyle: .alert)
+            let alert = UIAlertController(title: nil, message: "사진 접근 권한이 없습니다. 설정으로 이동하여 권한 설정을 해주세요.".localized(), preferredStyle: .alert)
 
-            alert.addAction(UIAlertAction(title: "확인", style: .default, handler: { _ in
+            alert.addAction(UIAlertAction(title: "확인".localized(), style: .default, handler: { _ in
                 UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
             }))
-            alert.addAction(UIAlertAction(title: "취소", style: .cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "취소".localized(), style: .cancel, handler: nil))
 
             self.present(alert, animated: true)
         }
+    }
+
+    func configure(creationDate: Date) {
+        let myDateFormatter = DateFormatter()
+        myDateFormatter.dateFormat = "yyMMdd ahh시".localized()
+        myDateFormatter.locale = .autoupdatingCurrent
+        dateLabel.text = myDateFormatter.string(from: creationDate)
     }
 }
 
@@ -292,7 +333,7 @@ extension SearchResultViewController: UITableViewDelegate {
                 try await player.prepareToPlay()
                 beginPlaying()
             } catch {
-                self.makeAlert(title: "실패", message: "재생할 수 없는 음악입니다.")
+                self.makeAlert(title: "실패".localized(), message: "재생할 수 없는 음악입니다.".localized())
             }
         }
     }

@@ -12,6 +12,7 @@
 		35138D9329CB3184006586AB /* PlayListEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35138D8F29CB3184006586AB /* PlayListEntity+CoreDataProperties.swift */; };
 		35138D9429CB3184006586AB /* MusicEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35138D9029CB3184006586AB /* MusicEntity+CoreDataClass.swift */; };
 		35616EF129D5CA67002620C6 /* Screenshots in Frameworks */ = {isa = PBXBuildFile; productRef = 35BCA59129D43CEC0054EED6 /* Screenshots */; };
+		3579917529DB25D400C590DA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3579917729DB25D400C590DA /* Localizable.strings */; };
 		35ADB25E29B9859100005BE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB25D29B9859100005BE0 /* AppDelegate.swift */; };
 		35ADB26029B9859100005BE0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB25F29B9859100005BE0 /* SceneDelegate.swift */; };
 		35ADB26229B9859100005BE0 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB26129B9859100005BE0 /* SignInViewController.swift */; };
@@ -69,6 +70,8 @@
 		35138D8E29CB3184006586AB /* MusicEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MusicEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		35138D8F29CB3184006586AB /* PlayListEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PlayListEntity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		35138D9029CB3184006586AB /* MusicEntity+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "MusicEntity+CoreDataClass.swift"; sourceTree = "<group>"; };
+		3579917629DB25D400C590DA /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3579917829DB25D700C590DA /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
 		35ADB25A29B9859100005BE0 /* TPOMusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TPOMusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35ADB25D29B9859100005BE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		35ADB25F29B9859100005BE0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -174,6 +177,7 @@
 				35ADB26629B9859200005BE0 /* Assets.xcassets */,
 				35ADB26829B9859200005BE0 /* LaunchScreen.storyboard */,
 				35BCA59729D4890A0054EED6 /* InfoPlist.strings */,
+				3579917729DB25D400C590DA /* Localizable.strings */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -504,6 +508,7 @@
 				35ADB27529B9D4D600005BE0 /* .swiftlint.yml in Resources */,
 				35BCA59529D4890A0054EED6 /* InfoPlist.strings in Resources */,
 				35ADB26A29B9859200005BE0 /* LaunchScreen.storyboard in Resources */,
+				3579917529DB25D400C590DA /* Localizable.strings in Resources */,
 				35ADB26729B9859200005BE0 /* Assets.xcassets in Resources */,
 				35BCA58D29D2EAAB0054EED6 /* dots.json in Resources */,
 				35ADB26529B9859100005BE0 /* Main.storyboard in Resources */,
@@ -589,6 +594,15 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		3579917729DB25D400C590DA /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3579917629DB25D400C590DA /* en */,
+				3579917829DB25D700C590DA /* ko */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		35ADB26329B9859100005BE0 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -757,7 +771,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.daeseongkim.TPOMusic3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -793,7 +807,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.daeseongkim.TPOMusic3;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

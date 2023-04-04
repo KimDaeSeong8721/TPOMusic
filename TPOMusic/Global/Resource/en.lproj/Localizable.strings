@@ -1,0 +1,66 @@
+/* 
+  Localizable.strings
+  TPOMusic
+
+  Created by DaeSeong on 2023/04/04.
+  
+*/
+// HomeView
+"어떤 상황에 어울리는 플레이리스트를 알려드릴까요?" = "Create your own playlist for a particular occasion!";
+
+"\"노을 질 때 한강에서 듣기 좋은 노래\"" = "\"Songs for a gloomy mood at home\"";
+
+"\"따뜻한 주말 카페에서 공부할 때 듣기 좋은 노래\"" = "\"Songs for staying focused on a school assignment\"";
+
+"실 패" = "Fail";
+"검색에 실패하였습니다" = "Search failed";
+
+
+"노래" = "Songs";
+
+"%@ 노래" = "Songs%@";
+// HistoryView
+"히스토리" = "History";
+"히스토리가 존재하지 않습니다" = "No History";
+
+"삭제" = "Delete";
+
+"정말 삭제하시겠습니까" = "Do you want to delete it?";
+
+// LottieBackgroundView
+"상황에 \n딱! 맞는 음악을 찾고 있어요..." = "Now creating a playlist only for you...";
+
+"멈추기" = "Stop please";
+
+"거의 다 왔어요!!" = "Almost Done!!";
+
+"플레이리스트 생성 중" = "Creating Playlist";
+
+// SearchResultView
+"스크린샷 내보내기" = "Save screenshot";
+
+"yyMMdd ahh시" = " MM dd yyy hh:mma";
+
+"플레이리스트 추가 〉" = "Add Playlist 〉";
+
+"애플 뮤직 구독중이라면?" = "If you have an AppleMusic subscription?";
+
+"저장" = "Save";
+
+"스크린샷 내보내기를 했습니다." = "Screenshot saved";
+
+"사진 접근 권한이 없습니다. 설정으로 이동하여 권한 설정을 해주세요." = "You do not have permission to access photos. Please go to settings and set permissions.";
+
+"확인" = "Confirm";
+
+"취소" = "Cancel";
+
+"재생할 수 없는 음악입니다." = "This music cannot be played.";
+
+//SearchBarView
+
+"노래 알려줘" = "Find";
+
+"공부하면서 잠올 때 듣기 좋은" = "Songs for running along the river";
+
+"%@ 노래 알려줘. 노래제목 - 아티스트 형식으로" = "Songs %@ find in the songTitle-Artist format";

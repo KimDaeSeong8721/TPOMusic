@@ -99,6 +99,7 @@ extension SearchService {
         newMusicEntity.addedDate = Date()
         newMusicEntity.imageURL = music.imageURL
         newMusicEntity.artist = music.artist
+        newMusicEntity.url = music.url
         do {
             let data = try PropertyListEncoder().encode(music.playParameters)
             newMusicEntity.playParameters = data

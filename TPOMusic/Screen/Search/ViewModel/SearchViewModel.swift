@@ -14,8 +14,6 @@ class SearchViewModel {
     // MARK: - Properties
     var subscription = Set<AnyCancellable>()
 
-    private var request: MusicCatalogSearchRequest!
-
     @Published var musics = [Music]()
 
     private let searchService: SearchServiceProtocol
@@ -52,58 +50,64 @@ class SearchViewModel {
     func deleteMusicFromPlayList(listId: UUID, musicIds: [MusicItemID]) {
         searchService.deleteMusics(listId: listId, musicIds: musicIds)
     }
-    
-    func setRequest(title: String) {
-        request = MusicCatalogSearchRequest(term: title, types: [Song.self, Album.self])
-        request.limit = 1
-    }
 
     func requestMusicAuth() async {
         status = await MusicAuthorization.request()
     }
 
     func searchChatGPT(searchText: String) {
-        self.searchText = searchText + " 노래"
+        self.searchText = String(format: "%@ 노래".localized(), searchText)
         Task {
-            let chatGPT = try await searchService.fetchChatGPT(messages: [ChatMessage(role: .user, content: searchText  + "노래 알려줘. 노래제목 - 아티스트 형식으로")], maxTokens: 300)
+            print(String(format: "%@ 노래 알려줘. 노래제목 - 아티스트 형식으로".localized(), searchText))
+            let chatGPT = try await searchService.fetchChatGPT(messages: [ChatMessage(role: .user, content:
+                                                                                        String(format: "%@ 노래 알려줘. 노래제목 - 아티스트 형식으로".localized(), searchText)
+                                                                                        )], maxTokens: 300)
             let titles = chatGPT?.choices.first?.message.content.musicTitles
             print(titles)
-            searchState.toggle()
-            await fetchMusics(titles: titles ?? [])
+            if let titles, !titles.isEmpty {
+                searchState = true
+                await fetchMusics(titles: titles)
+            } else {
+                searchState = false
+            }
         }
     }
     func fetchMusics(titles: [String]) async {
         Task {
-//            var tempMusics: [Music] = []
-            let tempMusics = Musics()
-            // Request Permission
             switch status {
             case .authorized:
-                    let dispatchGroup = DispatchGroup()
+                await withTaskGroup(of: [Music].self, body: { group in
+                    var tempMusics2 = Set<Music>()
                     for title in titles {
-                        dispatchGroup.enter()
-                        Task {
-                            setRequest(title: title)
-                            
-                            let result = try? await request.response() // FIXME: - 여기서 에러가 발생함
-                            _ = result?.songs.compactMap { song in
-                                if let playParameters = song.playParameters {
-                                    let tempMusic = Music(id: song.id,
-                                                          title: song.title,
-                                                          artist: song.artistName,
-                                                          imageURL: song.artwork?.url(width: 340, height: 340)?.absoluteString ?? "",
-                                                          url: song.url,
-                                                          playParameters: playParameters)
-                                    Task {
-                                        await tempMusics.append(with: tempMusic)
+                        group.addTask {
+                            var request = MusicCatalogSearchRequest(term: title, types: [Song.self, Album.self])
+                            request.limit = 1
+                            var tempList: [Music] = []
+                            if let result = try? await request.response() {
+                                _ = result.songs.compactMap { song in
+                                    if let playParameters = song.playParameters {
+                                        let tempMusic = Music(id: song.id,
+                                                              title: song.title,
+                                                              artist: song.artistName,
+                                                              imageURL: song.artwork?.url(width: 340, height: 340)?.absoluteString ?? "",
+                                                              url: song.url,
+                                                              playParameters: playParameters)
+                                        tempList.append(tempMusic)
                                     }
                                 }
                             }
-                            dispatchGroup.leave()
+                            return tempList
+                        }
                     }
+
+                    for await musicList in group {
+                        musicList.forEach {
+                            tempMusics2.insert($0)
+                        }
                     }
-                    dispatchGroup.wait()
-                    self.musics = await Array(tempMusics.list)
+                    self.musics = Array(tempMusics2)
+                })
+
             default:
                 break
             }

@@ -23,7 +23,7 @@ final class BackgroundView: UIView {
     private let subTitleLabel: UILabel = {
         let label = UILabel()
         label.font = .regularSubheadline
-        label.text = "상황에 \n딱! 맞는 음악을 찾고 있어요..."
+        label.text = "상황에 \n딱! 맞는 음악을 찾고 있어요...".localized()
         label.numberOfLines = 2
         label.textAlignment = .center
         return label
@@ -38,7 +38,7 @@ final class BackgroundView: UIView {
 
     private lazy var cancelButton: UIButton = {
         let button = UIButton()
-        button.setTitle("멈추기", for: .normal)
+        button.setTitle("멈추기".localized(), for: .normal)
         button.setTitleColor(.black.withAlphaComponent(0.6), for: .normal)
         button.titleLabel?.font = .boldSubheadline
         button.addTarget(self, action: #selector(cancelButtonTapped), for: .touchUpInside)
@@ -47,7 +47,7 @@ final class BackgroundView: UIView {
 
     let moreWaitLabel: UILabel = {
         let label = UILabel()
-        label.text = "거의 다 왔어요!!"
+        label.text = "거의 다 왔어요!!".localized()
         label.font = .boldSubheadline
         label.isHidden = true
         return label
@@ -119,10 +119,10 @@ final class BackgroundView: UIView {
     func setupLottieView(with title: String = "") {
         titleLabel.text = "\"\(title)\""
 
-        if title == "플레이리스트 생성 중" {
+        if title == "플레이리스트 생성 중".localized() {
             subTitleLabel.text = ""
         } else {
-            subTitleLabel.text = "상황에 \n딱! 맞는 음악을 찾고 있어요..."
+            subTitleLabel.text = "상황에 \n딱! 맞는 음악을 찾고 있어요...".localized()
         }
         
         lottieView.loopMode = .loop

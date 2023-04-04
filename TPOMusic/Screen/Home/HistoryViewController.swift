@@ -16,7 +16,7 @@ final class HistoryViewController: BaseViewController, ViewModelBindableType {
     // MARK: - Properties
     private let historyLabel: UILabel = {
         let label = UILabel()
-        label.text = "히스토리"
+        label.text = "히스토리".localized()
         label.font = UIFont.boldTitle3
         return label
     }()
@@ -45,9 +45,10 @@ final class HistoryViewController: BaseViewController, ViewModelBindableType {
 
     private let noContentLabel: UILabel = {
         let label = UILabel()
-        label.text = "히스토리가 존재하지 않습니다"
+        label.text = "히스토리가 존재하지 않습니다".localized()
         label.textAlignment = .center
         label.font = .regularBody
+        label.textColor = .black.withAlphaComponent(0.5)
         return label
     }()
     var barTopConstraint: NSLayoutConstraint!
@@ -146,6 +147,7 @@ extension HistoryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let playList = dataSource.itemIdentifier(for: indexPath) else { return }
         let searchResultViewController = SearchResultViewController(with: playList.musicList, searchText: playList.name)
+        searchResultViewController.configure(creationDate: playList.date)
         searchResultViewController.modalPresentationStyle = .fullScreen
         present(searchResultViewController, animated: true)
     }
@@ -153,8 +155,8 @@ extension HistoryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         guard let playList = dataSource.itemIdentifier(for: indexPath) else { return nil }
         let config = UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { (_) -> UIMenu? in
-            let deleteAction = UIAction(title: "삭제", image: ImageLiteral.trash, identifier: nil, discoverabilityTitle: nil, attributes: .destructive, state: .off) { [weak self] _  in
-                self?.makeRequestAlert(title: "삭제", message: "정말 삭제하시겠습니까", okayAction: { _ in
+            let deleteAction = UIAction(title: "삭제".localized(), image: ImageLiteral.trash, identifier: nil, discoverabilityTitle: nil, attributes: .destructive, state: .off) { [weak self] _  in
+                self?.makeRequestAlert(title: "삭제".localized(), message: "정말 삭제하시겠습니까".localized(), okayAction: { _ in
                     self?.viewModel.deletePlayList(with: playList.listId)
                     self?.viewModel.updatePlayList()
                 })
