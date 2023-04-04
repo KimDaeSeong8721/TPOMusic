@@ -180,7 +180,7 @@ class HomeViewController: BaseViewController, ViewModelBindableType {
                     viewModel.searchChatGPT(searchText: searchText)
                 }
                                                                             @objc func shortcutButtonTapped(_ sender: UIButton) {
-                    searchBarView.searchField.text = sender.titleLabel?.text?.replacingOccurrences(of: "노래".localized(), with: "").replacingOccurrences(of: "\"", with: "")
+                    searchBarView.searchField.text = sender.titleLabel?.text?.replacingOccurrences(of: "노래", with: "").replacingOccurrences(of: "\"", with: "")
                 }
                                                                             }
 
