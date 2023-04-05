@@ -122,13 +122,13 @@ final class HistoryCollectionViewCell: UICollectionViewCell {
         contentView.addSubview(lPImageView)
         lPImageView.snp.makeConstraints { make in
             make.leading.equalToSuperview()
-            make.centerY.equalToSuperview()
+            make.centerY.equalToSuperview().inset(10)
         }
 
         contentView.addSubview(horizontalStackView)
         horizontalStackView.snp.makeConstraints { make in
             make.leading.bottom.equalToSuperview().offset(40)
-            make.top.bottom.equalToSuperview()
+            make.top.bottom.equalToSuperview().inset(10)
             make.size.equalTo(80)
         }
 
@@ -143,14 +143,14 @@ final class HistoryCollectionViewCell: UICollectionViewCell {
         titleLabel.snp.makeConstraints { make in
             make.leading.equalTo(horizontalStackView.snp.trailing).offset(23)
             make.trailing.equalToSuperview().inset(23)
-            make.top.equalToSuperview()
+            make.top.equalToSuperview().inset(10)
         }
 
         contentView.addSubview(subLabel)
         subLabel.snp.makeConstraints { make in
             make.leading.equalTo(horizontalStackView.snp.trailing).offset(23)
             make.trailing.equalToSuperview().inset(23)
-            make.bottom.equalToSuperview()
+            make.bottom.equalToSuperview().inset(10)
         }
 
     }
