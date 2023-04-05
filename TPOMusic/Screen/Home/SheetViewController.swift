@@ -144,7 +144,7 @@ class SheetViewController<Content: UIViewController, BottomSheet: UIViewControll
         case ([.changed], .full):
             guard translation.y > 0, (vc.playListCollectionView.indexPathsForVisibleItems.contains(where: { $0.item == .zero
             }) || vc.playListCollectionView.indexPathsForVisibleItems.isEmpty) else {
-                vc.playListCollectionView.isUserInteractionEnabled = true
+                vc.playListCollectionView.isUserInteractionEnabled = false
                 return } //
             print(translation.y)
             let topConstraint = -(configuration.height - yTranslationMagnitude)
@@ -161,7 +161,7 @@ class SheetViewController<Content: UIViewController, BottomSheet: UIViewControll
             changeTopConstraint(to: newConstant)
             
         case ([.ended], .full):
-            let shouldHideSheet = yTranslationMagnitude >= configuration.height / 2 || (velocity.y > 1000
+            let shouldHideSheet = (yTranslationMagnitude >= configuration.height / 2 && velocity.y > 0) || (velocity.y > 1000
                                                                                         && vc.playListCollectionView.indexPathsForVisibleItems.first?.item == .zero
             )
             shouldHideSheet ? hideBottomSheet() : showBottomSheet()
@@ -171,7 +171,7 @@ class SheetViewController<Content: UIViewController, BottomSheet: UIViewControll
 //                                                                                        && vc.playListCollectionView.indexPathsForVisibleItems.first?.item == .zero
             )
             shouldShowSheet ? showBottomSheet() : hideBottomSheet()
-            vc.playListCollectionView.isUserInteractionEnabled = false
+            vc.playListCollectionView.isUserInteractionEnabled = true
         case ([.failed], .full):
             showBottomSheet()
             

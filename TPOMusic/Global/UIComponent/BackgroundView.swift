@@ -55,6 +55,7 @@ final class BackgroundView: UIView {
         let label = UILabel()
         label.text = "거의 다 왔어요!!".localized()
         label.font = .boldSubheadline
+        label.textAlignment = .center
         label.isHidden = true
         return label
     }()
