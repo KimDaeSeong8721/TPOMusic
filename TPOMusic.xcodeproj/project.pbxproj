@@ -63,6 +63,7 @@
 		35BCA58D29D2EAAB0054EED6 /* dots.json in Resources */ = {isa = PBXBuildFile; fileRef = 35BCA58C29D2EAAB0054EED6 /* dots.json */; };
 		35BCA58F29D2ED720054EED6 /* BackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35BCA58E29D2ED720054EED6 /* BackgroundView.swift */; };
 		35BCA59529D4890A0054EED6 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 35BCA59729D4890A0054EED6 /* InfoPlist.strings */; };
+		35F7CA1229DF071C002F5677 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F7CA1129DF071C002F5677 /* SoundManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -123,6 +124,7 @@
 		35BCA58E29D2ED720054EED6 /* BackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundView.swift; sourceTree = "<group>"; };
 		35BCA59629D4890A0054EED6 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		35BCA59829D489DA0054EED6 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		35F7CA1129DF071C002F5677 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -323,6 +325,7 @@
 			children = (
 				35ADB2E029C4239A00005BE0 /* CoreData */,
 				35ADB2C029BD8DB100005BE0 /* Network */,
+				35F7CA1129DF071C002F5677 /* SoundManager.swift */,
 			);
 			path = Managers;
 			sourceTree = "<group>";
@@ -556,6 +559,7 @@
 				35ADB2D129BD8F3A00005BE0 /* SearchViewModel.swift in Sources */,
 				35ADB2D729BDB48100005BE0 /* SearchRepository.swift in Sources */,
 				35ADB2A629BAFB3D00005BE0 /* SearchViewController.swift in Sources */,
+				35F7CA1229DF071C002F5677 /* SoundManager.swift in Sources */,
 				35ADB2A029B9DF0700005BE0 /* ImageLiteral.swift in Sources */,
 				35ADB2C629BD8DF200005BE0 /* SearchEndPoint.swift in Sources */,
 				35ADB2F529C44B8B00005BE0 /* HistoryViewModel.swift in Sources */,
@@ -758,7 +762,7 @@
 				DEVELOPMENT_TEAM = J85NQ6YL4V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TPOMusic/Info.plist;
-				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Please allow access to continue";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "추천음악 정보 제공 기능 및 플레이리스트 추가 기능 사용을 위해 Apple Music 사용자의 음악활동 및 미디어 보관함 접근권한 동의가 필요합니다. 설정에서 이를 변경할 수 있습니다.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "My app uses photos for mutating blue frogs";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "My app uses photos for mutating blue frogs";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -794,7 +798,7 @@
 				DEVELOPMENT_TEAM = J85NQ6YL4V;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TPOMusic/Info.plist;
-				INFOPLIST_KEY_NSAppleMusicUsageDescription = "Please allow access to continue";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "추천음악 정보 제공 기능 및 플레이리스트 추가 기능 사용을 위해 Apple Music 사용자의 음악활동 및 미디어 보관함 접근권한 동의가 필요합니다. 설정에서 이를 변경할 수 있습니다.";
 				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "My app uses photos for mutating blue frogs";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "My app uses photos for mutating blue frogs";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;

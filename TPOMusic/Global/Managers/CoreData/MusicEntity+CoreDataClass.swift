@@ -21,13 +21,17 @@ public class MusicEntity: PlayListEntity {
                          artist: self.artist,
                          imageURL: self.imageURL,
                          url: self.url,
-                         playParameters: playParameters)
+                         playParameters: playParameters,
+                         previewURL: self.previewURL
+            )
         } catch {
             return Music(id: MusicItemID(self.id),
                          title: self.title,
                          artist: self.artist,
                          imageURL: self.imageURL,
-                         url: self.url)
+                         url: self.url,
+                         previewURL: self.previewURL
+            )
         }
 
 

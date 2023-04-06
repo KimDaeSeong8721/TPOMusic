@@ -100,6 +100,7 @@ extension SearchService {
         newMusicEntity.imageURL = music.imageURL
         newMusicEntity.artist = music.artist
         newMusicEntity.url = music.url
+        newMusicEntity.previewURL = music.previewURL
         do {
             let data = try PropertyListEncoder().encode(music.playParameters)
             newMusicEntity.playParameters = data

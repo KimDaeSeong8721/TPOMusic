@@ -5,6 +5,7 @@
 //  Created by DaeSeong on 2023/03/09.
 //
 
+import AVKit
 import UIKit
 
 @main
@@ -13,6 +14,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         MusicDataManager.shared.setup(modelName: "TPOMusic")
+        do {
+            // 화면이 꺼져도 음악이 재생되도록
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.soloAmbient)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+            // 무음 모드에서도 음악소리
+            try AVAudioSession.sharedInstance().setActive(true)
+            } catch {}
         return true
     }
 

@@ -23,6 +23,7 @@ extension MusicEntity {
     @NSManaged public var url: URL?
     @NSManaged public var playParameters: Data?
     @NSManaged public var playListEntity: PlayListEntity?
+    @NSManaged public var previewURL: URL?
 
 }
 

@@ -10,6 +10,7 @@ import UIKit
 import Photos
 
 import Screenshots
+import MusicKit
 
 private enum Size {
     static let tableViewRowHeight = 80.0
@@ -112,6 +113,10 @@ class SearchResultViewController: BaseViewController {
 
     let musics: [Music]
 
+    var audioPlayer: AVPlayer?
+
+    @Published var musicSubscription: MusicSubscription?
+
     // MARK: - Init
     init(with musics: [Music], searchText: String) {
         self.musics = musics
@@ -122,6 +127,9 @@ class SearchResultViewController: BaseViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    deinit {
+        print("소멸자")
+    }
 
     // MARK: - Life Cycle
     override func viewDidLoad() {
@@ -130,6 +138,7 @@ class SearchResultViewController: BaseViewController {
         setDelegation()
         setDataSource()
         updateDataSource(items: musics)
+        checkMusicSubscription()
     }
 
     override func render() {
@@ -156,14 +165,6 @@ class SearchResultViewController: BaseViewController {
             make.top.equalTo(dateLabel.snp.bottom).offset(12)
             make.leading.trailing.equalToSuperview().inset(Size.defaultOffset)
         }
-
-//        view.addSubview(createPlaylistButton)
-//        createPlaylistButton.snp.makeConstraints { make in
-//            make.top.equalTo(titleLabel.snp.bottom).offset(12)
-//            make.leading.equalToSuperview().offset(Size.defaultOffset)
-////            make.width.equalTo(165)
-//            make.height.equalTo(45)
-//        }
 
         view.addSubview(firstLabel)
         firstLabel.snp.makeConstraints { make in
@@ -224,10 +225,13 @@ class SearchResultViewController: BaseViewController {
 
     @objc func createPlayListButtonTapped() {
         setupLottieView(with: "플레이리스트 생성 중")
+
+        // TODO: - 추후 ViewModel로 코드 이동 예정
         let creationMetadata = MPMediaPlaylistCreationMetadata(name: titleLabel.text ?? "My Playlist")
         creationMetadata.authorDisplayName = "NowMusic"
         creationMetadata.descriptionText = "This playlist contains awesome songs!"
 
+        // FIXME: - 수정필요
         Task {
             let playListId = UUID()
             let playList = try await MPMediaLibrary.default().getPlaylist(with: playListId, creationMetadata: creationMetadata)
@@ -255,6 +259,7 @@ class SearchResultViewController: BaseViewController {
     @objc func screenshotButtonTapped() {
         let image =  musicTableView.screenshot
 
+        // TODO: - 추후 ViewModel로 코드 이동 예정
         if #available(iOS 14, *) {
             switch PHPhotoLibrary.authorizationStatus(for: .readWrite) {
             case .limited, .authorized:
@@ -300,7 +305,7 @@ class SearchResultViewController: BaseViewController {
     }
 
     private func showPermissionAlert() {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
             let alert = UIAlertController(title: nil, message: "사진 접근 권한이 없습니다. 설정으로 이동하여 권한 설정을 해주세요.".localized(), preferredStyle: .alert)
 
             alert.addAction(UIAlertAction(title: "확인".localized(), style: .default, handler: { _ in
@@ -308,7 +313,7 @@ class SearchResultViewController: BaseViewController {
             }))
             alert.addAction(UIAlertAction(title: "취소".localized(), style: .cancel, handler: nil))
 
-            self.present(alert, animated: true)
+            self?.present(alert, animated: true)
         }
     }
 
@@ -318,6 +323,33 @@ class SearchResultViewController: BaseViewController {
         myDateFormatter.locale = .autoupdatingCurrent
         dateLabel.text = myDateFormatter.string(from: creationDate)
     }
+
+    // TODO: - 추후 ViewModel로 코드 이동 예정
+    func checkMusicSubscription() {
+        Task {
+            for await subscription in MusicSubscription.subscriptionUpdates {
+                musicSubscription = subscription
+            }
+        }
+    }
+    // TODO: - 추후 ViewModel로 코드 이동 예정
+    func remoteCommandCenterSetting() {
+            UIApplication.shared.beginReceivingRemoteControlEvents()
+            let center = MPRemoteCommandCenter.shared()
+
+            // 제어 센터 재생버튼 누르면 발생할 이벤트를 정의합니다.
+            center.playCommand.addTarget { [weak self] _ -> MPRemoteCommandHandlerStatus in
+                self?.audioPlayer?.play()
+                return MPRemoteCommandHandlerStatus.success
+            }
+
+            // 제어 센터 pause 버튼 누르면 발생할 이벤트를 정의합니다.
+            center.pauseCommand.addTarget { [weak self] _ -> MPRemoteCommandHandlerStatus in
+                self?.audioPlayer?.pause()
+                return MPRemoteCommandHandlerStatus.success
+            }
+
+        }
 }
 
 // MARK: - UITableViewDelegate
@@ -327,13 +359,51 @@ extension SearchResultViewController: UITableViewDelegate {
 
         guard let music = dataSource.itemIdentifier(for: indexPath) else { return }
 
-        player.queue = [music]
-        Task {
-            do {
-                try await player.prepareToPlay()
-                beginPlaying()
-            } catch {
-                self.makeAlert(title: "실패".localized(), message: "재생할 수 없는 음악입니다.".localized())
+        if let musicIsSubscribed = musicSubscription?.canPlayCatalogContent, musicIsSubscribed {
+            player.queue = [music]
+            Task {
+                do {
+                    try await player.prepareToPlay()
+                    beginPlaying()
+                } catch {
+                    makeAlert(title: "실패".localized(), message: "재생할 수 없는 음악입니다.".localized())
+                }
+            }
+
+        } else {
+            if let url = music.previewURL {
+                // TODO: - 추후 ViewModel로 코드 이동 예정
+                
+ //             FIXME: - AVPlayer 구조적 변화 필요
+                let player = SoundManager.shared
+                player.setupSound(url: url)
+                player.playSound()
+                let center = MPNowPlayingInfoCenter.default()
+                var nowPlayingInfo = center.nowPlayingInfo ?? [String: Any]()
+
+                // FIXME: - 수정 필요
+                DispatchQueue.global().async {
+                    let data = try? Data(contentsOf: URL(string: music.imageURL)!)
+                    DispatchQueue.main.async { [weak self] in
+                        nowPlayingInfo[MPMediaItemPropertyTitle] = music.title
+                        nowPlayingInfo[MPMediaItemPropertyArtist] = music.artist
+                        let image = UIImage(data: data ?? Data())
+
+                        nowPlayingInfo[MPMediaItemPropertyArtwork] = MPMediaItemArtwork(boundsSize: image?.size ?? .zero, requestHandler: { _ in
+                            return image ?? UIImage()
+                               })
+                        nowPlayingInfo[MPMediaItemPropertyPlaybackDuration] = self?.audioPlayer?.currentItem?.duration // FIXME: - 음악시간이 0으로 나오는 문제
+                        nowPlayingInfo[MPNowPlayingInfoPropertyPlaybackRate] = self?.audioPlayer?.rate
+                        nowPlayingInfo[MPNowPlayingInfoPropertyElapsedPlaybackTime] = self?.audioPlayer?.currentTime()
+
+                        center.nowPlayingInfo = nowPlayingInfo
+                        self?.remoteCommandCenterSetting()
+                    }
+                }
+
+
+
+
             }
         }
     }

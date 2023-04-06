@@ -15,6 +15,7 @@ struct Music: Identifiable, Hashable, PlayableMusicItem {
     let imageURL: String
     let url: URL?
     var playParameters: PlayParameters?
+    var previewURL: URL?
 }
 
 extension Music {

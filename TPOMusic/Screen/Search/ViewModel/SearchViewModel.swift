@@ -24,6 +24,8 @@ class SearchViewModel {
 
     @Published var searchState: Bool = false
 
+    @Published var musicSubscription: MusicSubscription?
+
     // MARK: - Init
     init(_ searchService: SearchServiceProtocol) {
         self.searchService = searchService
@@ -72,6 +74,7 @@ class SearchViewModel {
             }
         }
     }
+
     func fetchMusics(titles: [String]) async {
         Task {
             switch status {
@@ -91,7 +94,8 @@ class SearchViewModel {
                                                               artist: song.artistName,
                                                               imageURL: song.artwork?.url(width: 340, height: 340)?.absoluteString ?? "",
                                                               url: song.url,
-                                                              playParameters: playParameters)
+                                                              playParameters: playParameters,
+                                                              previewURL: song.previewAssets?.first?.url)
                                         tempList.append(tempMusic)
                                     }
                                 }
@@ -113,6 +117,14 @@ class SearchViewModel {
             }
         }
 
+    }
+
+    func checkMusicSubscription() {
+        Task {
+            for await subscription in MusicSubscription.subscriptionUpdates {
+                musicSubscription = subscription
+            }
+        }
     }
 
 }

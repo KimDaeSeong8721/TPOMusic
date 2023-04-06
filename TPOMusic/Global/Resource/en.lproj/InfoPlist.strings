@@ -6,3 +6,5 @@
   
 */
 "CFBundleDisplayName" = "NowMusic";
+
+"NSAppleMusicUsageDescription" = "In order to use the function of providing recommended music information and adding playlists, the consent of the Apple Music user to access music activities and media storage is required. You can change this in settings";
