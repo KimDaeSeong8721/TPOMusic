@@ -162,8 +162,6 @@ final class HistoryCollectionViewCell: UICollectionViewCell {
             artists += music.artist + ", "
         }
         subLabel.text = artists
-        print("\(playList.imageURL) 입니다")
-        print("\(playList.musicList) 입니다")
 
         for (index, imageView) in [firstImageView,
                   secondImageView,

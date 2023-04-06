@@ -15,7 +15,6 @@
 		3579917529DB25D400C590DA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3579917729DB25D400C590DA /* Localizable.strings */; };
 		35ADB25E29B9859100005BE0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB25D29B9859100005BE0 /* AppDelegate.swift */; };
 		35ADB26029B9859100005BE0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB25F29B9859100005BE0 /* SceneDelegate.swift */; };
-		35ADB26229B9859100005BE0 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB26129B9859100005BE0 /* SignInViewController.swift */; };
 		35ADB26529B9859100005BE0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35ADB26329B9859100005BE0 /* Main.storyboard */; };
 		35ADB26729B9859200005BE0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 35ADB26629B9859200005BE0 /* Assets.xcassets */; };
 		35ADB26A29B9859200005BE0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 35ADB26829B9859200005BE0 /* LaunchScreen.storyboard */; };
@@ -34,7 +33,6 @@
 		35ADB2A029B9DF0700005BE0 /* ImageLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB29F29B9DF0700005BE0 /* ImageLiteral.swift */; };
 		35ADB2A229B9E3A800005BE0 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB2A129B9E3A800005BE0 /* HomeViewController.swift */; };
 		35ADB2A429BAA4EC00005BE0 /* SearchBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB2A329BAA4EC00005BE0 /* SearchBarView.swift */; };
-		35ADB2A629BAFB3D00005BE0 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB2A529BAFB3D00005BE0 /* SearchViewController.swift */; };
 		35ADB2A929BB036000005BE0 /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB2A829BB036000005BE0 /* BackButton.swift */; };
 		35ADB2AD29BB29C400005BE0 /* MusicTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB2AC29BB29C400005BE0 /* MusicTableViewCell.swift */; };
 		35ADB2AF29BB2AD800005BE0 /* Music.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35ADB2AE29BB2AD800005BE0 /* Music.swift */; };
@@ -76,7 +74,6 @@
 		35ADB25A29B9859100005BE0 /* TPOMusic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TPOMusic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		35ADB25D29B9859100005BE0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		35ADB25F29B9859100005BE0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		35ADB26129B9859100005BE0 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		35ADB26429B9859100005BE0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		35ADB26629B9859200005BE0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		35ADB26929B9859200005BE0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -96,7 +93,6 @@
 		35ADB29F29B9DF0700005BE0 /* ImageLiteral.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageLiteral.swift; sourceTree = "<group>"; };
 		35ADB2A129B9E3A800005BE0 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		35ADB2A329BAA4EC00005BE0 /* SearchBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchBarView.swift; sourceTree = "<group>"; };
-		35ADB2A529BAFB3D00005BE0 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		35ADB2A829BB036000005BE0 /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
 		35ADB2AC29BB29C400005BE0 /* MusicTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MusicTableViewCell.swift; sourceTree = "<group>"; };
 		35ADB2AE29BB2AD800005BE0 /* Music.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Music.swift; sourceTree = "<group>"; };
@@ -247,7 +243,6 @@
 			children = (
 				35ADB2B929BD827500005BE0 /* Home */,
 				35ADB2BA29BD828400005BE0 /* Search */,
-				35ADB26129B9859100005BE0 /* SignInViewController.swift */,
 			);
 			path = Screen;
 			sourceTree = "<group>";
@@ -297,7 +292,6 @@
 			children = (
 				35ADB2CF29BD8F2B00005BE0 /* ViewModel */,
 				35ADB2BB29BD829800005BE0 /* View */,
-				35ADB2A529BAFB3D00005BE0 /* SearchViewController.swift */,
 				35BCA58629D1F9A50054EED6 /* SearchResultViewController.swift */,
 			);
 			path = Search;
@@ -555,10 +549,8 @@
 				35ADB2D929BDB50D00005BE0 /* APIService.swift in Sources */,
 				35ADB28629B9D59400005BE0 /* UICollectionView+Extension.swift in Sources */,
 				35ADB2E329C423A700005BE0 /* CoreDataManager.swift in Sources */,
-				35ADB26229B9859100005BE0 /* SignInViewController.swift in Sources */,
 				35ADB2D129BD8F3A00005BE0 /* SearchViewModel.swift in Sources */,
 				35ADB2D729BDB48100005BE0 /* SearchRepository.swift in Sources */,
-				35ADB2A629BAFB3D00005BE0 /* SearchViewController.swift in Sources */,
 				35F7CA1229DF071C002F5677 /* SoundManager.swift in Sources */,
 				35ADB2A029B9DF0700005BE0 /* ImageLiteral.swift in Sources */,
 				35ADB2C629BD8DF200005BE0 /* SearchEndPoint.swift in Sources */,

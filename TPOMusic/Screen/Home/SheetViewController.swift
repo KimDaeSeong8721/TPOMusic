@@ -146,7 +146,6 @@ class SheetViewController<Content: UIViewController, BottomSheet: UIViewControll
             }) || vc.playListCollectionView.indexPathsForVisibleItems.isEmpty) else {
                 vc.playListCollectionView.isUserInteractionEnabled = false
                 return } //
-            print(translation.y)
             let topConstraint = -(configuration.height - yTranslationMagnitude)
             changeTopConstraint(to: topConstraint)
             

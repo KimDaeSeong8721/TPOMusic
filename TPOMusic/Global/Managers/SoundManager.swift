@@ -23,7 +23,6 @@ class SoundManager {
 
     func setupSound(url: URL) {
         player = AVPlayer(url: url)
-        player?.automaticallyWaitsToMinimizeStalling
     }
 
     func playSound() {
