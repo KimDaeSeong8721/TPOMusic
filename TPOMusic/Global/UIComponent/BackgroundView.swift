@@ -8,7 +8,7 @@
 import UIKit
 
 import Lottie
-
+import SnapKit
 
 private enum Size {
     static let titleLabelTopOffset = UIScreen.main.bounds.height / 3.5914
