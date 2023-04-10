@@ -6,9 +6,9 @@
 //
 //
 
-import Foundation
 import CoreData
 import MusicKit
+import UIKit
 
 @objc(MusicEntity)
 public class MusicEntity: PlayListEntity {
@@ -22,16 +22,16 @@ public class MusicEntity: PlayListEntity {
                          imageURL: self.imageURL,
                          url: self.url,
                          playParameters: playParameters,
-                         previewURL: self.previewURL
-            )
+                         previewURL: self.previewURL,
+                         backgroundColor: UIColor.color(data: self.backgroundColor ?? Data()) ?? .systemGray5)
         } catch {
             return Music(id: MusicItemID(self.id),
                          title: self.title,
                          artist: self.artist,
                          imageURL: self.imageURL,
                          url: self.url,
-                         previewURL: self.previewURL
-            )
+                         previewURL: self.previewURL,
+                         backgroundColor: UIColor.color(data: self.backgroundColor ?? Data()) ?? .systemGray5)
         }
 
 

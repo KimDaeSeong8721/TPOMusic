@@ -24,6 +24,8 @@ extension MusicEntity {
     @NSManaged public var playParameters: Data?
     @NSManaged public var playListEntity: PlayListEntity?
     @NSManaged public var previewURL: URL?
+    @NSManaged public var backgroundColor: Data?
+
 
 }
 
