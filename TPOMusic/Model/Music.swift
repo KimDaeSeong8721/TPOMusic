@@ -5,7 +5,7 @@
 //  Created by DaeSeong on 2023/03/10.
 //
 
-import Foundation
+import UIKit
 import MusicKit
 
 struct Music: Identifiable, Hashable, PlayableMusicItem {
@@ -16,6 +16,7 @@ struct Music: Identifiable, Hashable, PlayableMusicItem {
     let url: URL?
     var playParameters: PlayParameters?
     var previewURL: URL?
+    var backgroundColor: UIColor
 }
 
 extension Music {

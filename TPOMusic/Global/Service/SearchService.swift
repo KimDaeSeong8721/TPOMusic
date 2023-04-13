@@ -101,6 +101,7 @@ extension SearchService {
         newMusicEntity.artist = music.artist
         newMusicEntity.url = music.url
         newMusicEntity.previewURL = music.previewURL
+        newMusicEntity.backgroundColor = music.backgroundColor.encode()
         do {
             let data = try PropertyListEncoder().encode(music.playParameters)
             newMusicEntity.playParameters = data

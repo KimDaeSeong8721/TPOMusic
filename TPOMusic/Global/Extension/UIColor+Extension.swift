@@ -35,3 +35,13 @@ extension UIColor {
                   blue: CGFloat(rgbValue & 0x0000FF) / 255.0, alpha: alpha)
     }
 }
+
+extension UIColor {
+     class func color(data:Data) -> UIColor? {
+          return try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? UIColor
+     }
+
+     func encode() -> Data? {
+          return try? NSKeyedArchiver.archivedData(withRootObject: self, requiringSecureCoding: false)
+     }
+}
