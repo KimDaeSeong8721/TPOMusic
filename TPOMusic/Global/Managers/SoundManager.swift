@@ -90,7 +90,6 @@ class SoundManager {
 extension SoundManager {
     func playTrack() {
         if playerItems.count > 0 {
-            avQueuePlayer?.currentItem?.seek(to: CMTime(value: .zero, timescale: 1))
             avQueuePlayer?.replaceCurrentItem(with: playerItems[playerIndex])
             avQueuePlayer?.play()
         }

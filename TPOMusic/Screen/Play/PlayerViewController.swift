@@ -259,7 +259,6 @@ class PlayerViewController: BaseViewController {
     }
 
     private func setNotification() {
-
         NotificationCenter.default.publisher(for: Notification.Name.AVPlayerItemDidPlayToEndTime)
             .sink { [weak self] _ in
                 NotificationCenter.default.post(name: NSNotification.Name("forwardButtonTapped"), object: nil)
@@ -341,14 +340,15 @@ class PlayerViewController: BaseViewController {
             if soundManager.avQueuePlayer != nil {
                 playingState = .pause
             }
+            playButton.isSelected = true
         } else {
             makeAndFireTimer()
             soundManager.playPlayer()
             if soundManager.avQueuePlayer != nil {
                 playingState = .playing
             }
+            playButton.isSelected = false
         }
-        playButton.isSelected.toggle()
     }
 
     @objc func backwardButtonTapped() {

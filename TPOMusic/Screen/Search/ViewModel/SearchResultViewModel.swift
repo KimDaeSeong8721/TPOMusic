@@ -39,7 +39,7 @@ final class SearchResultViewModel {
         soundManager.applicationPlayer.setQueue(with: descriptor)
 
         guard let avQueuePlayer = soundManager.avQueuePlayer else { return }
-
+        soundManager.playerItems.removeAll()
         musics.forEach({
             if let url = $0.previewURL {
                 soundManager.playerItems.append(AVPlayerItem(url: url))

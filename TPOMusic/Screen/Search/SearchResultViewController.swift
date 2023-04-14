@@ -241,7 +241,7 @@ final class SearchResultViewController: BaseViewController, ViewModelBindableTyp
                         }
                     }
                 } else {
-                    // TODO: - 개발 예정
+                    SoundManager.shared.avQueuePlayer?.currentItem?.seek(to: CMTime(value: .zero, timescale: 1))
                     self?.viewModel.playAVPlayer()
                 }
             } else {
@@ -271,6 +271,7 @@ final class SearchResultViewController: BaseViewController, ViewModelBindableTyp
                         }
                     }
                 } else {
+                    SoundManager.shared.avQueuePlayer?.currentItem?.seek(to: CMTime(value: .zero, timescale: 1))
                     self?.viewModel.playAVPlayer()
                 }
 
