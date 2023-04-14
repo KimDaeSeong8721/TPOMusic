@@ -53,7 +53,10 @@ class MusicTableViewCell: UITableViewCell {
         button.backgroundColor = .black
         button.titleLabel?.font = .semiBoldSubheadline
         button.layer.cornerRadius = 11.5
-        button.contentEdgeInsets = .init(top: .zero, left: 5, bottom: .zero, right: 5)
+        button.contentEdgeInsets = .init(top: .zero,
+                                         left: 5,
+                                         bottom: .zero,
+                                         right: 5)
         button.addTarget(self, action: #selector(appleMusicButtonTapped), for: .touchUpInside)
         return button
     }()

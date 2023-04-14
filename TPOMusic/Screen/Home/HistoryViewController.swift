@@ -146,7 +146,8 @@ final class HistoryViewController: BaseViewController, ViewModelBindableType {
 extension HistoryViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let playList = dataSource.itemIdentifier(for: indexPath) else { return }
-        let searchResultViewController = SearchResultViewController(with: playList.musicList, searchText: playList.name)
+        var searchResultViewController = SearchResultViewController(searchText: playList.name)
+        searchResultViewController.bindViewModel(SearchResultViewModel(with: playList.musicList))
         searchResultViewController.configure(creationDate: playList.date)
         searchResultViewController.modalPresentationStyle = .fullScreen
         present(searchResultViewController, animated: true)

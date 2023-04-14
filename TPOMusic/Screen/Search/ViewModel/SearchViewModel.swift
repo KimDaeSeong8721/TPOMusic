@@ -63,9 +63,9 @@ class SearchViewModel {
 //            print(String(format: "%@ 노래 알려줘. 노래제목 - 아티스트 형식으로".localized(), searchText))
             let chatGPT = try await searchService.fetchChatGPT(messages: [ChatMessage(role: .user, content:
                                                                                         String(format: "%@ 노래 알려줘. 노래제목 - 아티스트 형식으로".localized(), searchText)
-                                                                                        )], maxTokens: 300)
+                                                                                        )], maxTokens: 200)
             let titles = chatGPT?.choices.first?.message.content.musicTitles
-//            print(titles)
+            print(chatGPT?.choices.first?.message.content.musicTitles)
             if let titles, !titles.isEmpty {
                 searchState = true
                 await fetchMusics(titles: titles)
@@ -95,7 +95,9 @@ class SearchViewModel {
                                                               imageURL: song.artwork?.url(width: 340, height: 340)?.absoluteString ?? "",
                                                               url: song.url,
                                                               playParameters: playParameters,
-                                                              previewURL: song.previewAssets?.first?.url)
+                                                              previewURL: song.previewAssets?.first?.url,
+                                                              backgroundColor: UIColor(cgColor: song.artwork?.backgroundColor ?? .init(red: 1, green: 1, blue: 1, alpha: 1)))
+                                        
                                         tempList.append(tempMusic)
                                     }
                                 }

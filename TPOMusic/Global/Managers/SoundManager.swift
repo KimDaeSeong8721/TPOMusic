@@ -14,20 +14,32 @@ class SoundManager {
     // MARK: - Properties
 
     static let shared = SoundManager()
-    var avPlayer: AVPlayer?
+    //    var avPlayer: AVPlayer?
 
-    var avQueuePlayer: AVQueuePlayer?
+    var avQueuePlayer: AVPlayer?
 
-    let applicationPlayer =  ApplicationMusicPlayer.shared
+    var playerItems = [AVPlayerItem]()
+    var currentTrack = 0
 
-    var playerIndexPath: IndexPath?
+    let applicationPlayer =  MPMusicPlayerController.applicationQueuePlayer
 
-    public var totalDuration: CMTime? {
-        return avQueuePlayer?.currentItem?.asset.duration
+
+    var playerIndex: Int = 0
+
+    public var totalDuration: TimeInterval? {
+        if avQueuePlayer == nil {
+            return applicationPlayer.nowPlayingItem?.playbackDuration
+        } else {
+            return 30.0
+        }
     }
 
-    public var currentTime: CMTime? {
-        return avQueuePlayer?.currentTime()
+    public var currentTime: TimeInterval? {
+        if avQueuePlayer == nil {
+            return applicationPlayer.currentPlaybackTime
+        } else {
+            return avQueuePlayer?.currentTime().seconds
+        }
     }
     // MARK: - Init
 
@@ -35,51 +47,52 @@ class SoundManager {
 
     // MARK: - Func
     // MARK: - AVPlayer
-    func setupAVPlayer(url: URL) {
-        avPlayer = nil
-        avPlayer = AVPlayer(url: url)
-
-    }
-
-    func playAVPlayer() {
-        if let avPlayer {
-            avPlayer.play()
+    func setupAVPlayer() {
+        if avQueuePlayer == nil {
+            avQueuePlayer = AVPlayer()
         }
     }
 
-    func pauseAVPlayer() {
-        if let avPlayer {
-            avPlayer.pause()
+    func playPlayer() {
+        if avQueuePlayer != nil {
+            playTrack()
+        } else {
+            applicationPlayer.play()
+        }
+    }
+
+    func pausePlayer() {
+        if let avQueuePlayer {
+            avQueuePlayer.pause()
+        } else {
+            applicationPlayer.pause()
         }
     }
     // MARK: - ApplicationPlayer
-    func playApplicationPlayer() throws {
-        Task {
-                try await applicationPlayer.play()
+
+    func backwardPlayer() {
+        if avQueuePlayer != nil {
+            NotificationCenter.default.post(name: NSNotification.Name("backwardButtonTapped"), object: nil)
+        } else {
+            applicationPlayer.skipToPreviousItem()
         }
     }
 
-    func pauseApplicationPlayer() {
-            applicationPlayer.pause()
-    }
-
-    func backwardApplicationPlayer() {
-        Task {
-            do {
-                try await applicationPlayer.skipToPreviousEntry()
-            } catch {
-                print("Failed to prepare to play with error: \(error).")
-            }
+    func forwardPlayer() {
+        if avQueuePlayer != nil {
+            NotificationCenter.default.post(name: NSNotification.Name("forwardButtonTapped"), object: nil)
+        } else {
+            applicationPlayer.skipToNextItem()
         }
     }
+}
 
-    func forwardApplicationPlayer() {
-        Task {
-            do {
-                try await applicationPlayer.skipToNextEntry()
-            } catch {
-                print("Failed to prepare to play with error: \(error).")
-            }
+extension SoundManager {
+    func playTrack() {
+        if playerItems.count > 0 {
+            avQueuePlayer?.currentItem?.seek(to: CMTime(value: .zero, timescale: 1))
+            avQueuePlayer?.replaceCurrentItem(with: playerItems[playerIndex])
+            avQueuePlayer?.play()
         }
     }
 }

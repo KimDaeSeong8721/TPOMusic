@@ -31,16 +31,6 @@ class BaseViewController: UIViewController {
     }
 
     // MARK: - Func
-    func beginPlaying() {
-        Task {
-            do {
-                try await player.play()
-            } catch {
-                print("Failed to prepare to play with error: \(error).")
-            }
-        }
-    }
-
     func setupLottieView(with title: String = "") {
         if let superview = view.superview {
             superview.addSubview(backgroundView)

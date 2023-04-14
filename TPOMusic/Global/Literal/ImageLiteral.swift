@@ -22,6 +22,12 @@ enum ImageLiteral {
     static var editButton: UIImage { .load(systemName: "ellipsis.circle")}
     static var trash: UIImage { .load(systemName: "trash")}
 
+    static var backward: UIImage { .load(systemName: "backward.fill")}
+    static var forward: UIImage { .load(systemName: "forward.fill")}
+    static var play: UIImage { .load(systemName: "play.fill")}
+    static var pause: UIImage { .load(systemName: "pause.fill")}
+
+
 
 }
 

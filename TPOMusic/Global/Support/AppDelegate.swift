@@ -16,10 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MusicDataManager.shared.setup(modelName: "TPOMusic")
         do {
             // 화면이 꺼져도 음악이 재생되도록
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.soloAmbient)
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+//            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.ambient)
+//            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
             // 무음 모드에서도 음악소리
-            try AVAudioSession.sharedInstance().setActive(true)
+//            try AVAudioSession.sharedInstance().setActive(true)
             } catch {}
         return true
     }
