@@ -13,7 +13,7 @@ import SnapKit
 private enum Size {
     static let titleLabelTopOffset = UIScreen.main.bounds.height / 3.5914
     static let cancelButtonBottomOffset = UIScreen.main.bounds.height / 4.1576
-
+    static let lottie = UIScreen.main.bounds.height / 2.8133
 }
 final class BackgroundView: UIView {
 
@@ -35,12 +35,12 @@ final class BackgroundView: UIView {
         return label
     }()
 
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.clipsToBounds = true
-        imageView.image = ImageLiteral.character
-        return imageView
-    }()
+//    private let imageView: UIImageView = {
+//        let imageView = UIImageView()
+//        imageView.clipsToBounds = true
+//        imageView.image = ImageLiteral.character
+//        return imageView
+//    }()
 
     private lazy var cancelButton: UIButton = {
         let button = UIButton()
@@ -61,7 +61,8 @@ final class BackgroundView: UIView {
     }()
 
     private var lottieView: LottieAnimationView = {
-        let view = LottieAnimationView(name: "dots")
+        let view = LottieAnimationView(name: "nowMusic")
+        view.contentMode = .scaleAspectFit
         return view
     }()
 
@@ -91,17 +92,17 @@ final class BackgroundView: UIView {
             make.top.equalTo(titleLabel.snp.bottom).offset(24)
         }
         
-        self.addSubview(imageView)
-        imageView.snp.makeConstraints { make in
-            make.centerX.equalToSuperview()
-            make.top.equalTo(subTitleLabel.snp.bottom).offset(24)
-        }
+//        self.addSubview(imageView)
+//        imageView.snp.makeConstraints { make in
+//            make.centerX.equalToSuperview()
+//            make.top.equalTo(subTitleLabel.snp.bottom).offset(24)
+//        }
 
         self.addSubview(lottieView)
         lottieView.snp.makeConstraints { make in
             make.centerX.equalToSuperview()
-            make.top.equalTo(imageView.snp.bottom)
-            make.size.equalTo(150)
+            make.top.equalTo(subTitleLabel.snp.bottom).offset(-30)
+            make.size.equalTo(Size.lottie)
         }
         
         self.addSubview(cancelButton)
