@@ -105,7 +105,7 @@ class MusicTableViewCell: UITableViewCell {
 
     }
 
-    func configure(with music: Music) {
+    func configure(with music: Music, musicButtonIsHidden: Bool = false) {
         self.music = music
         let url = URL(string: music.imageURL)
 
@@ -114,6 +114,7 @@ class MusicTableViewCell: UITableViewCell {
 
         titleLabel.text = music.title
         subtitleLabel.text = music.artist
+        appleMusicButton.isHidden = musicButtonIsHidden
     }
 
     @objc func appleMusicButtonTapped() {

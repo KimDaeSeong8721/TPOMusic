@@ -67,6 +67,9 @@
 		35F7CA1229DF071C002F5677 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35F7CA1129DF071C002F5677 /* SoundManager.swift */; };
 		35FFD40F29E85B9E0082EE99 /* CustomSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FFD40E29E85B9E0082EE99 /* CustomSlider.swift */; };
 		35FFD41C29EA83F20082EE99 /* nowMusic.json in Resources */ = {isa = PBXBuildFile; fileRef = 35FFD41B29EA83F20082EE99 /* nowMusic.json */; };
+		35FFD41F29ED74120082EE99 /* PlayListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FFD41E29ED74120082EE99 /* PlayListViewController.swift */; };
+		35FFD42229ED75EB0082EE99 /* PlayListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FFD42129ED75EB0082EE99 /* PlayListViewModel.swift */; };
+		35FFD42429ED7C0A0082EE99 /* CustomDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 35FFD42329ED7C0A0082EE99 /* CustomDiffableDataSource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -131,6 +134,9 @@
 		35F7CA1129DF071C002F5677 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
 		35FFD40E29E85B9E0082EE99 /* CustomSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSlider.swift; sourceTree = "<group>"; };
 		35FFD41B29EA83F20082EE99 /* nowMusic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = nowMusic.json; sourceTree = "<group>"; };
+		35FFD41E29ED74120082EE99 /* PlayListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayListViewController.swift; sourceTree = "<group>"; };
+		35FFD42129ED75EB0082EE99 /* PlayListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayListViewModel.swift; sourceTree = "<group>"; };
+		35FFD42329ED7C0A0082EE99 /* CustomDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomDiffableDataSource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -260,6 +266,7 @@
 		35ADB29129B9D6DF00005BE0 /* Screen */ = {
 			isa = PBXGroup;
 			children = (
+				35FFD41D29ED74010082EE99 /* PlayList */,
 				352E4CDC29E0FC8D00245798 /* Play */,
 				35ADB2B929BD827500005BE0 /* Home */,
 				35ADB2BA29BD828400005BE0 /* Search */,
@@ -291,6 +298,7 @@
 			children = (
 				35ADB2A829BB036000005BE0 /* BackButton.swift */,
 				35BCA58E29D2ED720054EED6 /* BackgroundView.swift */,
+				35FFD42329ED7C0A0082EE99 /* CustomDiffableDataSource.swift */,
 			);
 			path = UIComponent;
 			sourceTree = "<group>";
@@ -453,6 +461,23 @@
 			path = Lottie;
 			sourceTree = "<group>";
 		};
+		35FFD41D29ED74010082EE99 /* PlayList */ = {
+			isa = PBXGroup;
+			children = (
+				35FFD42029ED75D90082EE99 /* ViewModel */,
+				35FFD41E29ED74120082EE99 /* PlayListViewController.swift */,
+			);
+			path = PlayList;
+			sourceTree = "<group>";
+		};
+		35FFD42029ED75D90082EE99 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				35FFD42129ED75EB0082EE99 /* PlayListViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -573,6 +598,7 @@
 				35ADB2E429C423A700005BE0 /* MusicDataManager.swift in Sources */,
 				35ADB2D929BDB50D00005BE0 /* APIService.swift in Sources */,
 				35ADB28629B9D59400005BE0 /* UICollectionView+Extension.swift in Sources */,
+				35FFD41F29ED74120082EE99 /* PlayListViewController.swift in Sources */,
 				35ADB2E329C423A700005BE0 /* CoreDataManager.swift in Sources */,
 				35ADB2D129BD8F3A00005BE0 /* SearchViewModel.swift in Sources */,
 				35ADB2D729BDB48100005BE0 /* SearchRepository.swift in Sources */,
@@ -585,12 +611,14 @@
 				35ADB25E29B9859100005BE0 /* AppDelegate.swift in Sources */,
 				35ADB2A229B9E3A800005BE0 /* HomeViewController.swift in Sources */,
 				35ADB26029B9859100005BE0 /* SceneDelegate.swift in Sources */,
+				35FFD42229ED75EB0082EE99 /* PlayListViewModel.swift in Sources */,
 				35ADB2DF29BE058D00005BE0 /* PlayList.swift in Sources */,
 				35ADB28029B9D58000005BE0 /* UIColor+Extension.swift in Sources */,
 				35BCA58729D1F9A50054EED6 /* SearchResultViewController.swift in Sources */,
 				35ADB28129B9D58000005BE0 /* UIViewController+Extension.swift in Sources */,
 				35ADB2E929C4246E00005BE0 /* TPOMusic.xcdatamodeld in Sources */,
 				35138D9429CB3184006586AB /* MusicEntity+CoreDataClass.swift in Sources */,
+				35FFD42429ED7C0A0082EE99 /* CustomDiffableDataSource.swift in Sources */,
 				35ADB2CC29BD8E6500005BE0 /* NetworkRequest.swift in Sources */,
 				35ADB2AF29BB2AD800005BE0 /* Music.swift in Sources */,
 				35ADB27F29B9D58000005BE0 /* UIFont+Extension.swift in Sources */,

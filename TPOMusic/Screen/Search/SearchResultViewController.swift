@@ -18,7 +18,7 @@ private enum Size {
     static let defaultOffset = 23.0
 }
 
-private enum SearchResultSection {
+enum SearchResultSection {
     case resultList
 }
 
@@ -356,18 +356,20 @@ final class SearchResultViewController: BaseViewController, ViewModelBindableTyp
     }
 
     @objc func createPlayListButtonTapped() {
-        setupLottieView(with: "플레이리스트 생성 중")
-        Task {
-            await viewModel.createPlaylist(title: titleLabel.text)
-
-            guard let musicURL = URL(string: "music://music.apple.com/library") else { return }
-            if UIApplication.shared.canOpenURL(musicURL) {
-                await UIApplication.shared.open(musicURL)
-            } else {
-                await UIApplication.shared.open(URL(string: "music://music.apple.com")!)
-            }
-            stopLottieAnimation()
-        }
+//        setupLottieView(with: "플레이리스트 생성 중")
+        let playListViewController = PlayListViewController(musics: viewModel.musics)
+        present(playListViewController, animated: true)
+//        Task {
+//            await viewModel.createPlaylist(title: titleLabel.text)
+//
+//            guard let musicURL = URL(string: "music://music.apple.com/library") else { return }
+//            if UIApplication.shared.canOpenURL(musicURL) {
+//                await UIApplication.shared.open(musicURL)
+//            } else {
+//                await UIApplication.shared.open(URL(string: "music://music.apple.com")!)
+//            }
+//            stopLottieAnimation()
+//        }
     }
 
     @objc func screenshotButtonTapped() {

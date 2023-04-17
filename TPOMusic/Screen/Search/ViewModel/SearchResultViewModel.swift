@@ -67,6 +67,7 @@ final class SearchResultViewModel {
         }
         dispatchGroup.wait()
     }
+    
     func checkMusicSubscription() {
         Task {
             for await subscription in MusicSubscription.subscriptionUpdates {
