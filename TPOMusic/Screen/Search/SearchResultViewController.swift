@@ -430,6 +430,7 @@ extension SearchResultViewController: UITableViewDelegate {
             }
         } else {
             // 구독이 아니라면 AVPlayer 사용
+            SoundManager.shared.setupAVPlayer()
             viewModel.setPlayerQueue(with: music) // 수정 필요?
             if let url = music.previewURL {
                 viewModel.setPlayerIndex(index: indexPath.row)
