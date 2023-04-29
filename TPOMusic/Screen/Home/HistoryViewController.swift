@@ -7,8 +7,8 @@
 
 import UIKit
 
-enum ContentSection {
-    case historyList
+struct ContentSection: Hashable {
+    let historyDate: String
 }
 
 final class HistoryViewController: BaseViewController, ViewModelBindableType {
@@ -40,6 +40,7 @@ final class HistoryViewController: BaseViewController, ViewModelBindableType {
         collectionView.register(cell: HistoryCollectionViewCell.self)
         collectionView.showsVerticalScrollIndicator = false
         collectionView.isUserInteractionEnabled = false
+        collectionView.register(SectionHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "header")
         return collectionView
     }()
 
@@ -127,23 +128,61 @@ final class HistoryViewController: BaseViewController, ViewModelBindableType {
     }
 
     private func setDataSource() {
-        dataSource = UICollectionViewDiffableDataSource<ContentSection, PlayList>(collectionView: playListCollectionView, cellProvider: { collectionView, indexPath, playList -> UICollectionViewCell? in
+        dataSource = CustomCollectionViewDiffableDataSource(collectionView: playListCollectionView, cellProvider: { collectionView, indexPath, playList -> UICollectionViewCell? in
             let cell = collectionView.dequeueReusableCell(withType: HistoryCollectionViewCell.self, for: indexPath)
             cell.configure(with: playList)
             return cell
         })
     }
 
-    private func updateDataSource(items: [PlayList], animated: Bool = false, completion: (() -> Void)? = nil) {
+    private func updateDataSource(items: [PlayList], animated: Bool = false) {
         var snapshot = NSDiffableDataSourceSnapshot<ContentSection, PlayList>()
-        snapshot.appendSections([.historyList])
-        snapshot.appendItems(items)
-        dataSource.apply(snapshot, animatingDifferences: animated, completion: completion)
+
+        // TODO: - 리팩토링
+        let myDateFormatter = DateFormatter()
+        myDateFormatter.dateFormat = "yy. MM. dd"
+        myDateFormatter.locale = .autoupdatingCurrent
+
+        var dateList = Set<String>()
+
+        items.forEach { playlist in
+            let dateString = myDateFormatter.string(from: playlist.date)
+            dateList.insert(dateString)
+        }
+
+        let orderedDateList = Array(dateList).sorted { date1, date2 in
+            date1 > date2
+        }
+
+        var dict: [ContentSection: [PlayList]] = [:]
+
+        let sections = orderedDateList.map { date in
+            let section = ContentSection(historyDate: date)
+            dict[section] = []
+            return section
+        }
+
+        items.forEach { playlist in
+            let playlistDate = myDateFormatter.string(from: playlist.date)
+            let section = sections.filter { playlistDate == $0.historyDate }.first!
+            dict[section]?.insert(playlist, at: .zero)
+        }
+        snapshot.appendSections(sections)
+        for (section, playlists) in dict {
+            snapshot.appendItems(playlists, toSection: section)
+        }
+
+        dataSource.apply(snapshot, animatingDifferences: animated)
     }
 }
 
     // MARK: - UICollectionViewDelegate
 extension HistoryViewController: UICollectionViewDelegate {
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: collectionView.frame.width, height: 40)
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         guard let playList = dataSource.itemIdentifier(for: indexPath) else { return }
         var searchResultViewController = SearchResultViewController(searchText: playList.name)
@@ -169,7 +208,7 @@ extension HistoryViewController: UICollectionViewDelegate {
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
-extension HistoryViewController: UICollectionViewDelegateFlowLayout{
+extension HistoryViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: collectionView.frame.width, height: 100)
     }

@@ -142,7 +142,7 @@ class SheetViewController<Content: UIViewController, BottomSheet: UIViewControll
         let yTranslationMagnitude = translation.y.magnitude
         switch ([sender.state], self.state) {
         case ([.changed], .full):
-            guard translation.y > 0, (vc.playListCollectionView.indexPathsForVisibleItems.contains(where: { $0.item == .zero
+            guard translation.y > 0, (vc.playListCollectionView.indexPathsForVisibleItems.contains(where: { $0.item == .zero && $0.section == .zero
             }) || vc.playListCollectionView.indexPathsForVisibleItems.isEmpty) else {
                 vc.playListCollectionView.isUserInteractionEnabled = false
                 return } //
@@ -161,7 +161,7 @@ class SheetViewController<Content: UIViewController, BottomSheet: UIViewControll
             
         case ([.ended], .full):
             let shouldHideSheet = (yTranslationMagnitude >= configuration.height / 2 && velocity.y > 0) || (velocity.y > 1000
-                                                                                        && vc.playListCollectionView.indexPathsForVisibleItems.first?.item == .zero
+                                                                                        && vc.playListCollectionView.indexPathsForVisibleItems.first?.item == .zero && vc.playListCollectionView.indexPathsForVisibleItems.first?.section == .zero
             )
             shouldHideSheet ? hideBottomSheet() : showBottomSheet()
             vc.playListCollectionView.isUserInteractionEnabled = true // 수정필요
