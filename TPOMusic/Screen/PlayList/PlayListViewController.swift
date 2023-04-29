@@ -118,10 +118,7 @@ class PlayListViewController: BaseViewController {
             stopLottieAnimation()
             dismiss(animated: true)
         }
-
     }
-
-
     // TODO: - 추후 Viewmodel로 옮김기
     func createPlaylist(title: String?, musics: [Music]) async {
         let creationMetadata = MPMediaPlaylistCreationMetadata(name: title ?? "My Playlist")

@@ -271,7 +271,6 @@ final class SearchResultViewController: BaseViewController, ViewModelBindableTyp
                         }
                     }
                 } else {
-                    SoundManager.shared.avQueuePlayer?.currentItem?.seek(to: CMTime(value: .zero, timescale: 1))
                     self?.viewModel.playAVPlayer()
                 }
 
@@ -282,7 +281,6 @@ final class SearchResultViewController: BaseViewController, ViewModelBindableTyp
             }
         }
         .store(in: &viewModel.subscription)
-
         
         NotificationCenter.default
             .publisher(for: Notification.Name.MPMusicPlayerControllerNowPlayingItemDidChange)

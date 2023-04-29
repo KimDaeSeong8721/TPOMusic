@@ -102,7 +102,6 @@ class PlayerViewController: BaseViewController {
         return label
     }()
 
-
     // 이전 곡으로
     private let backwardButton: UIButton = {
         let button = UIButton()
