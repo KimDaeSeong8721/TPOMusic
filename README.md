@@ -57,8 +57,97 @@
 <br/>
 
 ### :file_folder: Folder Structure
-<img width="696" alt="image" src="https://github.com/KimDaeSeong8721/TPOMusic/assets/69894461/7c3ec60e-da24-4c84-8ad0-8fe2b505af50">
-
+```
+├── Global
+│   ├── Base
+│   │   └── BaseViewController.swift
+│   ├── Extension
+│   │   ├── NSObject+Extension.swift
+│   │   ├── String+Extension.swift
+│   │   ├── UICollectionView+Extension.swift
+│   │   ├── UIColor+Extension.swift
+│   │   ├── UIFont+Extension.swift
+│   │   ├── UITableView+Extension.swift
+│   │   ├── UIViewController+Alert.swift
+│   │   ├── UIViewController+Extension.swift
+│   │   └── URLSession+Extension.swift
+│   ├── Literal
+│   │   └── ImageLiteral.swift
+│   ├── Managers
+│   │   ├── CoreData
+│   │   │   ├── Manager
+│   │   │   │   ├── CoreDataManager.swift
+│   │   │   │   └── MusicDataManager.swift
+│   │   │   ├── MusicEntity+CoreDataClass.swift
+│   │   │   ├── MusicEntity+CoreDataProperties.swift
+│   │   │   ├── PlayListEntity+CoreDataClass.swift
+│   │   │   ├── PlayListEntity+CoreDataProperties.swift
+│   │   │   └── TPOMusic.xcdatamodeld
+│   │   │       └── TPOMusic.xcdatamodel
+│   │   │           └── contents
+│   │   ├── Network
+│   │   │   ├── EndPoint
+│   │   │   │   └── SearchEndPoint.swift
+│   │   │   └── Service
+│   │   │       ├── APIEnvirionment.swift
+│   │   │       ├── APIService.swift
+│   │   │       ├── NetworkError.swift
+│   │   │       └── NetworkRequest.swift
+│   │   └── SoundManager.swift
+│   ├── Protocol
+│   │   └── ViewModelBindableType.swift
+│   ├── Repository
+│   │   └── SearchRepository.swift
+│   ├── Resource
+│   │   ├── Assets.xcassets
+│   │   ├── Base.lproj
+│   │   ├── Lottie
+│   │   ├── en.lproj
+│   │   └── ko.lproj
+│   ├── Service
+│   │   └── SearchService.swift
+│   ├── Support
+│   │   ├── AppDelegate.swift
+│   │   └── SceneDelegate.swift
+│   └── UIComponent
+│       ├── BackButton.swift
+│       ├── BackgroundView.swift
+│       └── CustomDiffableDataSource.swift
+├── Model
+│   ├── ChatGPTResult.swift
+│   ├── ChatMessage.swift
+│   ├── Music.swift
+│   └── PlayList.swift
+├── Screen
+│   ├── Home
+│   │   ├── HistoryViewController.swift
+│   │   ├── HomeViewController.swift
+│   │   ├── SheetViewController.swift
+│   │   ├── View
+│   │   │   ├── Cell
+│   │   │   │   └── HistoryCollectionViewCell.swift
+│   │   │   └── CustomCollectionViewDiffableDataSource.swift
+│   │   └── ViewModel
+│   │       └── HistoryViewModel.swift
+│   ├── Play
+│   │   ├── PlayerViewController.swift
+│   │   └── View
+│   │       └── CustomSlider.swift
+│   ├── PlayList
+│   │   ├── PlayListViewController.swift
+│   │   └── ViewModel
+│   │       └── PlayListViewModel.swift
+│   └── Search
+│       ├── SearchResultViewController.swift
+│       ├── View
+│       │   ├── Cell
+│       │   │   └── MusicTableViewCell.swift
+│       │   └── SearchBarView.swift
+│       └── ViewModel
+│           ├── SearchResultViewModel.swift
+│           └── SearchViewModel.swift
+└── TPOMusic.entitlements
+```
 <br/>
 
 
