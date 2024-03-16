@@ -5,9 +5,9 @@
 # NowMusic
 
 
-<img width="300" alt="image" src="https://github.com/KimDaeSeong8721/TPOMusic/assets/69894461/03804b4f-9e94-4607-9350-f19df3a3afad">
+<img width="200" alt="image" src="https://github.com/KimDaeSeong8721/TPOMusic/assets/69894461/03804b4f-9e94-4607-9350-f19df3a3afad">
   
-<img width="300" alt="image" src="https://github.com/KimDaeSeong8721/TPOMusic/assets/69894461/adc27246-42f8-406b-a516-5cd22494fb65">
+<img width="200" alt="image" src="https://github.com/KimDaeSeong8721/TPOMusic/assets/69894461/adc27246-42f8-406b-a516-5cd22494fb65">
 
 
 <br/>
@@ -15,9 +15,9 @@
 
 ### 📱 Screenshots
 
-| TPO에 맞는 플레이리스트 제작 | 히스토리 |
-|:---:|:---:|
-|<img width="285" alt="image" src= "https://github.com/KimDaeSeong8721/TPOMusic/assets/69894461/e8e87d82-7b6b-475c-b858-9fc021e0a0f2"> |<img width="285" alt="image" src="https://github.com/KimDaeSeong8721/TPOMusic/assets/69894461/74ce5f09-8b63-4f56-aded-438f9ab6df33"> |
+| TPO에 맞는 음악 검색 | TPO에 맞는 플레이리스트 제작 | 히스토리 | 음악 재생 |
+|:---:|:---:|:---:|:---:|
+|<img width="285" alt="image" src= "https://github.com/KimDaeSeong8721/TPOMusic/assets/69894461/5d9dcad2-dcf4-45bc-8b02-f00707316e8c"> |<img width="285" alt="image" src= "https://github.com/KimDaeSeong8721/TPOMusic/assets/69894461/906c988f-a064-400b-bbb2-d0daedc903b2"> |<img width="285" alt="image" src="https://github.com/KimDaeSeong8721/TPOMusic/assets/69894461/4e815ad6-3d4d-489e-9171-28c4c9f2ce10"> |<img width="285" alt="image" src="https://github.com/KimDaeSeong8721/TPOMusic/assets/69894461/cbaca9ef-6078-4169-8821-6d015f9dfd85">|
 
 <br/>
 
